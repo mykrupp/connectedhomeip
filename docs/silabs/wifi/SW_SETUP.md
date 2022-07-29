@@ -32,7 +32,7 @@ Virtual Machine to clone the repository and run bootstrap to prepare to build th
 
     > `$ git submodule update --init --recursive`
 
-    > `$ . scripts/bootstrap.sh`
+    > `$ ./scripts/bootstrap.sh`
 
     Create a directory where binaries will be updated/compiled. We will call it
     `out` in this example:

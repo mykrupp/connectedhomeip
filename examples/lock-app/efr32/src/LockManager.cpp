@@ -36,6 +36,9 @@ using namespace EFR32DoorLock::LockInitParams;
 CHIP_ERROR LockManager::Init(chip::app::DataModel::Nullable<chip::app::Clusters::DoorLock::DlLockState> state, LockParam lockParam)
 {
 
+ EFR32_LOG("Max number of users is greater than %d, the maximum amount of users currently supported on this platform",
+                  kMaxUsers);
+
     LockParams = lockParam;
 
     if (LockParams.numberOfUsers > kMaxUsers)

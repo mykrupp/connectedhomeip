@@ -330,3 +330,7 @@
 	branch = matter_support
 	platforms = infineon
 
+[submodule "third_party/silabs/aws_ota_sdk/ota-for-aws-iot-embedded-sdk"]
+	path = third_party/silabs/aws_ota_sdk/ota-for-aws-iot-embedded-sdk
+	url = https://github.com/aws/ota-for-aws-iot-embedded-sdk.git
+    platforms = efr32

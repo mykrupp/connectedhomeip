@@ -1,0 +1,99 @@
+id: matter_platform_siwx917
+label: Platform for SiWx917
+description: SiWx917 platform support for Matter
+package: "Matter"
+category: "Matter-WiFi|Platform"
+quality: production
+
+config_file:
+  - override:
+      component: "%extension-wiseconnect3_sdk%freertos_config"
+      file_id: freertos_config
+    path: examples/platform/silabs/FreeRTOSConfig.h
+
+requires:
+  - name: matter_provision
+  - name: matter_siwx917
+  - name: matter_siwx917_common
+  - name: siwx917_soc_custom_startup
+  - name: device_init_nvic
+  - name: si91x_debug
+  - name: sl_system_init
+  - name: nvm3_default
+
+provides:
+  - name: matter_platform_siwx917
+  - name: freertos_heap
+  - name: device
+  - name: wiseconnect_toolchain_gcc_override
+  - name: matter_si91x_common_flash_nvm3_enabled
+
+include:
+- path: examples/platform/silabs
+  file_list:
+  - path: PigweedLogger.h
+  - path: Rpc.h
+  - path: silabs_utils.h
+  - path: LEDWidget.h
+  - path: MatterConfig.h
+  - path: heap_4_silabs.h
+  - path: OTAConfig.h
+  - path: matter_shell.h
+  - path: MemMonitoring.h
+  - path: BaseApplication.h
+  - path: SoftwareFaultReports.h
+source:
+  - path: examples/platform/silabs/BaseApplication.cpp
+  - path: examples/platform/silabs/silabs_utils.cpp
+  - path: examples/platform/silabs/heap_4_silabs.c
+  - path: examples/platform/silabs/MatterConfig.cpp
+  - path: examples/platform/silabs/SoftwareFaultReports.cpp
+define:
+  - name: SL_WFX_CONFIG_SCAN
+    value: 1
+  - name: SIWX_917
+    value: 1
+  - name: CHIP_9117
+    value: 1
+  - name: RS911X_WIFI
+  - name: SL_SI91x_DUAL_INTERRUPTS_ERRATA
+  - name: NVM3_LOCK_OVERRIDE
+# TODO : should be removed after code clean-up.
+  - name: BRD4325A
+toolchain_settings:
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=malloc"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=free"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=realloc"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=calloc"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=MemoryAlloc"
+    # Wrap these in case internal newlib call them (e.g. strdup will)
+    # directly call _malloc_r)
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=_malloc_r"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=_realloc_r"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=_free_r"
+  - option: gcc_linker_option
+    value: "-Wl,--wrap=_calloc_r"
+
+  # flags for the SiWx917
+  - option: gcc_compiler_option
+    value: -Wno-empty-body
+  - option: gcc_compiler_option
+    value: -Wno-cpp
+  - option: gcc_compiler_option
+    value: -Wno-missing-braces
+  - option: gcc_compiler_option
+    value: -Wno-sign-compare
+  - option: gcc_compiler_option
+    value: -Wno-error
+  - option: gcc_compiler_option
+    value: -Wno-unused-variable
+  - option: gcc_compiler_option
+    value: -Wno-unused-function

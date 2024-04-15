@@ -1,0 +1,13 @@
+id: matter_wifi_ble
+label: Bluetooth Network Layer
+description: Adds Wifi SDK Bluetooth network layer for Matter.
+package: "Matter"
+category: Stack|Bluetooth
+quality: production
+requires:
+  - name: matter_libblelayer
+provides:
+  - name: matter_wifi_ble
+template_contribution:
+  - name: component_catalog
+    value: matter_ble

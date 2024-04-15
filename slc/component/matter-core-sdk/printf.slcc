@@ -1,0 +1,18 @@
+category: Matter|Core
+define: []
+description: printf
+id: printf
+include:
+-   path: third_party/jlink/segger_rtt/RTT
+    file_list:
+    -   path: SEGGER_RTT_Conf.h
+    -   path: SEGGER_RTT.h
+label: printf
+package: Matter
+provides:
+-   name: matter_printf
+quality: production
+source:
+-   path: third_party/jlink/segger_rtt/RTT/SEGGER_RTT_printf.c
+ui_hints:
+    visibility: never

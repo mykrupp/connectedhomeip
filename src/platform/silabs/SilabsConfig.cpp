@@ -33,7 +33,6 @@
 #include <nvm3_hal_flash.h>
 #include <nvm3_lock.h>
 
-#ifndef SLI_SI91X_MCU_INTERFACE // 917soc/wifi-sdk implements the same nvm3 lock/unlock mechanism and it currently can't be overide.
 #include <FreeRTOS.h>
 #include <semphr.h>
 // Substitute the GSDK weak nvm3_lockBegin and nvm3_lockEnd
@@ -58,7 +57,6 @@ void nvm3_lockEnd(void)
     VerifyOrDie(nvm3_Sem != NULL);
     xSemaphoreGive(nvm3_Sem);
 }
-#endif // !SLI_SI91X_MCU_INTERFACE
 
 namespace chip {
 namespace DeviceLayer {
@@ -78,9 +76,9 @@ CHIP_ERROR SilabsConfig::Init()
 
 void SilabsConfig::DeInit()
 {
-#ifndef SLI_SI91X_MCU_INTERFACE
+#ifndef BRD4325A // TODO: fix semaphore usage in nvm3_lock for siwx917. use weak implementation for that board instead
     vSemaphoreDelete(nvm3_Sem);
-#endif // !SLI_SI91X_MCU_INTERFACE
+#endif // not BRD4325A
     nvm3_close(nvm3_defaultHandle);
 }
 
@@ -468,7 +466,7 @@ CHIP_ERROR SilabsConfig::FactoryResetConfig(void)
                         exit:
                             return err2;
                         });
-
+    ClearConfigValue(SilabsConfig::kConfigKey_BootCount);
     return err;
 }
 

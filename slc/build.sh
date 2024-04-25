@@ -118,6 +118,9 @@ echo $CONFIG_ARGS
 
 
 slc generate -d $OUTPUT_DIR $PROJECT_FLAG $SILABS_APP_PATH --with $SILABS_BOARD $CONFIG_ARGS
-
+if [ $? -ne 0 ]; then
+    echo "FAILED TO Generate : $SILABS_APP_PATH"
+    exit 1
+fi    
 
 make all -C $OUTPUT_DIR -f $MAKE_FILE -j13

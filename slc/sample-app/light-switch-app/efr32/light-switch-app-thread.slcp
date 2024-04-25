@@ -34,6 +34,8 @@ component:
     from: matter
   - id: matter_gatt
     from: matter
+  - id: matter_icd_core
+    from: matter
 
   - id: matter_light_switch
     from: matter   

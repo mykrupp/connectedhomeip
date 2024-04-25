@@ -25,6 +25,8 @@ component:
     from: matter
   - id: silabs_factory_data_provider
     from: matter
+  - id: matter_icd_core
+    from: matter
 
   - id: matter_wifi
     from: matter

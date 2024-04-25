@@ -9,6 +9,10 @@ label: Descriptor Cluster
 quality: production
 provides:
   - name: matter_descriptor
+include:
+- path: src/app/clusters/descriptor
+  file_list:
+  - path: descriptor.h
 source:
   - path: src/app/clusters/descriptor/descriptor.cpp
 template_contribution:

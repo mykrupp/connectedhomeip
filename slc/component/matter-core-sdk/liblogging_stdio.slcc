@@ -12,8 +12,6 @@ include:
 -   path: src
 -   path: src/include
 -   path: src/lib
--   path: src/platform/logging/impl/stdio
-    file_list: []
 label: liblogging_stdio
 package: Matter
 provides:

@@ -392,6 +392,16 @@ def update_header_key(inc_dir,val, lib=""):
                         update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-clusters', 'matter_ota_requestor.slcc')))                    
                 else:
                     update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-core-sdk', lib+'_common.slcc')))
+            case 'tracing':
+                update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-core-sdk', 'tracing.slcc')))
+            case 'matter':
+                update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-core-sdk', 'tracing.slcc')))
+            case 'FirmwareBuildTime.h':
+                update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-platform', 'config', 'matter_includes.slcc')))    
+            case 'include':
+                pass    
+            case 'format':
+                pass        
             case _:
                 update(inc_dir, val,file=str(os.path.join(COMPONENT_DIRECTORY,'matter-core-sdk', 'lib'+lib+'.slcc')))
     else:
@@ -432,6 +442,15 @@ def update_components():
 
     for dict in header_map:
         for inc_root, headers_list in dict.items(): 
+            if 'third_party/silabs/gecko_sdk' in inc_root:
+                # Not going to parse gecko sdk headers right ?
+                # should already be handle by slc natively
+                continue
+            if 'third_party/jsoncpp' in inc_root:
+                # Not going to parse gecko sdk headers right ?
+                # should already be handle by slc natively
+                continue
+
             if inc_root in root_inc_list:
                 for header in headers_list:       
                     match header.split("/")[0]:
@@ -490,13 +509,18 @@ def update_components():
             elif ('examples/platform' in inc_root and not 'rs911x' in inc_root) or 'zzz_generated/app-common' == inc_root or 'third_party/nlassert' in inc_root:
                 for header in headers_list:
                     update_header_key(inc_root, header,  lib='common')
-            elif 'lwip' == inc_root.split("/")[1]:
+            elif 'lwip' in inc_root:
+                if len(inc_root.split("/")) > 1:    
+                    for header in headers_list:
+                        print(inc_root)             
+                        update_header_key(inc_root, header,  lib=inc_root.split("/")[1]) 
+                else:
+                    for header in headers_list:             
+                        update_header_key(inc_root, header,  lib=inc_root) 
+            elif 'nlunit-test' in inc_root:
                 for header in headers_list:             
                     update_header_key(inc_root, header,  lib=inc_root.split("/")[1]) 
-            elif 'nlunit-test' == inc_root.split("/")[1]:
-                for header in headers_list:             
-                    update_header_key(inc_root, header,  lib=inc_root.split("/")[1]) 
-            elif 'pigweed' == inc_root.split("/")[1]:
+            elif 'pigweed' == inc_root:
                 for header in headers_list:             
                     update_header_key(inc_root, header,  lib=inc_root.split("/")[1])  
             elif 'QRCode' in inc_root:

@@ -169,6 +169,8 @@ define:
     value: "40960"
   - name: NVM3_DEFAULT_MAX_OBJECT_SIZE
     value: "4092"
+  - name: BLE_DEV_NAME
+    value: '"SL-SENSOR"'
   - name: EFR32MG12_BRD4161A
     value: "1"
     condition: [brd4161a]

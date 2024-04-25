@@ -7,7 +7,10 @@ quality: production
 config_file:
   - path: slc/config/sl_matter_config.h
     file_id: matter_config
-
+# ICD configuration is needed by the core SDK (ICD end device or not)
+  - path: slc/config/app/icd/server/ICDServerBuildConfig.h
+    file_id: matter_icd_config
+    directory: app/icd/server
 toolchain_settings:
   - option: gcc_compiler_option
     value: -Wno-deprecated-declarations
@@ -47,6 +50,8 @@ requires:
 
   - name: matter_libinetlayer
     condition: [matter_thread]
+  - name: matter_thread_network_diagnostics  
+    condition: [matter_thread]
   - name: matter_libinetlayer_wifi
     condition: [matter_wifi]
 
@@ -60,7 +65,6 @@ requires:
   - name: matter_libasn1
   - name: matter_libbdx
   - name: matter_libchipappserver
-  - name: matter_libchipcontroller
   - name: matter_libchipcore
   - name: matter_libchipcrypto
   - name: matter_libchipdatamodel
@@ -84,7 +88,11 @@ requires:
   - name: matter_tracing
   - name: matter_im_status
   - name: matter_includes
-  - name: matter_icd_core
+  - name: matter_messagedef
+  - name: matter_interaction_model
+  - name: matter_dac
+  - name: matter_syscalls_stub
+  #- name: matter_icd_core
 
 recommends:
   - id: matter_configuration_over_swo

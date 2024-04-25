@@ -9,8 +9,13 @@ label: Thread Network Diagnostics Server Cluster
 quality: production
 provides:
   - name: matter_thread_network_diagnostics
+include:
+- path: src/app/clusters/thread-network-diagnostics-server
+  file_list:
+  - path: thread-network-diagnostics-provider.h
 source:
   - path: src/app/clusters/thread-network-diagnostics-server/thread-network-diagnostics-server.cpp
+  - path: src/app/clusters/thread-network-diagnostics-server/thread-network-diagnostics-provider.cpp
 template_contribution:
   - name: component_catalog
     value: matter_thread_network_diagnostics

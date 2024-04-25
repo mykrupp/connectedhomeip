@@ -39,5 +39,7 @@ source:
     condition: [matter_platform_efr32]
   - path: examples/platform/silabs/provision/AttestationKeyMbed.cpp
     condition: [matter_platform_siwx917]
+
   - path: examples/platform/silabs/provision/ProvisionStorageDefault.cpp
+  #- path: examples/platform/silabs/SilabsDeviceAttestationCreds.cpp
   - path: examples/platform/silabs/provision/ProvisionManagerDefault.cpp

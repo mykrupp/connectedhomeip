@@ -11,16 +11,15 @@ def getThreadBoards(buildType='')
 {
     if (buildType == "FULL") {
         // Only A00 revision of BRD4319A is supported, enforced at generation time 
-        return ["BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A",
-                "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B",
+        return ["BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B",
                 "BRD4316A", "BRD4317A", "BRD4319A", "BRD4337A", "BRD4318A"]     
     } 
     else if (buildType == "GBL")
     {
-        return ["BRD4161A","BRD4187C"]
+        return ["BRD4187C"]
     }
     else {
-        return ["BRD4161A", "BRD4187C", "BRD4316A", "BRD4337A"]
+        return ["BRD4187C", "BRD4316A", "BRD4337A"]
     } 
 }
 def getWifiBoards(buildType='')
@@ -355,7 +354,6 @@ def buildChipToolAndOTAProvider()
             sh 'rm -rf ./.environment;pwd'
             sh 'git config --global --add safe.directory $(pwd)'
             sh 'git config --global --add safe.directory $(pwd)/third_party/pigweed/repo'
-            sh './scripts/bootstrap.sh'
             sh './scripts/run_in_build_env.sh  "./scripts/build/build_examples.py --target linux-arm64-chip-tool-ipv6only-clang build"'
             sh './scripts/run_in_build_env.sh  "./scripts/build/build_examples.py --target linux-arm64-ota-provider-ipv6only-clang build"'
         }
@@ -393,7 +391,7 @@ def RunCirqueTests()
                     "
                     """*/
                     sh """
-                    integrations/docker/images/stage-2/chip-build-cirque/run.sh -- sh -c " git config --global --add safe.directory '*' && bash scripts/bootstrap.sh && chown -R \$(id -u):\$(id -g) .environment"
+                    integrations/docker/images/stage-2/chip-build-cirque/run.sh -- sh -c " git config --global --add safe.directory '*' && bash scripts/activate.sh && chown -R \$(id -u):\$(id -g) .environment"
                     """
 
                     sh """

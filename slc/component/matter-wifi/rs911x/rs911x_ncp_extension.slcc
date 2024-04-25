@@ -24,6 +24,9 @@ include:
   file_list:
   - path: rsi_board_configuration.h
   - path: sl_board_configuration.h
+  - path: sl_si91x_ncp_utility.h
+  - path: sl_board_configuration_SiWx917.h
+  - path: rsi_hal.h
 - path: examples/platform/silabs/efr32
   file_list:
   - path: spi_multiplex.h

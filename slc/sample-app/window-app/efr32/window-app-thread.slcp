@@ -18,6 +18,8 @@ component:
     from: matter
   - id: matter_wstk_leds
     from: matter
+  - id: matter_icd_core
+    from: matter
 
   - id: matter
     from: matter
@@ -25,7 +27,6 @@ component:
     from: matter
   - id: matter_ble
     from: matter
-  - id: ot_stack_ftd
   - id: matter_thread
     from: matter
   - id: rail_util_pti
@@ -98,8 +99,6 @@ component:
     from: matter
   - id: segger_rtt
 
-  - id: matter_subscription_timeout_resumption
-    from: matter
   - id: matter_subscription_persistence
     from: matter
 

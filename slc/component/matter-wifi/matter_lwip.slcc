@@ -17,7 +17,6 @@ include:
   - path: lwipopts.h
   - path: lwipopts-wf200.h
   - path: lwipopts-rs911x.h
-  - path: lwipopts-thread.h
   - path: arch/cc.h
   - path: arch/perf.h
   - path: lwippools.h

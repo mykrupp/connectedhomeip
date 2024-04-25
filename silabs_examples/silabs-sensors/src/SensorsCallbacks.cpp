@@ -24,7 +24,9 @@
 #include "SensorsCallbacks.h"
 #include "AppTask.h"
 #include "AppConfig.h"
+#if DISPLAY_ENABLED
 #include "SensorsUI.h"
+#endif
 #include <platform/silabs/platformAbstraction/SilabsPlatform.h>
 
 SilabsSensors SilabsSensors::sSensorManager;

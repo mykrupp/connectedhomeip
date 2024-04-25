@@ -96,7 +96,7 @@ cp -R $GSDK_ROOT/util/third_party/segger/systemview/SEGGER $EXT_DIR/third_party/
 cp -R $GSDK_ROOT/util/third_party/segger/systemview/Config $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/segger/systemview/
 
 # Copy app source code to extension
-mkdir -p $EXT_DIR/examples/lighting-app/silabs/data_model
+mkdir -p $EXT_DIR/examples/lighting-app/silabs/data_model/zap-generated
 mkdir -p $EXT_DIR/examples/lighting-app/silabs/include
 mkdir -p $EXT_DIR/examples/lighting-app/silabs/src
 
@@ -184,6 +184,9 @@ cp -R $MATTER_ROOT/examples/window-app/silabs/src $EXT_DIR/examples/window-app/s
 cp -R $MATTER_ROOT/examples/window-app/common/include $EXT_DIR/examples/window-app/common
 cp -R $MATTER_ROOT/examples/window-app/common/src $EXT_DIR/examples/window-app/common
 
+# Generated common files
+cp -R $MATTER_ROOT/zzz_generated/app-common $EXT_DIR/zzz_generated/app-common
+
 # Performance Testing utils
 cp -R $MATTER_ROOT/silabs_utils $EXT_DIR/
 
@@ -226,7 +229,6 @@ mkdir -p $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wir
 mkdir -p $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wireless/spi_interface/
 
 cp $WIFI_SDK_ROOT/components/device/silabs/si91x/wireless/host_mcu/efx32/efx32_ncp_host.c $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wireless/host_mcu/efx32/
-cp $WIFI_SDK_ROOT/components/device/silabs/si91x/wireless/spi_interface/sl_si91x_spi_driver.c $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wireless/spi_interface/
 
 # Remove unnecessary directories
 rm -fr $EXT_DIR/src/test_driver/

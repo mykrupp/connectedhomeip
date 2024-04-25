@@ -27,6 +27,8 @@ APP_NAME_THREAD = ['lock-app', 'lighting-app', 'light-switch-app', 'window-app',
 APP_NAME_WIFI = [s + '-wifi' for s in APP_NAME_THREAD]
 APP_NAME_ALL = APP_NAME_THREAD + [s + '-wifi' for s in APP_NAME_THREAD] 
 
+MATTER_APP = ""
+
 if __name__ == '__main__':
 
     # loop through the provided list of compile_commands file paths
@@ -36,13 +38,16 @@ if __name__ == '__main__':
         # check if file compile_commands.json file exists 
         if os.path.isfile(os.path.join(root,compile_commands_file_path)):
             for app in APP_NAME_THREAD:
-                if app in compile_commands_file_path.split('/')[1]:
+                if app in compile_commands_file_path:
                     # figure out app name from path of compile_commands.json file 
                     MATTER_APP = app
                     break        
-            if 'wifi' in compile_commands_file_path.split('/')[1]:
+            if 'wifi' in compile_commands_file_path:
                 wifi = True
             libs = {}
+            if MATTER_APP == "":
+                print("Could Not found a matching app for {app}".format(app=compile_commands_file_path))
+                sys.exit(1)
 
             with open(compile_commands_file_path) as f:
                 compile_commands = json.load(f) # Load compile_commands.json

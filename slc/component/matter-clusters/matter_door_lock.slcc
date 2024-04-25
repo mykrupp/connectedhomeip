@@ -16,6 +16,7 @@ include:
   - path: src/app/clusters/door-lock-server
     file_list:
       - path: door-lock-server.h
+      - path: door-lock-delegate.h
 template_contribution:
   - name: component_catalog
     value: matter_door_lock

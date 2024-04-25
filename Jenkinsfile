@@ -198,7 +198,7 @@ def initExtensionWorkspaceAndScm()
         // Load metadata
         pipelineMetadata = readYaml(file: 'pipeline_metadata.yml')
         pipelineFunctions = load 'jenkins/jenkinsFunctions.groovy'
-        sh 'scripts/checkout_submodules.py --shallow --recursive --checkout --platform efr32 linux si917'
+        sh 'scripts/checkout_submodules.py --shallow  --platform silabs linux'
 
         // ************************************************************************************
         //   Update or create SQA build pipeline for RC and silabs_slc before continuing
@@ -373,64 +373,62 @@ def pipeline()
     stage("Build Examples")
     {
         advanceStageMarker()
-        def parallelNodesBuild = [:]
+        try {
+            def parallelNodesBuild = [:]
 
-        def openThreadApps   = pipelineFunctions.getThreadApps()
-        def openThreadBoards = pipelineFunctions.getThreadBoards(pipelineFunctions.getBuildType())
+            def openThreadApps   = pipelineFunctions.getThreadApps()
+            def openThreadBoards = pipelineFunctions.getThreadBoards(pipelineFunctions.getBuildType())
 
-        def wifiApps         = pipelineFunctions.getWifiApps()
-        def wifiBoards       = pipelineFunctions.getWifiBoards(pipelineFunctions.getBuildType())
-        def wifiMG12board    = pipelineFunctions.getWifiMG12Boards(pipelineFunctions.getBuildType())
-        def wifiNCP          = pipelineFunctions.getNcps()
+            def wifiApps         = pipelineFunctions.getWifiApps()
+            def wifiBoards       = pipelineFunctions.getWifiBoards(pipelineFunctions.getBuildType())
+            def wifiNCP          = pipelineFunctions.getNcps()
 
-        if(!env.BRANCH_NAME.startsWith('sqa_')){
-            // Build OpenThread Examples
-            openThreadBoards.each { boardToBuild ->
-                parallelNodesBuild["Thread $boardToBuild"]          = containerWrapper('-name "*.s37" -o -name "*.map"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory, { pipelineFunctions.buildThread(openThreadApps, boardToBuild) })
-            }
-
-            // Build WiFi Examples
-            wifiBoards.each { boardToBuild ->
-                wifiNCP.each { ncp ->
-                    parallelNodesBuild["WiFi $boardToBuild $ncp"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifiApps, boardToBuild, ncp, buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
+            if(!env.BRANCH_NAME.startsWith('sqa_')){
+                // Build OpenThread Examples
+                openThreadBoards.each { boardToBuild ->
+                    parallelNodesBuild["Thread $boardToBuild"]          = containerWrapper('-name "*.s37" -o -name "*.map"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory, { pipelineFunctions.buildThread(openThreadApps, boardToBuild) })
                 }
+
+                // Build WiFi Examples
+                wifiBoards.each { boardToBuild ->
+                    wifiNCP.each { ncp ->
+                        parallelNodesBuild["WiFi $boardToBuild $ncp"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifiApps, boardToBuild, ncp, buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
+                    }
+                }
+
+                def socApps = pipelineFunctions.get917Apps()
+                def socBoards = pipelineFunctions.getWifiSocBoards()
+                socBoards.each { boardToBuild ->
+                    parallelNodesBuild["917SoC $boardToBuild"]         = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(socApps, boardToBuild, "917-soc", buildWithWorkspaces=false) })
+                }
+
+                // Build chiptool
+                parallelNodesBuild['Build Chip-tool']                  = containerWrapper('-name "chip-tool" -o -name "chip-ota-provider-app"', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.buildChipToolAndOTAProvider() } )
+
+                // Run Unit Tests
+                parallelNodesBuild['Run Unit Tests']                   = containerWrapper('NONE', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.RunUnitTests() } )
+
+                // Copy contents check
+                parallelNodesBuild['Copy']                             = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.testCopyContents() })
+
+                // Component Validation
+                parallelNodesBuild['Validate Components'] =            containerWrapper("NONE", buildFarmLargeLabel, null, "", 'matter/', { pipelineFunctions.validateComponents() })
+                
+                // Build these examples on main development branch, RC, or if enabled
+                if (env.BRANCH_NAME.startsWith('silabs') || env.BRANCH_NAME.startsWith('RC_') || params.SEND_CODE_SIZE_REPORT == true){
+                    // Create lightweight 'slim' images for code analysis
+                    parallelNodesBuild['Slim']                         = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildNoDebugImages() })
+                }
+                // Build OTA binaries on SQA Branch
+            } else {
+                parallelNodesBuild['OTA']                              = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildOtaImages() })
             }
 
-            // Build WiFi MG12+RS9116 NCP combo
-            wifiMG12board.each { boardToBuild ->
-                    parallelNodesBuild["WiFi $boardToBuild rs911x"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifiApps, boardToBuild, "rs911x", buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
-            }
-
-            def socApps = pipelineFunctions.get917Apps()
-            def socBoards = pipelineFunctions.getWifiSocBoards()
-            socBoards.each { boardToBuild ->
-                parallelNodesBuild["917SoC $boardToBuild"]         = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(socApps, boardToBuild, "917-soc", buildWithWorkspaces=false) })
-            }
-
-            // Build chiptool
-            parallelNodesBuild['Build Chip-tool']                  = containerWrapper('-name "chip-tool" -o -name "chip-ota-provider-app"', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.buildChipToolAndOTAProvider() } )
-
-            // Run Unit Tests
-            parallelNodesBuild['Run Unit Tests']                   = containerWrapper('NONE', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.RunUnitTests() } )
-
-            // Copy contents check
-            parallelNodesBuild['Copy']                             = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.testCopyContents() })
-
-            // Component Validation
-            parallelNodesBuild['Validate Components'] =            containerWrapper("NONE", buildFarmLargeLabel, null, "", 'matter/', { pipelineFunctions.validateComponents() })
-            
-            // Build these examples on main development branch, RC, or if enabled
-            if (env.BRANCH_NAME.startsWith('silabs') || env.BRANCH_NAME.startsWith('RC_') || params.SEND_CODE_SIZE_REPORT == true){
-                // Create lightweight 'slim' images for code analysis
-                parallelNodesBuild['Slim']                         = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildNoDebugImages() })
-            }
-            // Build OTA binaries on SQA Branch
-        } else {
-            parallelNodesBuild['OTA']                              = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildOtaImages() })
+            parallelNodesBuild.failFast = false
+            parallel parallelNodesBuild
+        } catch (err) {
+            unstable(message: "Some build failures occured")
         }
-
-        parallelNodesBuild.failFast = false
-        parallel parallelNodesBuild
     }
 
     // Have to see if the step below will run or Jenkins with throw error
@@ -468,10 +466,6 @@ def pipeline()
         {
 
             def parallelNodes = [:]
-
-            parallelNodes['Lighting-App BRD4161A']      = { pipelineFunctions.utfThreadTestSuite('gsdkMontrealNode','utf_matter_thread_4',
-                                                            'matter_thread_4','lighting-app','thread','BRD4161A','',"/manifest-4161-thread-lighting_slc",
-                                                            "--tmconfig tests/.sequence_manager/test_execution_definitions/matter_thread_ci_sequence.yaml","SLC") }
 
             parallelNodes['Lighting-App BRD4187C']      = { pipelineFunctions.utfThreadTestSuite('gsdkMontrealNode','utf_matter_thread',
                                                             'matter_thread','lighting-app','thread','BRD4187C','',"/manifest-4187-thread-lighting_slc",

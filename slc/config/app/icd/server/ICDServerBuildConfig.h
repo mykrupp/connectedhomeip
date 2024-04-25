@@ -4,14 +4,15 @@
 
 // <<< Use Configuration Wizard in Context Menu >>>
 
-// <o SL_ACTIVE_MODE_THRESHOLD> OpenThread Active Mode Threshold
-#define SL_ACTIVE_MODE_THRESHOLD 500
+#ifndef CHIP_CONFIG_ENABLE_ICD_SERVER
+#define CHIP_CONFIG_ENABLE_ICD_SERVER 0
+#endif
 
-// <o SL_ACTIVE_MODE_INTERVAL> OpenThread Active Mode Interval
-#define SL_ACTIVE_MODE_INTERVAL 1000
+#ifndef ICD_REPORT_ON_ENTER_ACTIVE_MODE
+#define ICD_REPORT_ON_ENTER_ACTIVE_MODE 1
+#endif
 
-// <o SL_IDLE_MODE_INTERVAL> OpenThread Idle Mode
-#define SL_IDLE_MODE_INTERVAL 600
+// <<< Use Configuration Wizard in Context Menu >>>
 
 // <o SL_ICD_SUPPORTED_CLIENTS_PER_FABRIC> OpenThread ICD Supported Clients
 #define SL_ICD_SUPPORTED_CLIENTS_PER_FABRIC 2
@@ -22,6 +23,15 @@
 
 // <o SL_OT_ACTIVE_INTERVAL> OpenThread Active Interval
 #define SL_OT_ACTIVE_INTERVAL 200
+
+// <o SL_IDLE_MODE_DURATION_S> Matter Idle Mode duration
+#define SL_IDLE_MODE_DURATION_S 600
+
+// <o SL_IDLE_MODE_DURATION_S> Matter Active Mode duration
+#define SL_ACTIVE_MODE_DURATION_MS 10000
+
+// <o SL_IDLE_MODE_DURATION_S> Matter Active Mode threshold
+#define SL_ACTIVE_MODE_THRESHOLD 1000
 
 // <<< end of configuration section >>>
 

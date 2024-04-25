@@ -60,8 +60,6 @@ component:
     from: matter
   - id: matter_network_commissioning
     from: matter
-  - id: matter_on_off
-    from: matter
   - id: matter_operational_credentials
     from: matter
   - id: matter_power_source_configuration

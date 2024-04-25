@@ -17,6 +17,7 @@ requires:
   - name: bluetooth_feature_system
   - name: bluetooth_feature_connection
   - name: bluetooth_crypto
+  - name: matter_gatt
   
 provides:
   - name: matter_ble

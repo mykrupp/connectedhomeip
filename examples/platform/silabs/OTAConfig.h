@@ -29,6 +29,9 @@
 #include <platform/silabs/OTAImageProcessorImpl.h>
 #endif
 
+// SLC-FIX
+#include "sl_matter_ota_config.h"
+
 class OTAConfig
 {
 public:

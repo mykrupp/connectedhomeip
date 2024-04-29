@@ -184,9 +184,6 @@ cp -R $MATTER_ROOT/examples/window-app/silabs/src $EXT_DIR/examples/window-app/s
 cp -R $MATTER_ROOT/examples/window-app/common/include $EXT_DIR/examples/window-app/common
 cp -R $MATTER_ROOT/examples/window-app/common/src $EXT_DIR/examples/window-app/common
 
-# Generated common files
-cp -R $MATTER_ROOT/zzz_generated/app-common $EXT_DIR/zzz_generated/app-common
-
 # Performance Testing utils
 cp -R $MATTER_ROOT/silabs_utils $EXT_DIR/
 

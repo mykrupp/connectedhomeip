@@ -11,7 +11,7 @@ def getThreadBoards(buildType='')
 {
     if (buildType == "FULL") {
         // Only A00 revision of BRD4319A is supported, enforced at generation time 
-        return ["BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B",
+        return ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B",
                 "BRD4316A", "BRD4317A", "BRD4319A", "BRD4337A", "BRD4318A"]     
     } 
     else if (buildType == "GBL")
@@ -19,7 +19,7 @@ def getThreadBoards(buildType='')
         return ["BRD4187C"]
     }
     else {
-        return ["BRD4187C", "BRD4316A", "BRD4337A"]
+        return ["BRD4121A", "BRD4187C", "BRD4316A", "BRD4337A"]
     } 
 }
 def getWifiBoards(buildType='')
@@ -35,19 +35,7 @@ def getWifiBoards(buildType='')
         return ["BRD4187C"]
     }
 }
-def getWifiMG12Boards(buildType='')
-{
-    if (buildType == "FULL") {
-        return ["BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4170A",]
-    }
-    else if (buildType == "GBL")
-    {
-        return ["BRD4161A"]
-    }
-    else{
-        return ["BRD4161A"]
-    }
-}
+
 def getWifiSocBoards()
 {
     return ["BRD4338A"]
@@ -147,7 +135,7 @@ def getProtocol(ncp=""){
 }
 def getSeries(brd){
     seriesOneBoards = ["BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A"]
-    seriesTwoBoards = ["BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B", "BRD4316A", "BRD4317A", "BRD4318A","BRD4319A", "BRD4337A"]
+    seriesTwoBoards = ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B", "BRD4316A", "BRD4317A", "BRD4318A","BRD4319A", "BRD4337A"]
     if(brd.toUpperCase() in seriesOneBoards){
         return "series-1"
     }
@@ -175,7 +163,6 @@ def testCopyContents(){
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "",        configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "rs911x",  configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4338A", appName="lighting-app", otaVersion="", ncp = "917-soc", configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4161A", appName="lighting-app", otaVersion="", ncp = "",        configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "wf200",   configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
     slcBuild(appsToBuild, "Copy Contents")
 }
@@ -185,7 +172,6 @@ def buildNoDebugImages(){
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",     otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",   otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4161A", appName="window-app",   otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",     otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",   otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
     slcBuild(appsToBuild, "No Debug")
@@ -499,7 +485,6 @@ def exportIoTReports()
         performCodeAnalysis("BRD4187C",  "lock-app",     "rs911x")
 
         performCodeAnalysis("BRD4187C",  "window-app",   "thread")
-        performCodeAnalysis("BRD4161A",  "window-app",   "thread")
 
         performCodeAnalysis("BRD4187C",  "thermostat",   "rs911x")
     }
@@ -931,7 +916,7 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
 def downloadGsdkSidePackage()
 {
     gsdkMajVer = pipelineMetadata.toolchain_info.gsdk.gsdkBranch.split("/")[1]
-    downloadUrl = "https://artifactory.silabs.net/artifactory/gsdk-generic-staging/" + gsdkMajVer + "/" + pipelineMetadata.toolchain_info.gsdk.gsdkTag.replaceAll("v", "") + "/side-packages/gsdk/gecko-platform-sqa.zip"
+    downloadUrl = "https://artifactory.silabs.net/artifactory/gsdk-generic-staging/" + gsdkMajVer + "/" + pipelineMetadata.toolchain_info.gsdk.gsdkTag.replaceAll("v", "") + "/side-packages/sisdk/gecko-platform-sqa.zip"
     gsdkSidePackage = "sidePackage.zip"
     
     withCredentials([usernameColonPassword(credentialsId: 'svc_gsdk', variable:'svc_gsdk')]){ 

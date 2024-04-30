@@ -62,25 +62,9 @@ define:
   - name: BRD4325A
 toolchain_settings:
   - option: gcc_linker_option
-    value: "-Wl,--wrap=malloc"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=free"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=realloc"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=calloc"
-  - option: gcc_linker_option
     value: "-Wl,--wrap=MemoryAlloc"
     # Wrap these in case internal newlib call them (e.g. strdup will)
     # directly call _malloc_r)
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=_malloc_r"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=_realloc_r"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=_free_r"
-  - option: gcc_linker_option
-    value: "-Wl,--wrap=_calloc_r"
 
   # flags for the SiWx917
   - option: gcc_compiler_option

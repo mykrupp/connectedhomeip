@@ -13,7 +13,6 @@ config_file:
 
 provides:
 - name: matter_platform_efr32
-- name: freertos_heap
 include:
 - path: examples/platform/silabs
   file_list:
@@ -22,42 +21,24 @@ include:
   - path: silabs_utils.h
   - path: LEDWidget.h
   - path: MatterConfig.h
-  - path: heap_4_silabs.h
   - path: OTAConfig.h
   - path: matter_shell.h
   - path: MemMonitoring.h
   - path: BaseApplication.h
   - path: SoftwareFaultReports.h
-  
+
 source:
 - path: examples/platform/silabs/BaseApplication.cpp
 - path: examples/platform/silabs/silabs_utils.cpp
-- path: examples/platform/silabs/heap_4_silabs.c
 - path: examples/platform/silabs/MatterConfig.cpp
 - path: examples/platform/silabs/SoftwareFaultReports.cpp
 - path: examples/platform/silabs/LEDWidget.cpp
 
 toolchain_settings:
 - option: gcc_linker_option
-  value: -Wl,--wrap=malloc
-- option: gcc_linker_option
-  value: -Wl,--wrap=free
-- option: gcc_linker_option
-  value: -Wl,--wrap=realloc
-- option: gcc_linker_option
-  value: -Wl,--wrap=calloc
-- option: gcc_linker_option
   value: -Wl,--wrap=MemoryAlloc
     # Wrap these in case internal newlib call them (e.g. strdup will)
     # directly call _malloc_r)
-- option: gcc_linker_option
-  value: -Wl,--wrap=_malloc_r
-- option: gcc_linker_option
-  value: -Wl,--wrap=_realloc_r
-- option: gcc_linker_option
-  value: -Wl,--wrap=_free_r
-- option: gcc_linker_option
-  value: -Wl,--wrap=_calloc_r
 
 requires:
   - name: matter_provision
@@ -78,4 +59,3 @@ requires:
   - name: rail_lib_multiprotocol
   - name: rail_util_pti
   - name: emlib
-    

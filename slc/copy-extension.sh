@@ -213,8 +213,6 @@ cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.h  $EXT_DIR/thi
 cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus_spi.c  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
 cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.c  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
 cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/brd2204a/  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
-cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/brd416Xa/  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
-cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/brd4321a/ $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
 cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/sl_wfx*  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
 cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/firmware  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/
 cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/pds $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/

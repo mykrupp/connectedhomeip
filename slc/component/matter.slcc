@@ -19,8 +19,6 @@ toolchain_settings:
   - option: gcc_compiler_option
     value: -Wno-missing-field-initializers
   - option: gcc_compiler_option
-    value: -Wno-unused-parameter
-  - option: gcc_compiler_option
     value: -Wno-cast-function-type
   - option: gcc_compiler_option
     value: -Wno-psabi

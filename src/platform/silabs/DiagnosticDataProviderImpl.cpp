@@ -30,9 +30,10 @@
 #endif
 #include "AppConfig.h"
 #include "FreeRTOS.h"
-#include "heap_4_silabs.h"
 #include <inet/InetInterface.h>
 #include <lib/support/CHIPMemString.h>
+
+#include "sl_memory_manager.h"
 
 using namespace ::chip::app::Clusters::GeneralDiagnostics;
 
@@ -54,32 +55,22 @@ DiagnosticDataProviderImpl & DiagnosticDataProviderImpl::GetDefaultInstance()
  */
 CHIP_ERROR DiagnosticDataProviderImpl::GetCurrentHeapFree(uint64_t & currentHeapFree)
 {
-    size_t freeHeapSize = xPortGetFreeHeapSize();
+    size_t freeHeapSize = sl_memory_get_free_heap_size();
     currentHeapFree     = static_cast<uint64_t>(freeHeapSize);
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR DiagnosticDataProviderImpl::GetCurrentHeapUsed(uint64_t & currentHeapUsed)
 {
-    // Calculate the Heap used based on Total heap - Free heap
-    int64_t heapUsed = (configTOTAL_HEAP_SIZE - xPortGetFreeHeapSize());
-
-    // Something went wrong, this should not happen
-    VerifyOrReturnError(heapUsed >= 0, CHIP_ERROR_INVALID_INTEGER_VALUE);
+    size_t heapUsed = sl_memory_get_used_heap_size();
     currentHeapUsed = static_cast<uint64_t>(heapUsed);
     return CHIP_NO_ERROR;
 }
 
 CHIP_ERROR DiagnosticDataProviderImpl::GetCurrentHeapHighWatermark(uint64_t & currentHeapHighWatermark)
 {
-    // FreeRTOS records the lowest amount of available heap during runtime
-    // currentHeapHighWatermark wants the highest heap usage point so we calculate it here
-    int64_t HighestHeapUsageRecorded = (configTOTAL_HEAP_SIZE - xPortGetMinimumEverFreeHeapSize());
-
-    // Something went wrong, this should not happen
-    VerifyOrReturnError(HighestHeapUsageRecorded >= 0, CHIP_ERROR_INVALID_INTEGER_VALUE);
+    size_t HighestHeapUsageRecorded = sl_memory_get_heap_high_watermark();
     currentHeapHighWatermark = static_cast<uint64_t>(HighestHeapUsageRecorded);
-
     return CHIP_NO_ERROR;
 }
 
@@ -87,9 +78,7 @@ CHIP_ERROR DiagnosticDataProviderImpl::ResetWatermarks()
 {
     // If implemented, the server SHALL set the value of the CurrentHeapHighWatermark attribute to the
     // value of the CurrentHeapUsed.
-
-    xPortResetHeapMinimumEverFreeHeapSize();
-
+    sl_memory_reset_heap_high_watermark();
     return CHIP_NO_ERROR;
 }
 

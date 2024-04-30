@@ -10,19 +10,13 @@ requires:
 # Every board that uses buttons
   - name: simple_button_recommended_instance
     condition:
-      - brd4161a
+      - brd4116a
   - name: simple_button_recommended_instance
     condition:
-      - brd4162a
+      - brd4117a  
   - name: simple_button_recommended_instance
     condition:
-      - brd4163a
-  - name: simple_button_recommended_instance
-    condition:
-      - brd4164a
-  - name: simple_button_recommended_instance
-    condition:
-      - brd4166a
+      - brd4121a
   - name: simple_button_recommended_instance
     condition:
       - brd4170b

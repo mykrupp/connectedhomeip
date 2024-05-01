@@ -201,73 +201,11 @@ def initExtensionWorkspaceAndScm()
         sh 'scripts/checkout_submodules.py --shallow  --platform silabs linux'
 
         // ************************************************************************************
-        //   Update or create SQA build pipeline for RC and silabs_slc before continuing
+        //          Load variables for SQA Build Pipeline
         // ************************************************************************************
 
-        if(env.BRANCH_NAME.startsWith("RC_slc") || env.BRANCH_NAME.startsWith("silabs_slc")){
-            def sqaBranchName = "sqa_" + env.BRANCH_NAME
-            def sqaMatterBuildNumber = env.BUILD_NUMBER.toInteger() - 1
-            def branchExists = sh(script: "git rev-parse --verify --quiet origin/${sqaBranchName}", returnStatus: true)
-            echo "branchExists: $branchExists"
-            if (branchExists == 0) {
-                //If SQA build branch exists, checkout the branch, merge the RC/silabs branch to update it, update matter build number, update sqa matter build number and push to repo
-                echo "Branch $sqaBranchName exists. Updating branch $sqaBranchName"
-                try {
-                    sh """
-                    git checkout ${sqaBranchName}
-                    git merge origin/${env.BRANCH_NAME} -X theirs
-                    echo Merge successful.
-                    echo MATTER_BUILD_NUMBER=${env.BUILD_NUMBER} > jenkins/matterBuildNumber.groovy
-                    echo SQA_MATTER_BUILD_NUMBER=${sqaMatterBuildNumber} > jenkins/sqaMatterBuildNumber.groovy
-                    git add jenkins/matterBuildNumber.groovy jenkins/sqaMatterBuildNumber.groovy
-                    git config --global user.email "buildengineer@silabs.com"
-                    git config --global user.name "Ember Buildengineer"
-                    git commit -m "Update SQA branch, matter build number and sqa matter build number"
-                    git push origin ${sqaBranchName}
-                """
-                } catch (e) {
-                    echo "Updating SQA branch failed: ${e.message}"
-                }
-            } else {
-                //If SQA build branch does not exist, need to create it, add CRON trigger, add matter build number and initialize sqa matter build number to 0 and then push to repo
-                echo "Branch $sqaBranchName does not exist. Creating branch $sqaBranchName"
-                try {
-                    sh"""
-                        git checkout -b ${sqaBranchName}
-                        sed -i '7i\\    pipelineTriggers([cron(\"0 1 * * *\")]),' Jenkinsfile
-                        echo MATTER_BUILD_NUMBER=${env.BUILD_NUMBER} > jenkins/matterBuildNumber.groovy
-                        echo SQA_MATTER_BUILD_NUMBER=${sqaMatterBuildNumber} > jenkins/sqaMatterBuildNumber.groovy
-                        git add Jenkinsfile jenkins/matterBuildNumber.groovy jenkins/sqaMatterBuildNumber.groovy
-                        git config --global user.email "buildengineer@silabs.com"
-                        git config --global user.name "Ember Buildengineer"
-                        git commit -m 'Create SQA branch, insert CRON trigger, save matter build number and initialize sqa matter build number'
-                        git push origin -u ${sqaBranchName}
-                    """
-                } catch (e) {
-                    echo "Creating SQA branch failed: ${e.message}"
-                }
-            }
-            // Checkout original branch to continue
-            sh "git checkout ${env.BRANCH_NAME}"
-            // If it's a SQA branch, compare CI build number to SQA build number. This logic is used to trigger building the binaries if the CI build number is greater than the SQA build number.
-            // If it's not, then exit pipeline successfully without building SQA binaries to avoid duplicates
-            // This logic is a placeholder for now, cleaner option would be to trigger the SQA branch when DEV branch changes it
-        } else if (env.BRANCH_NAME.startsWith("sqa_")){
-            pipelineFunctions.sqaBuildNumberAndBranch()
-            if(MATTER_BUILD_NUMBER > SQA_MATTER_BUILD_NUMBER){
-                sh"""
-                    git checkout ${env.BRANCH_NAME}
-                    echo SQA_MATTER_BUILD_NUMBER=${SQA_MATTER_BUILD_NUMBER + 1} > jenkins/sqaMatterBuildNumber.groovy
-                    git add Jenkinsfile jenkins/matterBuildNumber.groovy jenkins/sqaMatterBuildNumber.groovy
-                    git config --global user.email "buildengineer@silabs.com"
-                    git config --global user.name "Ember Buildengineer"
-                    git commit -m 'Update sqa matter build number'
-                    git push origin ${env.BRANCH_NAME}
-                """
-            } else {
-                currentBuild.result = 'ABORTED'
-                error "No new build from DEV"
-            }
+        if (env.BRANCH_NAME.startsWith("sqa_")){
+            pipelineFunctions.matterBranchAndBuild()
         }
         
         // ************************************************************************************
@@ -442,6 +380,18 @@ def pipeline()
             // Run code size analysis if enabled or main development branch
             parallelNodesBuild["Code Size Analysis"]         = containerWrapper('NONE', buildFarmLabel, chipBuildEfr32Image, "-u root", 'matter/', { pipelineFunctions.exportIoTReports() })
             parallelNodesBuild.failFast = true
+            parallel parallelNodesBuild
+        }
+    }
+
+    // This stage is used for RC_slc or silabs_slc branches to create or update the SQA Build Pipeline.
+    if(env.BRANCH_NAME.startsWith('RC_slc') || env.BRANCH_NAME.startsWith('silabs_slc')){
+        stage("Create/Update SQA Build Pipeline")
+        {
+            advanceStageMarker()
+            def parallelNodesBuild = [:]
+            parallelNodesBuild["Create/Update"] = containerWrapper('NONE', buildFarmLargeLabel, null, "", 'matter/', {  pipelineFunctions.createOrUpdateSQABuildPipeline()  })
+            parallelNodesBuild.failFast = false
             parallel parallelNodesBuild
         }
     }

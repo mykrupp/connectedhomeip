@@ -187,6 +187,9 @@ def buildOtaImages(){
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat", otaVersion="2", ncp = "",          configs = software_version_2, useWorkspace = true, additionalComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app", otaVersion="2", ncp = "",          configs = software_version_2, useWorkspace = true, additionalComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="3", ncp = "",        configs = software_version_3, useWorkspace = true, additionalComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "wf200",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "917-ncp",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "rs911x",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
     slcBuild(appsToBuild, "OTA Images")
 }
 // Builds all Wifi examples by board (depending on build type)
@@ -667,7 +670,7 @@ def triggerSqaSmokeAndRegressionTest(buildTool,matterBranchName=env.BRANCH_NAME,
                                 echo 'in product jenkin.... '
                                 //Regression triggered by SQA build branch
                                 if(env.BRANCH_NAME.startsWith('sqa_')){
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression', matterBranchName, matterBuildNumber)
+                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-slc', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-ota', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'endurance-customers-issues', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-enhanced-groups', matterBranchName, matterBuildNumber)
@@ -1032,24 +1035,76 @@ def copyWifiFirmware(){
         cp third_party/silabs/wiseconnect-wifi-bt-sdk/firmware/RS916W.2.*.rps ${savedDirectory}/out/WiFi-Firmware/rs911x/Evk_1.5/
     """
 }
-// Retrieve the CI branch, build number and SQA build number to be used in the SQA build branch logic
-def sqaBuildNumberAndBranch()
+// This stage is used for RC_slc or silabs_slc branches to create or update the SQA Build Pipeline.
+def createOrUpdateSQABuildPipeline()
+{
+    def matterPath = env.WORKSPACE + "/matter"
+    dir(matterPath){
+        def sqaBranchName = "sqa_" + env.BRANCH_NAME
+        def branchExists = sh(script: "git rev-parse --verify --quiet origin/${sqaBranchName}", returnStatus: true)
+        echo "branchExists: $branchExists"
+        if (branchExists == 0) {
+            // If SQA build branch exists, checkout the branch, merge the RC/silabs branch to update it, add the
+            // CI Matter Build Number for reference and then push.
+            echo "Branch $sqaBranchName exists. Updating branch $sqaBranchName"
+            try {
+                sh """
+                cd ..
+                git reset --hard HEAD
+                git status
+                git checkout ${sqaBranchName}
+                git config --global user.email "buildengineer@silabs.com"
+                git config --global user.name "Ember Buildengineer"
+                git merge origin/${env.BRANCH_NAME} -X theirs
+                echo Merge successful.
+                echo MATTER_BUILD_NUMBER=${env.BUILD_NUMBER} > jenkins/matterBuildNumber.groovy
+                git add jenkins/matterBuildNumber.groovy
+                git commit -m "Update SQA branch and Matter build number."
+                git push origin ${sqaBranchName}
+            """
+            } catch (e) {
+                echo "Updating SQA branch failed: ${e.message}"
+            }
+        } else {
+            // If SQA build branch does not exist, need to create it, add pollSCM trigger, add the CI Matter Build
+            // number and then push.
+            echo "Branch $sqaBranchName does not exist. Creating branch $sqaBranchName"
+            try {
+                sh"""
+                    cd ..
+                    git reset --hard HEAD
+                    git status
+                    git checkout -b ${sqaBranchName}
+                    git config --global user.email "buildengineer@silabs.com"
+                    git config --global user.name "Ember Buildengineer"
+                    sed -i '7i\\    pipelineTriggers([pollSCM("0 1 * * *")]),' Jenkinsfile
+                    echo MATTER_BUILD_NUMBER=${env.BUILD_NUMBER} > jenkins/matterBuildNumber.groovy
+                    git add jenkins/matterBuildNumber.groovy Jenkinsfile
+                    git commit -m 'Create SQA branch, insert pollSCM trigger and save Matter build number to file.'
+                    git push origin -u ${sqaBranchName}
+                """
+            } catch (e) {
+                echo "Creating SQA branch failed: ${e.message}"
+            }
+        }
+    }
+}
+// SQA Build Branch only: Retrieve the Matter CI branch and build number.
+def matterBranchAndBuild()
 {
     def branchName = env.BRANCH_NAME.substring(4)
     env.matterBranchName = env.BRANCH_NAME.substring(4)
     echo "Matter Branch Name: ${matterBranchName}"
-    if (fileExists('jenkins/matterBuildNumber.groovy') && fileExists('jenkins/sqaMatterBuildNumber.groovy')) {
-        echo "MatterBuildNumber and sqaMatterBuildNumber files exist"
+    if (fileExists('jenkins/matterBuildNumber.groovy')) {
+        echo "MatterBuildNumber file exists."
         try{
             env.matterBuildNumber = load 'jenkins/matterBuildNumber.groovy'
-            env.sqaMatterBuildNumber = load 'jenkins/sqaMatterBuildNumber.groovy'
             echo "Matter Build Number: ${MATTER_BUILD_NUMBER}"
-            echo "SQA Matter Build Number: ${SQA_MATTER_BUILD_NUMBER}"
         } catch (Exception e) {
             echo "Error loading file."
         }
     } else {
-        echo "MatterBuildNumber or sqaMatterBuildNumber files do not exist."
+        echo "MatterBuildNumber file does not exist."
     }
 }
 return this

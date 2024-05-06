@@ -249,8 +249,8 @@
 [submodule "third_party/silabs/wifi_sdk"]
 	path = third_party/silabs/wifi_sdk
 	url = ssh://git@stash.silabs.com/redpine/wifi_sdk.git
-	branch = release/v3.1.4
-	tag = v3.1.4
+	branch = release/v3.3.0
+	tag = v3.3.0-ifc2
 	platforms = silabs
 [submodule "editline"]
 	path = third_party/editline/repo

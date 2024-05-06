@@ -31,7 +31,6 @@ include:
     -   path: PigweedLogger.h
     -   path: FreeRTOSConfig.h
     -   path: Rpc.h
-    -   path: heap_4_silabs.h
     -   path: TemperatureSensor.h
     -   path: silabs_creds.h
     -   path: SilabsTestEventTriggerDelegate.h
@@ -53,7 +52,6 @@ source:
 -   path: examples/platform/silabs/LEDWidget.cpp
 -   path: examples/platform/silabs/SiWx917/SiWx917/sl_wifi_if.cpp
 -   path: examples/platform/silabs/SiWx917/SiWx917/wfx_rsi_host.cpp
--   path: examples/platform/silabs/heap_4_silabs.c
 -   path: examples/platform/silabs/syscalls_stubs.cpp
 -   path: src/platform/silabs/SiWx917/wifi/dhcp_client.cpp
 -   path: src/platform/silabs/SiWx917/wifi/ethernetif.cpp

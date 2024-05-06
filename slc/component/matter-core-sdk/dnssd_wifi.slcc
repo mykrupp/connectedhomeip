@@ -77,5 +77,6 @@ source:
 - path: src/lib/dnssd/Resolver_ImplMinimalMdns.cpp
 - path: src/lib/dnssd/ServiceNaming.cpp
 - path: src/lib/dnssd/TxtFields.cpp
+- path: src/lib/dnssd/ResolverProxy.cpp
 ui_hints:
   visibility: never

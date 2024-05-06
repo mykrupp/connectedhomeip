@@ -12,6 +12,7 @@ config_file:
     path: examples/platform/silabs/FreeRTOSConfig.h
 
 requires:
+  - name: sl_system
   - name: matter_provision
   - name: matter_siwx917
   - name: matter_siwx917_common
@@ -20,10 +21,12 @@ requires:
   - name: si91x_debug
   - name: sl_system_init
   - name: nvm3_default
+  - name: memory_manager
+  - name: memory_manager_pool_light
+  - name: freertos_heap_3
 
 provides:
   - name: matter_platform_siwx917
-  - name: freertos_heap
   - name: device
   - name: wiseconnect_toolchain_gcc_override
   - name: matter_si91x_common_flash_nvm3_enabled
@@ -36,7 +39,6 @@ include:
   - path: silabs_utils.h
   - path: LEDWidget.h
   - path: MatterConfig.h
-  - path: heap_4_silabs.h
   - path: OTAConfig.h
   - path: matter_shell.h
   - path: MemMonitoring.h
@@ -45,7 +47,6 @@ include:
 source:
   - path: examples/platform/silabs/BaseApplication.cpp
   - path: examples/platform/silabs/silabs_utils.cpp
-  - path: examples/platform/silabs/heap_4_silabs.c
   - path: examples/platform/silabs/MatterConfig.cpp
   - path: examples/platform/silabs/SoftwareFaultReports.cpp
 define:
@@ -81,3 +82,5 @@ toolchain_settings:
     value: -Wno-unused-variable
   - option: gcc_compiler_option
     value: -Wno-unused-function
+  - option: gcc_compiler_option
+    value: -Wno-unused-parameter

@@ -70,6 +70,8 @@ component:
     from: matter
   - id: matter_ota_requestor
     from: matter
+  - id: matter_ota_support
+    from: matter
   - id: matter_software_diagnostics
     from: matter
   - id: matter_thermostat

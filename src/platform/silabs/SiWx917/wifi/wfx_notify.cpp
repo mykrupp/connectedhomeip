@@ -203,12 +203,12 @@ void wfx_ip_changed_notify(int got_ip)
  ********************************************************************************************/
 void wfx_retry_interval_handler(bool is_wifi_disconnection_event, uint16_t retryJoin)
 {
-#if SL_ICD_ENABLED
+#if SI917_M4_SLEEP_ENABLED
     if (m4_alarm_initialization_done == false)
     {
         initialize_m4_alarm();
     }
-#endif // SL_ICD_ENABLED
+#endif // SI917_M4_SLEEP_ENABLED
     if (!is_wifi_disconnection_event)
     {
         /* After the reboot or a commissioning time device failed to connect with AP.
@@ -217,7 +217,7 @@ void wfx_retry_interval_handler(bool is_wifi_disconnection_event, uint16_t retry
         if (retryJoin < MAX_JOIN_RETRIES_COUNT)
         {
             SILABS_LOG("wfx_retry_interval_handler : Next attempt after %d Seconds", CONVERT_MS_TO_SEC(WLAN_RETRY_TIMER_MS));
-#if SL_ICD_ENABLED
+#if SI917_M4_SLEEP_ENABLED
             // TODO: cleanup the retry logic MATTER-1921
             if (!chip::Server::GetInstance().GetCommissioningWindowManager().IsCommissioningWindowOpen())
             {
@@ -232,7 +232,7 @@ void wfx_retry_interval_handler(bool is_wifi_disconnection_event, uint16_t retry
             }
 #else
             vTaskDelay(pdMS_TO_TICKS(WLAN_RETRY_TIMER_MS));
-#endif // SL_ICD_ENABLED
+#endif // SI917_M4_SLEEP_ENABLED
         }
         else
         {
@@ -251,14 +251,14 @@ void wfx_retry_interval_handler(bool is_wifi_disconnection_event, uint16_t retry
             retryInterval = WLAN_MAX_RETRY_TIMER_MS;
         }
         SILABS_LOG("wfx_retry_interval_handler : Next attempt after %d Seconds", CONVERT_MS_TO_SEC(retryInterval));
-#if SL_ICD_ENABLED
+#if SI917_M4_SLEEP_ENABLED
         set_alarm_interrupt_timer(retryInterval / 1000);
         wfx_rsi_power_save(RSI_SLEEP_MODE_8, STANDBY_POWER_SAVE_WITH_RAM_RETENTION);
         // TODO: remove this once TICKLESS_IDLE is applied. MATTER-3134
         sl_wfx_host_si91x_sleep_wakeup();
 #else
         vTaskDelay(pdMS_TO_TICKS(retryInterval));
-#endif // SL_ICD_ENABLED
+#endif // SI917_M4_SLEEP_ENABLED
         retryInterval += retryInterval;
     }
 }

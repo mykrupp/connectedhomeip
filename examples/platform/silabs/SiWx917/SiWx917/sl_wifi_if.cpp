@@ -274,7 +274,7 @@ sl_status_t join_callback_handler(sl_wifi_event_t event, char * result, uint32_t
 
 #if SL_ICD_ENABLED
 
-#if SLI_SI91X_MCU_INTERFACE
+#if SI917_M4_SLEEP_ENABLED // SLC-FIX
 /******************************************************************
  * @fn   sl_wfx_host_si91x_sleep_wakeup()
  * @brief
@@ -309,7 +309,7 @@ void sl_wfx_host_si91x_sleep_wakeup()
         }
     }
 }
-#endif // SLI_SI91X_MCU_INTERFACE
+#endif // SI917_M4_SLEEP_ENABLED
 
 /******************************************************************
  * @fn   wfx_rsi_power_save()

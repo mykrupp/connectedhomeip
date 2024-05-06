@@ -24,6 +24,7 @@
 // ---- Lighting Example App Config ----
 
 #define APP_TASK_NAME "Sens"
+#define BLE_DEV_NAME "SiLabs-Sensor"
 
 #ifdef DISPLAY_ENABLED
 #define SENSOR_NAME "Sensor-App"

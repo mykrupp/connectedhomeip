@@ -52,3 +52,6 @@ define:
 - name: SL_WIFI_COMPONENT_INCLUDED
 - name: __WEAK
   value: "__attribute__((weak))"
+toolchain_settings:
+- option: gcc_compiler_option
+  value: -Wno-unused-parameter

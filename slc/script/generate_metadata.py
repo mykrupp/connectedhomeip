@@ -201,7 +201,7 @@ for brd, val in demos_map['demos'].items():
 
                     readmeFileProp.set('key', 'core.readmeFiles')
                     readmeFileProp.set(
-                        'value',  os.path.join("slc","sample-app", '-'.join([demo_name.replace(" ", "-"), 'app']) if demo_name != 'thermostat' else demo_name, ("siwx917" if "soc" in board_type else "efr32"),"README_WiFi.md"))
+                        'value',  os.path.join("slc","sample-app", '-'.join([demo_name.replace(" ", "-").replace("SiWx917-","").replace("-example",""), 'app']) if 'thermostat' not in demo_name else "thermostat", ("siwx917" if "soc" in board_type else "efr32"),"README_WiFi.md"))
 
                     filtersProp.set('key', 'filters')
                     filtersProp.set('value', "Type|" + ("SoC" if "soc" in board_type else "NCP") + " Project\\ Difficulty|Advanced Wireless\\ Technology|Matter")

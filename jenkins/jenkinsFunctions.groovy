@@ -146,14 +146,15 @@ def getSeries(brd){
         return ""
     }
 }
-def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ""){
+def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = "", bootloaderComponents = ""){
     def buildMap = [:]
     buildMap["board"] = board
     buildMap["appName"] = appName
     buildMap["otaVersion"] = otaVersion
     buildMap["ncp"] = ncp
     buildMap["configs"] = configs
-    buildMap["additionalComponents"] = additionalComponents
+    buildMap["applicationComponents"] = applicationComponents
+    buildMap["bootloaderComponents"] = bootloaderComponents
     buildMap["useWorkspace"] = useWorkspace
     return buildMap
 }
@@ -180,16 +181,22 @@ def buildOtaImages(){
     def software_version_2 = '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
     def software_version_3 = '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
     def appsToBuild = []
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app", otaVersion="2", ncp = "",            configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app", otaVersion="2", ncp = "",      configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="light-switch-app", otaVersion="2", ncp = "",    configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat", otaVersion="2", ncp = "",          configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app", otaVersion="2", ncp = "",          configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="3", ncp = "",        configs = software_version_3, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "wf200",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "917-ncp",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2", ncp = "rs911x",        configs = software_version_2, useWorkspace = true, additionalComponents = "")
+    
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="light-switch-app", otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",       otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="2", ncp = "",        configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="3", ncp = "",        configs = software_version_3, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="2", ncp = "wf200",   configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="2", ncp = "917-ncp", configs = software_version_2, useWorkspace = true, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="2", ncp = "rs911x",  configs = software_version_2, useWorkspace = true, applicationComponents = "")
+
+    // LZ4 Images
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="2-lz4", ncp = "", configs = software_version_2, useWorkspace = true, applicationComponents = "", bootloaderComponents = ",bootloader_gbl_compression_lz4")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="3-lz4", ncp = "", configs = software_version_3, useWorkspace = true, applicationComponents = "", bootloaderComponents = ",bootloader_gbl_compression_lz4")
+
     slcBuild(appsToBuild, "OTA Images")
 }
 // Builds all Wifi examples by board (depending on build type)
@@ -202,7 +209,7 @@ def buildWifi(appsToBuild, boardToBuild, ncpToBuild, buildWithWorkspaces)
     def buildConfigurations = []
 
     for (int i = 0; i < appsToBuild.size(); i++) {
-        buildConfigurations += getBuildConfigs(board=boardToBuild, appName=appsToBuild[i], otaVersion="", ncp=ncpToBuild, configs="", useWorkspace=buildWithWorkspaces, additionalComponents="")
+        buildConfigurations += getBuildConfigs(board=boardToBuild, appName=appsToBuild[i], otaVersion="", ncp=ncpToBuild, configs="", useWorkspace=buildWithWorkspaces, applicationComponents="")
     }
     slcBuild(buildConfigurations, nodeDescription)
 }
@@ -220,7 +227,7 @@ def buildThread(appList, boardToBuild)
 
     // Add each build configuration to a list
     for (int i = 0; i < appsToBuild.size(); i++) {
-        buildConfigurations += getBuildConfigs(board=boardToBuild, appName=appsToBuild[i], otaVersion="", ncp="", configs="", useWorkspace=params.BUILD_WITH_WORKSPACES, additionalComponents="")
+        buildConfigurations += getBuildConfigs(board=boardToBuild, appName=appsToBuild[i], otaVersion="", ncp="", configs="", useWorkspace=params.BUILD_WITH_WORKSPACES, applicationComponents="")
     }
 
     // Build for compiled build configuration list
@@ -272,7 +279,8 @@ def generateProjects(paramMap){
     def ncp = paramMap["ncp"]
     def ota = paramMap["otaVersion"]
     def parameters = paramMap["configs"]
-    def additionalComponents = paramMap["additionalComponents"]
+    def applicationComponents = paramMap["applicationComponents"]
+    def bootloaderComponents = paramMap["bootloaderComponents"]
     def useWorkspaces = paramMap["useWorkspace"]
     def slcPrjName = getPrjFileName(brd, app, useWorkspaces, ncp)
     def platform = "/efr32/"
@@ -303,13 +311,29 @@ def generateProjects(paramMap){
     }
 
     echo "Generating ${app} for ${brd}"
+    sh "printenv"
+
     def output = brd + "/" + app + ncp + ota
-    sh """
-        printenv
-        export POST_BUILD_EXE=${commanderPath}
-        ${commanderPath} -version
-        ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${additionalComponents}' ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
-    """
+
+    if (bootloaderComponents && useWorkspaces){
+        // Build for solutions
+        sh """
+            export POST_BUILD_EXE=${commanderPath}
+            ${commanderPath} -version
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${bootloaderComponents}' -pids bootloader ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${applicationComponents}' -pids application ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+        """
+    }
+    else{
+        // Build for just application
+        sh """
+            export POST_BUILD_EXE=${commanderPath}
+            ${commanderPath} -version
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${applicationComponents}' ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+        """
+    }
+
+
     return output
 }
 // Runs code to generate example based on input
@@ -536,6 +560,29 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
 {
     def savedWorkspace = env.WORKSPACE + "/matter/" + savedDirectory
 
+    dir(env.WORKSPACE + "/matter/") {
+        withCredentials([usernamePassword(credentialsId: 'svc_gsdk', passwordVariable: 'SL_PASSWORD', usernameVariable: 'SL_USERNAME')])
+        {
+            sh '''
+                ls -al;pwd
+                set -o pipefail
+                set -x
+
+                ota_file="ota-scripts.zip"
+                zip -r "${ota_file}" "scripts/tools/silabs" "src/app/ota_image_tool.py" "src/controller/python/chip/tlv" -x "*.md"
+
+                echo 'UBAI uploading ......'
+                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path ota-scripts.zip  --metadata app_name matter \
+                    --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target matter  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+
+                if [ $? -eq 0 ]; then
+                    echo 'uploaded to UBAI successfully....... '
+                else
+                    echo FAIL
+                fi
+            '''
+        }
+    }
     dir(savedWorkspace) {
         withCredentials([usernamePassword(credentialsId: 'svc_gsdk', passwordVariable: 'SL_PASSWORD', usernameVariable: 'SL_USERNAME')])
         {
@@ -946,7 +993,7 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     def appName = paramMap["appName"]
     def otaVersion = paramMap["otaVersion"]
     def ncp = paramMap["ncp"]
-    def additionalComponents = paramMap["additionalComponents"]
+    def applicationComponents = paramMap["applicationComponents"]
     def buildWithWorkspaces = paramMap["useWorkspace"]
     def config_args = paramMap["configs"]
     def fileName = getPrjFileName(board, appName, buildWithWorkspaces, ncp)
@@ -956,13 +1003,15 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     def buildType = "release"
     def binaryNamingHelper = "thread"
     def mapNamingHelper = fileName.replaceAll("-internal", "").replaceAll("-bootloader", "")
+    def otaVersionOnly = otaVersion
+    def otaCompression = "lzma"
 
     // Modify output path to differentiate OTA & code size analysis builds from release builds
     if(otaVersion){
         out_dir = 'ota_automation_out'
         buildType = appName
     }
-    if(additionalComponents.contains("matter_no_debug")){
+    if(applicationComponents.contains("matter_no_debug")){
         buildType = 'nodebug'
     }
     if(ncp){
@@ -971,6 +1020,10 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     // Create designated standardized filepath for each binary and place outputted images there 
     // For example:  release/BRD4187C/OpenThread/lighting-app-thread.s37
     def newBinaryLocation = "${savedDirectory}/${out_dir}/${buildType}${otaVersion}/${board}/${protocol}"
+    if (otaVersion.contains("-lz4")){
+        otaVersionOnly = otaVersion - "-lz4"
+        otaCompression = "lz4"
+    }
     sh "mkdir -p ${newBinaryLocation}"
     def stashName = ""
     def stashFile = ""
@@ -983,8 +1036,8 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
 
         // If OTA build, create OTA image from .gbl and passed in version number
         if (otaVersion){
-            sh "${commanderPath} gbl create ${newBinaryLocation}/${appName}-${binaryNamingHelper}.gbl --app ${stashFile} --compress lzma"
-            sh "./src/app/ota_image_tool.py create -v 0xFFF1 -p 0x8005 -vn ${otaVersion} -vs ${otaVersion}.0 -da sha256 ${newBinaryLocation}/${appName}-${binaryNamingHelper}.gbl ${newBinaryLocation}/${appName}-${binaryNamingHelper}.ota"
+            sh "${commanderPath} gbl create ${newBinaryLocation}/${appName}-${binaryNamingHelper}.gbl --app ${stashFile} --compress ${otaCompression}"
+            sh "./src/app/ota_image_tool.py create -v 0xFFF1 -p 0x8005 -vn ${otaVersionOnly} -vs ${otaVersionOnly}.0 -da sha256 ${newBinaryLocation}/${appName}-${binaryNamingHelper}.gbl ${newBinaryLocation}/${appName}-${binaryNamingHelper}.ota"
         }
     }
     // 917 Soc build (.slcp)
@@ -1005,7 +1058,7 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     }
 
     // Only stash file if it does not have special configuration/component modifications - used later in sanity test stage
-    if((!additionalComponents.contains("matter_no_debug")) && (!config_args.contains("copy")) && (otaVersion == "")){
+    if((!applicationComponents.contains("matter_no_debug")) && (!config_args.contains("copy")) && (otaVersion == "")){
         stash name: getStashName(board, appName, ncp), includes: stashFile
     }
 }

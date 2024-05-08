@@ -13,7 +13,6 @@ config_file:
 
 requires:
   - name: sl_system
-  - name: matter_provision
   - name: matter_siwx917
   - name: matter_siwx917_common
   - name: siwx917_soc_custom_startup

@@ -141,5 +141,6 @@ include:
 define:
   - name: OPTIMIZE_TINYCRYPT_ASM
   - name: TINYCRYPT_PRIMITIVES
+  - name: SL_MBEDTLS_USE_TINYCRYPT
   - name: MBEDTLS_CONFIG_FILE
     value: \"siwx917-chip-tinycrypt-config.h\"

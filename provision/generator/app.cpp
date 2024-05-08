@@ -15,73 +15,33 @@
  *
  ******************************************************************************/
 
-#include "assert.h"
-#include "commands.h"
-#include "encoding.h"
-#include "credentials.h"
-#include "platform.h"
-#include <stdint.h>
-#include <stddef.h>
-#include <string.h>
-#include <stdio.h>
+#include <provision/ProvisionManager.h>
+#include <lib/support/CHIPPlatformMemory.h>
+#include <lib/support/CHIPMem.h>
+#include <mbedtls/platform.h>
+#include <FreeRTOS.h>
+#include <task.h>
 
+using namespace chip::DeviceLayer::Silabs;
 
-#define BUFFER_SIZE          2048
+#define MAIN_TASK_STACK_SIZE    (1024)
+#define MAIN_TASK_PRIORITY      (configMAX_PRIORITIES - 1)
 
-static uint8_t _buffer[BUFFER_SIZE] = { 0 };
+namespace {
 
+TaskHandle_t main_Task;
 
-static VoidCommand _void_command;
-static InitCommand _init_command;
-static CsrCommand _csr_command;
-static ImportCommand _import_command;
-static SetupCommand _setup_command;
-
-
-Command & select_command(uint8_t id)
+void taskMain(void * pvParameter)
 {
-    switch(id)
-    {
-    case kCommand_Init:
-        return _init_command;
-    case kCommand_CSR:
-        return _csr_command;
-    case kCommand_Import:
-        return _import_command;
-    case kCommand_Setup:
-        return _setup_command;
-    default:
-        return _void_command;
-    }
+    // Run manager
+    Provision::Manager &man = Provision::Manager::GetInstance();
+    while (man.Step());
+    // Reset
+    vTaskDelay(pdMS_TO_TICKS(500));
+    NVIC_SystemReset();
 }
 
-void execute_command(uint8_t id, Encoder & input)
-{
-    Command &cmd = select_command(id);
-    int err = cmd.decode(input);
-    if(!err)
-    {
-        err = cmd.execute();
-    }
-
-    Encoder output(_buffer, sizeof(_buffer));
-    output.addUint8(id);
-    output.addInt32(err);
-    if(! err)
-    {
-        cmd.encode(output);
-    }
-
-    platform_write(output.data(), output.offset());
-}
-
-void reject_command(uint8_t id, int err)
-{
-    Encoder out(_buffer, sizeof(_buffer));
-    out.addUint8(id);
-    out.addInt32(err);
-    platform_write(out.data(), out.offset());
-}
+} // namespace
 
 /*******************************************************************************
  * Initialize application.
@@ -89,6 +49,11 @@ void reject_command(uint8_t id, int err)
 
 void app_init(void)
 {
+#if !defined(MBEDTLS_PLATFORM_CALLOC_MACRO) ||  !defined(MBEDTLS_PLATFORM_FREE_MACRO)
+    mbedtls_platform_set_calloc_free(CHIPPlatformMemoryCalloc, CHIPPlatformMemoryFree);
+    ReturnOnFailure(chip::Platform::MemoryInit());
+#endif
+    xTaskCreate(taskMain, "Provision Task", MAIN_TASK_STACK_SIZE, nullptr, MAIN_TASK_PRIORITY, &main_Task);
 }
 
 /*******************************************************************************
@@ -97,19 +62,4 @@ void app_init(void)
 
 void app_process_action(void)
 {
-    uint8_t command_id = kCommand_None;
-    size_t in_size = 0;
-    int status = 0;
-
-    // Read input
-    status = platform_read((void *)_buffer, sizeof(_buffer), &in_size);
-    ASSERT((0 == status) && (in_size > 0), return, "RX error");
-
-    // Decode header
-    Encoder input(_buffer, in_size);
-    int err = input.getUint8(command_id);
-    ASSERT(!err, reject_command(command_id, err); return, "Decode error");
-
-    // Execute command
-    execute_command(command_id, input);
 }

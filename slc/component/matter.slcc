@@ -88,7 +88,7 @@ requires:
   - name: matter_includes
   - name: matter_messagedef
   - name: matter_interaction_model
-  - name: matter_dac
+  - name: matter_provision
   - name: matter_syscalls_stub
   #- name: matter_icd_core
 

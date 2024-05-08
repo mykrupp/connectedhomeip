@@ -20,8 +20,6 @@ component:
     from: matter
   - id: matter_crypto_tinycrypt_siwx917
     from: matter
-  - id: silabs_factory_data_provider
-    from: matter
 
   - id: matter_wifi
     from: matter

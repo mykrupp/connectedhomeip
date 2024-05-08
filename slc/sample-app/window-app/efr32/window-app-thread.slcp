@@ -44,9 +44,6 @@ component:
   - id: app_common
     from: matter
 
-  - id: silabs_factory_data_provider
-    from: matter
-
   - id: matter_access_control
     from: matter
   - id: matter_administrator_commissioning

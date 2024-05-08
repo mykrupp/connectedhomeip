@@ -41,7 +41,6 @@ toolchain_settings:
     # directly call _malloc_r)
 
 requires:
-  - name: matter_provision
   - name: matter_efr32
     condition: [matter_thread]
   - name: matter_efr32_wifi

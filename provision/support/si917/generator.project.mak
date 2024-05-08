@@ -1,21 +1,16 @@
 ####################################################################
 # Automatically-generated file. Do not edit!                       #
-# Makefile Version 14                                              #
+# Makefile Version 15                                              #
 ####################################################################
 
-
-UNAME:=$(shell uname -s | sed -e 's/^\(CYGWIN\).*/\1/' | sed -e 's/^\(MINGW\).*/\1/')
+BASE_SDK_PATH ?= /git/gsdk
+UNAME:=$(shell $(POSIX_TOOL_PATH)uname -s | $(POSIX_TOOL_PATH)sed -e 's/^\(CYGWIN\).*/\1/' | $(POSIX_TOOL_PATH)sed -e 's/^\(MINGW\).*/\1/')
 ifeq ($(UNAME),MINGW)
 # Translate "C:/super" into "/C/super" for MinGW make.
 SDK_PATH := /$(shell $(POSIX_TOOL_PATH)echo $(BASE_SDK_PATH) | sed s/://)
 endif
-
-SDK_PATH = /home/sharath/Latest_stash/matter/third_party/silabs/gecko_sdk
-sdk_support_root = /home/sharath/Latest_stash/matter/third_party/silabs/matter_support
-chip_root = /home/sharath/Latest_stash/matter
-wisemcu_sdk_root = /home/sharath/Latest_stash/matter/third_party/silabs/wisemcu-wifi-bt-sdk
-examples_plat_dir = /home/sharath/Latest_stash/matter/examples/platform/silabs/SiWx917
-
+SDK_PATH ?= $(BASE_SDK_PATH)
+COPIED_SDK_PATH ?= gecko_sdk_4.4.1
 
 # This uses the explicit build rules below
 PROJECT_SOURCE_FILES =
@@ -28,120 +23,139 @@ ASM_SOURCE_FILES += $(filter %.S, $(PROJECT_SOURCE_FILES))
 LIB_FILES        += $(filter %.a, $(PROJECT_SOURCE_FILES))
 
 C_DEFS += \
- '-DDEBUG_EFM=1' \
- '-DSIWX917' \
- '-DMATTER_X509_EXTENSIONS=1' \
- '-DEFR32MG12P432F1024GL125=1' \
- '-DSL_BOARD_NAME="BRD4325B"' \
- '-DSL_BOARD_REV="A03"' \
+ '-DCHIP_SYSTEM_CONFIG_USE_SOCKETS=1' \
+ '-DEXT_IRQ_COUNT=75' \
+ '-DFLASH_PAGE_SIZE=1' \
+ '-DMBEDTLS_CONFIG_FILE="siwx917-chip-mbedtls-config.h"' \
+ '-DOPTIMIZE_TINYCRYPT_ASM=1' \
+ '-DPROVISION_CHANNEL_ENABLED=1' \
+ '-DSIWX_917=1' \
+ '-DSRAM_SIZE=0x2fc00UL' \
+ '-DTINYCRYPT_PRIMITIVES=1' \
+ '-DSIWG917M111MGTBA=1' \
+ '-DSLI_SI917=1' \
+ '-DSLI_SI917B0=1' \
+ '-DSLI_SI91X_MCU_ENABLE_FLASH_BASED_EXECUTION=1' \
+ '-DSLI_SI91X_MCU_COMMON_FLASH_MODE=1' \
+ '-DSLI_SI91X_MCU_CONFIG_RADIO_BOARD_BASE_VER=1' \
+ '-DSLI_SI91X_MCU_CONFIG_RADIO_BOARD_VER2=1' \
+ '-DSL_BOARD_NAME="BRD4338A"' \
+ '-DSL_BOARD_REV="A02"' \
+ '-DSL_NET_COMPONENT_INCLUDED=1' \
+ '-D__STATIC_INLINE=static inline' \
+ '-DSRAM_BASE=0x0cUL' \
+ '-DSLI_SI91X_MCU_ENABLE_IPMU_APIS=1' \
+ '-DSL_SI91X_SI917_RAM_MEM_CONFIG=1' \
+ '-DSLI_SI91X_OFFLOAD_NETWORK_STACK=1' \
+ '-DSI917=1' \
+ '-DSLI_SI91X_ENABLE_OS=1' \
+ '-DSLI_SI91X_MCU_INTERFACE=1' \
+ '-DTA_DEEP_SLEEP_COMMON_FLASH=1' \
+ '-DSL_WIFI_COMPONENT_INCLUDED=1' \
+ '-DconfigNUM_SDK_THREAD_LOCAL_STORAGE_POINTERS=2' \
  '-DSL_COMPONENT_CATALOG_PRESENT=1' \
- '-DHARD_FAULT_LOG_ENABLE' \
- '-DCORTEXM3_EFM32_MICRO' \
- '-DSILABS_LOG_ENABLED=1' \
- '-DNVM3_DEFAULT_NVM_SIZE=73728' \
- '-DNVM3_DEFAULT_MAX_OBJECT_SIZE=4092' \
- '-DMBEDTLS_CONFIG_FILE=<siwx917-chip-mbedtls-config.h>' \
- '-DEFR32_OPENTHREAD_API' \
- '-DPHY=EMBER_PHY_RAIL' \
- '-DCORTEXM3' \
- '-DMICRO=EMBER_MICRO_CORTEXM3_EFR32' \
- '-DPLAT=EMBER_PLATFORM_CORTEXM3' \
- '-DSL_COMPONENT_CATALOG_PRESENT' \
- '-DPLATFORM_HEADER=<platform-header.h>' \
- '-DUSE_NVM3=1' \
- '-DRSI_ARM_CM4F' \
- '-DRSI_BLE_ENABLE=1' \
- '-DRSI_BLE_ENABLE=1' \
- '-DTINYCRYPT_PRIMITIVES' \
- '-DOPTIMIZE_TINYCRYPT_ASM' \
- '-DRS91X_BLE_ENABLE=1' \
- '-D__error_t_defined' \
- '-D__STARTUP_CLEAR_BSS' \
- '-DMBEDTLS_PEM_WRITE_C' \
- #'-DMBEDTLS_USE_PSA_CRYPTO' \
- #'-D${silabs_board}=1' \
- #'-D${silabs_mcu}=1' \
- #'-DMBEDTLS_CONFIG_FILE=<siwx917-chip-mbedtls-config.h>' \
+ '-DRTT_USE_ASM=0' \
+ '-DSEGGER_RTT_SECTION="SEGGER_RTT"'
 
 ASM_DEFS += \
- '-DDEBUG_EFM=1' \
- '-DMATTER_X509_EXTENSIONS=1' \
- '-DEFR32MG12P432F1024GL125=1' \
- '-DSL_BOARD_NAME="BRD4325B"' \
- '-DSL_BOARD_REV="A03"' \
+ '-DCHIP_SYSTEM_CONFIG_USE_SOCKETS=1' \
+ '-DEXT_IRQ_COUNT=75' \
+ '-DFLASH_PAGE_SIZE=1' \
+ '-DMBEDTLS_CONFIG_FILE="siwx917-chip-mbedtls-config.h"' \
+ '-DOPTIMIZE_TINYCRYPT_ASM=1' \
+ '-DPROVISION_CHANNEL_ENABLED=1' \
+ '-DSIWX_917=1' \
+ '-DSRAM_SIZE=0x2fc00UL' \
+ '-DTINYCRYPT_PRIMITIVES=1' \
+ '-DSIWG917M111MGTBA=1' \
+ '-DSLI_SI917=1' \
+ '-DSLI_SI917B0=1' \
+ '-DSLI_SI91X_MCU_ENABLE_FLASH_BASED_EXECUTION=1' \
+ '-DSLI_SI91X_MCU_COMMON_FLASH_MODE=1' \
+ '-DSLI_SI91X_MCU_CONFIG_RADIO_BOARD_BASE_VER=1' \
+ '-DSLI_SI91X_MCU_CONFIG_RADIO_BOARD_VER2=1' \
+ '-DSL_BOARD_NAME="BRD4338A"' \
+ '-DSL_BOARD_REV="A02"' \
+ '-DSL_NET_COMPONENT_INCLUDED=1' \
+ '-D__STATIC_INLINE=static inline' \
+ '-DSRAM_BASE=0x0cUL' \
+ '-DSLI_SI91X_MCU_ENABLE_IPMU_APIS=1' \
+ '-DSL_SI91X_SI917_RAM_MEM_CONFIG=1' \
+ '-DSLI_SI91X_OFFLOAD_NETWORK_STACK=1' \
+ '-DSI917=1' \
+ '-DSLI_SI91X_ENABLE_OS=1' \
+ '-DSLI_SI91X_MCU_INTERFACE=1' \
+ '-DTA_DEEP_SLEEP_COMMON_FLASH=1' \
+ '-DSL_WIFI_COMPONENT_INCLUDED=1' \
+ '-DconfigNUM_SDK_THREAD_LOCAL_STORAGE_POINTERS=2' \
  '-DSL_COMPONENT_CATALOG_PRESENT=1' \
- '-DHARD_FAULT_LOG_ENABLE' \
- '-DCORTEXM3_EFM32_MICRO' \
- '-DSILABS_LOG_ENABLED=1' \
- '-DNVM3_DEFAULT_NVM_SIZE=73728' \
- '-DNVM3_DEFAULT_MAX_OBJECT_SIZE=4092' \
- '-DMBEDTLS_CONFIG_FILE=<siwx917-chip-mbedtls-config.h>' \
- '-DEFR32_OPENTHREAD_API' \
- '-DPHY=EMBER_PHY_RAIL' \
- '-DCORTEXM3' \
- '-DMICRO=EMBER_MICRO_CORTEXM3_EFR32' \
- '-DPLAT=EMBER_PLATFORM_CORTEXM3' \
- '-DSL_COMPONENT_CATALOG_PRESENT' \
- '-DPLATFORM_HEADER=<platform-header.h>' \
- '-DUSE_NVM3=1' \
- '-DRSI_ARM_CM4F' \
- '-DRSI_BLE_ENABLE=1' \
- '-DRSI_BLE_ENABLE=1' \
- '-DTINYCRYPT_PRIMITIVES' \
- '-DOPTIMIZE_TINYCRYPT_ASM' \
- '-DRS91X_BLE_ENABLE=1' \
- '-D__error_t_defined' \
- '-D__STARTUP_CLEAR_BSS' \
- #'-D${silabs_board}=1' \
- #'-D${silabs_mcu}=1' \
+ '-DRTT_USE_ASM=0' \
+ '-DSEGGER_RTT_SECTION="SEGGER_RTT"'
 
 INCLUDES += \
  -Iconfig \
  -Iautogen \
- -I.. \
  -I../../generator \
- -I$(sdk_support_root)/platform/emdrv/nvm3/inc \
- -I$(sdk_support_root)/matter/mbedtls/tinycrypt/inc \
- -I$(chip_root)/third_party/mbedtls/repo/include \
- -I$(chip_root)/third_party/mbedtls/repo/library \
- -I$(chip_root)/examples/platform/silabs/SiWx917/SiWx917 \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/inc \
- -I$(wisemcu_sdk_root)/platforms/si91x/core/chip/inc \
- -I$(wisemcu_sdk_root)/platforms/si91x/core/config \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/config \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/rom_driver/inc \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/inc \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/CMSIS/Driver/Include \
- -I$(wisemcu_sdk_root)/platforms/si91x/boards/brd4325a/inc \
- -I$(wisemcu_sdk_root)/platforms/si91x/core/cmsis \
- -I$(wisemcu_sdk_root)/third_party/freertos/include \
- -I$(wisemcu_sdk_root)/third_party/freertos/portable/GCC/ARM_CM4F \
- -I$(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/inc \
- -I$(examples_plat_dir)/device/inc \
- -I$(wisemcu_sdk_root)/sapi/include \
- -I$(wisemcu_sdk_root)/platforms/si91x/boards/brd4325x/inc \
- -I$(chip_root)/examples/platform/silabs/SiWx917/SiWx917 \
- -I$(chip_root)/examples/platform/silabs/SiWx917/SiWx917/hal \
- -I$(chip_root)/src/platform/silabs/SiWx917 \
- -I$(SDK_PATH)/platform/common/toolchain/inc/ \
- -I$(SDK_PATH)/util/third_party/segger/systemview/Config/ \
- -I$(chip_root)/src/ \
- -I$(chip_root)/src/platform/silabs/ \
- -I$(SDK_PATH)/util/third_party/segger/systemview/SEGGER/ \
- -I$(chip_root)/examples/platform/silabs/SiWx917/ \
- -I$(sdk_support_root)/platform/emdrv/nvm3/lib/ \
+ -I../../../examples \
+ -I../../../examples/platform/silabs \
+ -I../../../src \
+ -I../../../src/platform/silabs/SiWx917 \
+ -I../../../src/include \
+ -I../../../zzz_generated/app-common \
+ -I../../../third_party/nlassert/repo/include \
+ -I../../../third_party/nlio/repo/include \
+ -I../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/inc \
+ -I../../../third_party/mbedtls/repo/library \
+ -I../../../third_party/mbedtls/repo/include \
+ -I../../../src/lib/support \
+ -I../../../src/platform/silabs \
+ -I../../../third_party/silabs/matter_support/matter/si91x/siwx917/BRD4338A/support/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/service/bsd_socket/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/CMSIS/Driver/Include \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/config \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver \
+ -I$(SDK_PATH)/../wiseconnect/components/service/network_manager/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/rom_driver/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/board/silabs/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/config \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/errno/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/icmp \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/inc \
+ -I$(SDK_PATH)/../wiseconnect/components/protocol/wifi/inc \
+ -I$(SDK_PATH)/../wiseconnect/resources/certificates \
+ -I$(SDK_PATH)/../wiseconnect/resources/other \
+ -I$(SDK_PATH)/../wiseconnect/components/common/inc \
+ -I$(SDK_PATH)/platform/common/inc \
+ -I$(SDK_PATH)/platform/CMSIS/Core/Include \
+ -I$(SDK_PATH)/platform/CMSIS/RTOS2/Include \
+ -I$(SDK_PATH)/platform/service/device_init/inc \
+ -I$(SDK_PATH)/platform/emdrv/common/inc \
+ -I$(SDK_PATH)/platform/emlib/inc \
+ -I$(SDK_PATH)/util/third_party/freertos/cmsis/Include \
+ -I$(SDK_PATH)/util/third_party/freertos/kernel/include \
+ -I$(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F \
+ -I$(SDK_PATH)/platform/service/iostream/inc \
+ -I$(SDK_PATH)/platform/emdrv/nvm3/inc \
+ -I$(SDK_PATH)/util/third_party/segger/systemview/SEGGER \
+ -I$(SDK_PATH)/platform/service/system/inc
 
 GROUP_START =-Wl,--start-group
 GROUP_END =-Wl,--end-group
 
 PROJECT_LIBS = \
- -lstdc++ \
  -lgcc \
+ -lnosys \
+ -lstdc++ \
  -lc \
  -lm \
- -lnosys \
- $(sdk_support_root)/platform/emdrv/nvm3/lib/libnvm3_CM4_gcc.a
+ $(SDK_PATH)/platform/emdrv/nvm3/lib/libnvm3_CM4_gcc.a
 
 LIBS += $(GROUP_START) $(PROJECT_LIBS) $(GROUP_END)
 
@@ -149,57 +163,35 @@ LIB_FILES += $(filter %.a, $(PROJECT_LIBS))
 
 C_FLAGS += \
  -mcpu=cortex-m4 \
- -Wno-empty-body \
- -Wcpp \
- -Wno-error \
- -Wno-missing-braces \
- -Wno-sign-compare \
- -Wno-unused-variable \
- -Wno-unused-value \
- -Wno-unused-parameter \
- -Wno-implicit-function-declaration \
- -Wno-unused-function \
- -Wno-builtin-macro-redefined \
- -Wno-unused-macros \
- -Wno-implicit-int \
- -Wno-missing-field-initializers \
  -mthumb \
  -mfpu=fpv4-sp-d16 \
  -mfloat-abi=softfp \
  -std=c99 \
+ -Wall \
  -Wextra \
  -Os \
  -fdata-sections \
  -ffunction-sections \
  -fomit-frame-pointer \
- -imacros sl_gcc_preinclude.h \
+ -Wno-unused-parameter \
  --specs=nano.specs \
  -g
 
 CXX_FLAGS += \
- -Wempty-body \
- -Wcpp \
- -Wmissing-braces \
- -Wsign-compare \
- -Wunused-variable \
- -Wunused-value \
- -Wunused-parameter \
- -Wimplicit-function-declaration \
- -Wunused-function \
  -mcpu=cortex-m4 \
  -mthumb \
  -mfpu=fpv4-sp-d16 \
  -mfloat-abi=softfp \
- -std=c++11 \
+ -std=c++17 \
  -fno-rtti \
  -fno-exceptions \
- -Wextra \
  -Wall \
+ -Wextra \
  -Os \
  -fdata-sections \
  -ffunction-sections \
  -fomit-frame-pointer \
- -imacros sl_gcc_preinclude.h \
+ -Wno-unused-parameter \
  --specs=nano.specs \
  -g
 
@@ -208,7 +200,6 @@ ASM_FLAGS += \
  -mthumb \
  -mfpu=fpv4-sp-d16 \
  -mfloat-abi=softfp \
- -imacros sl_gcc_preinclude.h \
  -x assembler-with-cpp
 
 LD_FLAGS += \
@@ -216,10 +207,12 @@ LD_FLAGS += \
  -mthumb \
  -mfpu=fpv4-sp-d16 \
  -mfloat-abi=softfp \
- -T"autogen/linkerfile.ld" \
+ -T"autogen/linkerfile_SoC.ld" \
  --specs=nano.specs \
  -Xlinker -Map=$(OUTPUT_DIR)/$(PROJECTNAME).map \
- -Wl,--gc-sections
+ -u _printf_float \
+ -Wl,--gc-sections \
+ -Wl,--no-warn-rwx-segments
 
 
 ####################################################################
@@ -234,544 +227,551 @@ post-build: $(OUTPUT_DIR)/$(PROJECTNAME).out
 ####################################################################
 # SDK Build Rules                                                  #
 ####################################################################
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_dev.o: $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_dev.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_dev.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_dev.c
-CDEPS += $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_dev.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_dev.o
-
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_intf.o: $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_intf.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_intf.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_intf.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_intf.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_intf.o
-
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_prg.o:  $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_prg.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_prg.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/ccp_flash_prg.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_prg.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/ccp_flash_prg.o
-
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default.o:  $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_default.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_default.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_default.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default.o
-
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.o:  $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_hal_flash_ccp.o
-
-$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.o:  $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_lock.c
-		@echo 'Building $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_lock.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/platform/emdrv/nvm3/src/nvm3_lock.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.d
-OBJS +=$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/boards/brd4325x/src/rsi_board.o:  $(wisemcu_sdk_root)/platforms/si91x/boards/brd4325x/src/rsi_board.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/boards/brd4325x/src/rsi_board.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/boards/brd4325x/src/rsi_board.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/boards/brd4325x/src/rsi_board.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/boards/brd4325x/src/rsi_board.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.o:  $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_deepsleep_commonflash.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_ps_ram_func.o:  $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_ps_ram_func.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_ps_ram_func.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_ps_ram_func.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_ps_ram_func.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_ps_ram_func.o
-
-#$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_system_config.o:  $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_system_config.c
-#		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_system_config.c'
-#		@mkdir -p $(@D)
-#		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/rsi_system_config.c
-#CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_system_config.d
-#OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/rsi_system_config.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/system_RS1xxxx.o:  $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/system_RS1xxxx.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/system_RS1xxxx.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/core/chip/src/system_RS1xxxx.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/system_RS1xxxx.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/core/chip/src/system_RS1xxxx.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/clock_update.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/clock_update.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/clock_update.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/clock_update.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/clock_update.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/clock_update.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_comparator.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_egpio.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_udma_wrapper.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/peripheral_drivers/src/rsi_usart.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ipmu.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_pll.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_pll.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_pll.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_pll.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_pll.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_pll.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_power_save.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_power_save.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_power_save.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_power_save.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_power_save.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_power_save.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_processor_sensor.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_rtc.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_rtc.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_rtc.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_rtc.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_rtc.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_rtc.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_temp_sensor.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_time_period.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_time_period.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_time_period.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_time_period.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_time_period.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_time_period.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_ulpss_clk.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/systemlevel/src/rsi_wwdt.o
-
-#$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gap_apis.o:  $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gap_apis.c
-#		@echo 'Building $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gap_apis.c'
-#		@mkdir -p $(@D)
-#		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gap_apis.c
-#CDEPS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gap_apis.d
-#OBJS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gap_apis.o
-
-#$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gatt_apis.o:  $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gatt_apis.c
-#		@echo 'Building $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gatt_apis.c'
-#		@mkdir -p $(@D)
-#		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/sapi/bluetooth/rsi_ble_gatt_apis.c
-#CDEPS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gatt_apis.d
-#OBJS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_ble_gatt_apis.o
-
-#$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_bt_common_apis.o:  $(wisemcu_sdk_root)/sapi/bluetooth/rsi_bt_common_apis.c
-#		@echo 'Building $(wisemcu_sdk_root)/sapi/bluetooth/rsi_bt_common_apis.c'
-#		@mkdir -p $(@D)
-#		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/sapi/bluetooth/rsi_bt_common_apis.c
-#CDEPS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_bt_common_apis.d
-#OBJS +=$(OUTPUT_DIR)/sdk/sapi/bluetooth/rsi_bt_common_apis.o
-
-#$(OUTPUT_DIR)/sdk/sapi/driver/rsi_bt_ble.o:  $(wisemcu_sdk_root)/sapi/driver/rsi_bt_ble.c
-#		@echo 'Building $(wisemcu_sdk_root)/sapi/driver/rsi_bt_ble.c'
-#		@mkdir -p $(@D)
-#		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/sapi/driver/rsi_bt_ble.c
-#CDEPS +=$(OUTPUT_DIR)/sdk/sapi/driver/rsi_bt_ble.d
-#OBJS +=$(OUTPUT_DIR)/sdk/sapi/driver/rsi_bt_ble.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/croutine.o:  $(wisemcu_sdk_root)/third_party/freertos/croutine.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/croutine.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/croutine.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/croutine.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/croutine.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/event_groups.o:  $(wisemcu_sdk_root)/third_party/freertos/event_groups.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/event_groups.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/event_groups.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/event_groups.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/event_groups.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/list.o:  $(wisemcu_sdk_root)/third_party/freertos/list.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/list.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/list.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/list.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/list.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/portable/GCC/ARM_CM4F/port.o:  $(wisemcu_sdk_root)/third_party/freertos/portable/GCC/ARM_CM4F/port.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/portable/GCC/ARM_CM4F/port.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/portable/GCC/ARM_CM4F/port.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/portable/GCC/ARM_CM4F/port.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/portable/GCC/ARM_CM4F/port.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/queue.o:  $(wisemcu_sdk_root)/third_party/freertos/queue.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/queue.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/queue.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/queue.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/queue.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/stream_buffer.o:  $(wisemcu_sdk_root)/third_party/freertos/stream_buffer.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/stream_buffer.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/stream_buffer.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/stream_buffer.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/stream_buffer.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/tasks.o:  $(wisemcu_sdk_root)/third_party/freertos/tasks.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/tasks.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/tasks.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/tasks.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/tasks.o
-
-$(OUTPUT_DIR)/sdk/third_party/freertos/timers.o:  $(wisemcu_sdk_root)/third_party/freertos/timers.c
-		@echo 'Building $(wisemcu_sdk_root)/third_party/freertos/timers.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/third_party/freertos/timers.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/freertos/timers.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/freertos/timers.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/UDMA.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/UDMA.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/UDMA.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/UDMA.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/UDMA.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/UDMA.o
-
-$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/USART.o:  $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/USART.c
-		@echo 'Building $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/USART.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(wisemcu_sdk_root)/platforms/si91x/drivers/cmsis_driver/USART.c
-CDEPS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/USART.d
-OBJS +=$(OUTPUT_DIR)/sdk/platforms/si91x/drivers/cmsis_driver/USART.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/aes.o:  $(chip_root)/third_party/mbedtls/repo/library/aes.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/aes.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/aes.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/aes.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/aes.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1parse.o:  $(chip_root)/third_party/mbedtls/repo/library/asn1parse.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/asn1parse.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/asn1parse.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1parse.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1parse.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1write.o:  $(chip_root)/third_party/mbedtls/repo/library/asn1write.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/asn1write.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/asn1write.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1write.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/asn1write.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/bignum.o:  $(chip_root)/third_party/mbedtls/repo/library/bignum.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/bignum.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/bignum.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/bignum.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/bignum.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ccm.o:  $(chip_root)/third_party/mbedtls/repo/library/ccm.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ccm.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ccm.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ccm.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ccm.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher.o:  $(chip_root)/third_party/mbedtls/repo/library/cipher.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/cipher.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/cipher.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher_wrap.o:  $(chip_root)/third_party/mbedtls/repo/library/cipher_wrap.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/cipher_wrap.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/cipher_wrap.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher_wrap.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/cipher_wrap.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/constant_time.o:  $(chip_root)/third_party/mbedtls/repo/library/constant_time.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/constant_time.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/constant_time.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/constant_time.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/constant_time.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ctr_drbg.o:  $(chip_root)/third_party/mbedtls/repo/library/ctr_drbg.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ctr_drbg.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ctr_drbg.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ctr_drbg.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ctr_drbg.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdh.o:  $(chip_root)/third_party/mbedtls/repo/library/ecdh.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ecdh.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ecdh.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdh.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdh.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdsa.o:  $(chip_root)/third_party/mbedtls/repo/library/ecdsa.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ecdsa.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ecdsa.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdsa.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecdsa.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp.o:  $(chip_root)/third_party/mbedtls/repo/library/ecp.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ecp.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ecp.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp_curves.o:  $(chip_root)/third_party/mbedtls/repo/library/ecp_curves.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/ecp_curves.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/ecp_curves.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp_curves.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/ecp_curves.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/entropy.o:  $(chip_root)/third_party/mbedtls/repo/library/entropy.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/entropy.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/entropy.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/entropy.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/entropy.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hkdf.o:  $(chip_root)/third_party/mbedtls/repo/library/hkdf.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/hkdf.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/hkdf.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hkdf.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hkdf.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hmac_drbg.o:  $(chip_root)/third_party/mbedtls/repo/library/hmac_drbg.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/hmac_drbg.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/hmac_drbg.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hmac_drbg.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/hmac_drbg.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/md.o:  $(chip_root)/third_party/mbedtls/repo/library/md.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/md.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/md.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/md.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/md.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pkcs5.o:  $(chip_root)/third_party/mbedtls/repo/library/pkcs5.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/pkcs5.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/pkcs5.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pkcs5.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pkcs5.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/platform.o:  $(chip_root)/third_party/mbedtls/repo/library/platform.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/platform.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/platform.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/platform.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/platform.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha256.o:  $(chip_root)/third_party/mbedtls/repo/library/sha256.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/sha256.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/sha256.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha256.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha256.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha512.o:  $(chip_root)/third_party/mbedtls/repo/library/sha512.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/sha512.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/sha512.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha512.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/sha512.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pem.o:  $(chip_root)/third_party/mbedtls/repo/library/pem.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/pem.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/pem.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pem.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/pem.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509_create.o:  $(chip_root)/third_party/mbedtls/repo/library/x509_create.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/x509_create.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/x509_create.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509_create.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509_create.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/base64.o:  $(chip_root)/third_party/mbedtls/repo/library/base64.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/base64.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/base64.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/base64.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/base64.o
-
-$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509.o:  $(chip_root)/third_party/mbedtls/repo/library/x509.c
-		@echo 'Building $(chip_root)/third_party/mbedtls/repo/library/x509.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(chip_root)/third_party/mbedtls/repo/library/x509.c
-CDEPS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509.d
-OBJS +=$(OUTPUT_DIR)/sdk/third_party/mbedtls/repo/library/x509.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dh.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dh.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dh.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dh.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dh.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dh.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dsa.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dsa.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dsa.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/ecc_dsa.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dsa.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/ecc_dsa.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/error.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/error.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/error.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/error.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/error.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/error.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/oid.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/oid.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/oid.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/oid.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/oid.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/oid.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk_wrap.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk_wrap.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk_wrap.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pk_wrap.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk_wrap.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pk_wrap.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkparse.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkparse.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkparse.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkparse.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkparse.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkparse.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkwrite.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkwrite.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkwrite.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/pkwrite.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkwrite.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/pkwrite.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/platform_util.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/platform_util.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/platform_util.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/platform_util.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/platform_util.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/platform_util.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509_crt.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509_crt.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509_crt.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509_crt.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509_crt.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509_crt.o
-
-$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509write_csr.o:  $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509write_csr.c
-		@echo 'Building $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509write_csr.c'
-		@mkdir -p $(@D)
-		$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(sdk_support_root)/matter/mbedtls/tinycrypt/src/x509write_csr.c
-CDEPS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509write_csr.d
-OBJS +=$(OUTPUT_DIR)/sdk/matter/mbedtls/tinycrypt/src/x509write_csr.o
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/board/silabs/src/rsi_board.o: $(SDK_PATH)/../wiseconnect/components/board/silabs/src/rsi_board.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/board/silabs/src/rsi_board.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/board/silabs/src/rsi_board.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/board/silabs/src/rsi_board.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/board/silabs/src/rsi_board.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/common/src/sl_utility.o: $(SDK_PATH)/../wiseconnect/components/common/src/sl_utility.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/common/src/sl_utility.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/common/src/sl_utility.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/common/src/sl_utility.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/common/src/sl_utility.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/ipmu_apis.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/iPMU_prog/iPMU_dotc/rsi_system_config_917.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_deepsleep_soc.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/rsi_ps_ram_func.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/startup_si91x.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/chip/src/system_si91x.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/core/config/src/rsi_nvic_priorities_config.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/UDMA.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/cmsis_driver/USART.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/clock_update.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_crc.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_egpio.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_timers.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_udma_wrapper.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/peripheral_drivers/src/rsi_usart.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_common_flash_intf.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/service/nvm3/src/sl_si91x_nvm3_hal_flash.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ipmu.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_pll.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_power_save.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_rtc.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_temp_sensor.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_time_period.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_ulpss_clk.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/mcu/drivers/systemlevel/src/rsi_wwdt.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_ram.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/rsi_hal_mcu_m4_rom.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_platform_wireless.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_bus.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sl_si91x_timer.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/ahb_interface/src/sli_siwx917_soc.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/errno/src/sl_si91x_errno.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/firmware_upgrade/firmware_upgradation.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/host_mcu/si91x/siwx917_soc_ncp_host.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/icmp/sl_net_ping.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/memory/malloc_buffers.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_rsi_utility.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_net_si91x_integration_handler.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_credentials.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/sl_net/src/sl_si91x_net_internal_stack.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_rsi_utility.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_callback_framework.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/src/sl_si91x_driver.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.o: $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/device/silabs/si91x/wireless/threading/sli_si91x_multithreaded.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/si91x/sl_wifi.o: $(SDK_PATH)/../wiseconnect/components/protocol/wifi/si91x/sl_wifi.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/protocol/wifi/si91x/sl_wifi.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/protocol/wifi/si91x/sl_wifi.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/si91x/sl_wifi.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/si91x/sl_wifi.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.o: $(SDK_PATH)/../wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/protocol/wifi/src/sl_wifi_callback_framework.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/si91x/sl_net_si91x.o: $(SDK_PATH)/../wiseconnect/components/service/network_manager/si91x/sl_net_si91x.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/service/network_manager/si91x/sl_net_si91x.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/service/network_manager/si91x/sl_net_si91x.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/si91x/sl_net_si91x.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/si91x/sl_net_si91x.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net.o: $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.o: $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_certificate_store.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.o: $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_credentials.o
+
+$(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.o: $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/../wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.c
+CDEPS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.d
+OBJS += $(OUTPUT_DIR)/sdk/_/wiseconnect/components/service/network_manager/src/sl_net_basic_profiles.o
+
+$(OUTPUT_DIR)/sdk/platform/CMSIS/RTOS2/Source/os_systick.o: $(SDK_PATH)/platform/CMSIS/RTOS2/Source/os_systick.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/CMSIS/RTOS2/Source/os_systick.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/CMSIS/RTOS2/Source/os_systick.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/CMSIS/RTOS2/Source/os_systick.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/CMSIS/RTOS2/Source/os_systick.o
+
+$(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.o: $(SDK_PATH)/platform/common/src/sl_assert.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/common/src/sl_assert.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/common/src/sl_assert.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.o
+
+$(OUTPUT_DIR)/sdk/platform/common/src/sl_slist.o: $(SDK_PATH)/platform/common/src/sl_slist.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/common/src/sl_slist.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/common/src/sl_slist.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_slist.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_slist.o
+
+$(OUTPUT_DIR)/sdk/platform/common/src/sl_string.o: $(SDK_PATH)/platform/common/src/sl_string.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/common/src/sl_string.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/common/src/sl_string.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_string.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_string.o
+
+$(OUTPUT_DIR)/sdk/platform/common/src/sli_cmsis_os2_ext_task_register.o: $(SDK_PATH)/platform/common/src/sli_cmsis_os2_ext_task_register.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/common/src/sli_cmsis_os2_ext_task_register.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/common/src/sli_cmsis_os2_ext_task_register.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/common/src/sli_cmsis_os2_ext_task_register.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/common/src/sli_cmsis_os2_ext_task_register.o
+
+# $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.o: $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_default_common_linker.c
+# 	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_default_common_linker.c'
+# 	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+# 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_default_common_linker.c
+# CDEPS += $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.d
+# OBJS += $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_default_common_linker.o
+
+$(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.o: $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_lock.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_lock.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emdrv/nvm3/src/nvm3_lock.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/emdrv/nvm3/src/nvm3_lock.o
+
+$(OUTPUT_DIR)/sdk/platform/emlib/src/em_core.o: $(SDK_PATH)/platform/emlib/src/em_core.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/emlib/src/em_core.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emlib/src/em_core.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_core.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_core.o
+
+$(OUTPUT_DIR)/sdk/platform/service/device_init/src/sl_device_init_nvic.o: $(SDK_PATH)/platform/service/device_init/src/sl_device_init_nvic.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/service/device_init/src/sl_device_init_nvic.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/service/device_init/src/sl_device_init_nvic.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/service/device_init/src/sl_device_init_nvic.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/service/device_init/src/sl_device_init_nvic.o
+
+$(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream.o: $(SDK_PATH)/platform/service/iostream/src/sl_iostream.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/service/iostream/src/sl_iostream.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/service/iostream/src/sl_iostream.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream.o
+
+$(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream_rtt.o: $(SDK_PATH)/platform/service/iostream/src/sl_iostream_rtt.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/service/iostream/src/sl_iostream_rtt.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/service/iostream/src/sl_iostream_rtt.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream_rtt.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/service/iostream/src/sl_iostream_rtt.o
+
+$(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_init.o: $(SDK_PATH)/platform/service/system/src/sl_system_init.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/service/system/src/sl_system_init.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/service/system/src/sl_system_init.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_init.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_init.o
+
+$(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_kernel.o: $(SDK_PATH)/platform/service/system/src/sl_system_kernel.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/platform/service/system/src/sl_system_kernel.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/service/system/src/sl_system_kernel.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_kernel.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/service/system/src/sl_system_kernel.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/cmsis/Source/cmsis_os2.o: $(SDK_PATH)/util/third_party/freertos/cmsis/Source/cmsis_os2.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/cmsis/Source/cmsis_os2.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/cmsis/Source/cmsis_os2.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/cmsis/Source/cmsis_os2.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/cmsis/Source/cmsis_os2.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/croutine.o: $(SDK_PATH)/util/third_party/freertos/kernel/croutine.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/croutine.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/croutine.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/croutine.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/croutine.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/event_groups.o: $(SDK_PATH)/util/third_party/freertos/kernel/event_groups.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/event_groups.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/event_groups.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/event_groups.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/event_groups.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/list.o: $(SDK_PATH)/util/third_party/freertos/kernel/list.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/list.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/list.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/list.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/list.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.o: $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/GCC/ARM_CM4F/port.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/MemMang/heap_4.o: $(SDK_PATH)/util/third_party/freertos/kernel/portable/MemMang/heap_4.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/portable/MemMang/heap_4.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/portable/MemMang/heap_4.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/MemMang/heap_4.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/portable/MemMang/heap_4.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/queue.o: $(SDK_PATH)/util/third_party/freertos/kernel/queue.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/queue.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/queue.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/queue.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/queue.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/stream_buffer.o: $(SDK_PATH)/util/third_party/freertos/kernel/stream_buffer.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/stream_buffer.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/stream_buffer.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/stream_buffer.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/stream_buffer.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/tasks.o: $(SDK_PATH)/util/third_party/freertos/kernel/tasks.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/tasks.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/tasks.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/tasks.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/tasks.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/timers.o: $(SDK_PATH)/util/third_party/freertos/kernel/timers.c
+	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/freertos/kernel/timers.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/freertos/kernel/timers.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/timers.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/freertos/kernel/timers.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.o: $(SDK_PATH)/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.c
 	@$(POSIX_TOOL_PATH)echo 'Building $(SDK_PATH)/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.c'
@@ -780,40 +780,411 @@ $(OUTPUT_DIR)/sdk/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.o: $(SDK_
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/segger/systemview/SEGGER/SEGGER_RTT.o
 
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/AttestationKeyMbed.o: ../../../examples/platform/silabs/provision/AttestationKeyMbed.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/AttestationKeyMbed.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/AttestationKeyMbed.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/AttestationKeyMbed.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/AttestationKeyMbed.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionChannelRTT.o: ../../../examples/platform/silabs/provision/ProvisionChannelRTT.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionChannelRTT.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionChannelRTT.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionChannelRTT.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionChannelRTT.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionEncoder.o: ../../../examples/platform/silabs/provision/ProvisionEncoder.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionEncoder.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionEncoder.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionEncoder.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionEncoder.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionManager.o: ../../../examples/platform/silabs/provision/ProvisionManager.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionManager.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionManager.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionManager.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionManager.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol.o: ../../../examples/platform/silabs/provision/ProvisionProtocol.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionProtocol.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionProtocol.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol2.o: ../../../examples/platform/silabs/provision/ProvisionProtocol2.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionProtocol2.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionProtocol2.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol2.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionProtocol2.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorage.o: ../../../examples/platform/silabs/provision/ProvisionStorage.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionStorage.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionStorage.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorage.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorage.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageCustom.o: ../../../examples/platform/silabs/provision/ProvisionStorageCustom.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionStorageCustom.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionStorageCustom.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageCustom.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageCustom.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageDefault.o: ../../../examples/platform/silabs/provision/ProvisionStorageDefault.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/provision/ProvisionStorageDefault.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/provision/ProvisionStorageDefault.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageDefault.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/provision/ProvisionStorageDefault.o
+
+$(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/syscalls_stubs.o: ../../../examples/platform/silabs/syscalls_stubs.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../examples/platform/silabs/syscalls_stubs.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../examples/platform/silabs/syscalls_stubs.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/syscalls_stubs.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/examples/platform/silabs/syscalls_stubs.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/Base64.o: ../../../src/lib/support/Base64.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/Base64.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/Base64.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/Base64.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/Base64.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/BytesToHex.o: ../../../src/lib/support/BytesToHex.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/BytesToHex.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/BytesToHex.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/BytesToHex.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/BytesToHex.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem-Malloc.o: ../../../src/lib/support/CHIPMem-Malloc.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/CHIPMem-Malloc.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/CHIPMem-Malloc.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem-Malloc.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem-Malloc.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem.o: ../../../src/lib/support/CHIPMem.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/CHIPMem.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/CHIPMem.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPMem.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPPlatformMemory.o: ../../../src/lib/support/CHIPPlatformMemory.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/CHIPPlatformMemory.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/CHIPPlatformMemory.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPPlatformMemory.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/CHIPPlatformMemory.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/lib/support/logging/TextOnlyLogging.o: ../../../src/lib/support/logging/TextOnlyLogging.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/lib/support/logging/TextOnlyLogging.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/lib/support/logging/TextOnlyLogging.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/logging/TextOnlyLogging.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/lib/support/logging/TextOnlyLogging.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/Logging.o: ../../../src/platform/silabs/Logging.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/platform/silabs/Logging.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/platform/silabs/Logging.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/Logging.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/Logging.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SilabsConfig.o: ../../../src/platform/silabs/SilabsConfig.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/platform/silabs/SilabsConfig.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/platform/silabs/SilabsConfig.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SilabsConfig.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SilabsConfig.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.o: ../../../src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/platform/silabs/SiWx917/CHIPCryptoPALTinyCrypt.o
+
+$(OUTPUT_DIR)/project/_/_/_/src/setup_payload/Base38Encode.o: ../../../src/setup_payload/Base38Encode.cpp
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../src/setup_payload/Base38Encode.cpp'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../../src/setup_payload/Base38Encode.cpp
+CXXDEPS += $(OUTPUT_DIR)/project/_/_/_/src/setup_payload/Base38Encode.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/src/setup_payload/Base38Encode.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/aes.o: ../../../third_party/mbedtls/repo/library/aes.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/aes.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/aes.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/aes.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/aes.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1parse.o: ../../../third_party/mbedtls/repo/library/asn1parse.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/asn1parse.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/asn1parse.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1parse.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1parse.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1write.o: ../../../third_party/mbedtls/repo/library/asn1write.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/asn1write.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/asn1write.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1write.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/asn1write.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/base64.o: ../../../third_party/mbedtls/repo/library/base64.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/base64.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/base64.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/base64.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/base64.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/bignum.o: ../../../third_party/mbedtls/repo/library/bignum.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/bignum.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/bignum.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/bignum.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/bignum.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ccm.o: ../../../third_party/mbedtls/repo/library/ccm.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ccm.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ccm.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ccm.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ccm.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher.o: ../../../third_party/mbedtls/repo/library/cipher.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/cipher.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/cipher.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher_wrap.o: ../../../third_party/mbedtls/repo/library/cipher_wrap.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/cipher_wrap.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/cipher_wrap.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher_wrap.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/cipher_wrap.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/constant_time.o: ../../../third_party/mbedtls/repo/library/constant_time.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/constant_time.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/constant_time.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/constant_time.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/constant_time.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ctr_drbg.o: ../../../third_party/mbedtls/repo/library/ctr_drbg.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ctr_drbg.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ctr_drbg.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ctr_drbg.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ctr_drbg.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdh.o: ../../../third_party/mbedtls/repo/library/ecdh.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ecdh.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ecdh.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdh.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdh.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdsa.o: ../../../third_party/mbedtls/repo/library/ecdsa.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ecdsa.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ecdsa.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdsa.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecdsa.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp.o: ../../../third_party/mbedtls/repo/library/ecp.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ecp.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ecp.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp_curves.o: ../../../third_party/mbedtls/repo/library/ecp_curves.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/ecp_curves.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/ecp_curves.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp_curves.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/ecp_curves.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/entropy.o: ../../../third_party/mbedtls/repo/library/entropy.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/entropy.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/entropy.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/entropy.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/entropy.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hkdf.o: ../../../third_party/mbedtls/repo/library/hkdf.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/hkdf.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/hkdf.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hkdf.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hkdf.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hmac_drbg.o: ../../../third_party/mbedtls/repo/library/hmac_drbg.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/hmac_drbg.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/hmac_drbg.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hmac_drbg.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/hmac_drbg.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/md.o: ../../../third_party/mbedtls/repo/library/md.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/md.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/md.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/md.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/md.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pem.o: ../../../third_party/mbedtls/repo/library/pem.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/pem.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/pem.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pem.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pem.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pkcs5.o: ../../../third_party/mbedtls/repo/library/pkcs5.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/pkcs5.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/pkcs5.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pkcs5.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/pkcs5.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/platform.o: ../../../third_party/mbedtls/repo/library/platform.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/platform.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/platform.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/platform.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/platform.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha256.o: ../../../third_party/mbedtls/repo/library/sha256.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/sha256.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/sha256.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha256.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha256.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha512.o: ../../../third_party/mbedtls/repo/library/sha512.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/sha512.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/sha512.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha512.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/sha512.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509.o: ../../../third_party/mbedtls/repo/library/x509.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/x509.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/x509.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509_create.o: ../../../third_party/mbedtls/repo/library/x509_create.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/mbedtls/repo/library/x509_create.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/mbedtls/repo/library/x509_create.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509_create.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/mbedtls/repo/library/x509_create.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dh.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/ecc_dsa.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/error.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/oid.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pk_wrap.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkparse.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/pkwrite.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/platform_util.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509_crt.o
+
+$(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.o: ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../../third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.d
+OBJS += $(OUTPUT_DIR)/project/_/_/_/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/src/x509write_csr.o
+
 $(OUTPUT_DIR)/project/_/_/generator/app.o: ../../generator/app.cpp
 	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/app.cpp'
 	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../generator/app.cpp
 CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/app.d
 OBJS += $(OUTPUT_DIR)/project/_/_/generator/app.o
-
-$(OUTPUT_DIR)/project/_/_/generator/commands.o: ../../generator/commands.cpp
-	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/commands.cpp'
-	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../generator/commands.cpp
-CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/commands.d
-OBJS += $(OUTPUT_DIR)/project/_/_/generator/commands.o
-
-$(OUTPUT_DIR)/project/_/_/generator/config.o: ../../generator/config.cpp
-	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/config.cpp'
-	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../generator/config.cpp
-CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/config.d
-OBJS += $(OUTPUT_DIR)/project/_/_/generator/config.o
-
-$(OUTPUT_DIR)/project/_/_/generator/credentials.o: ../../generator/credentials.cpp
-	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/credentials.cpp'
-	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../generator/credentials.cpp
-CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/credentials.d
-OBJS += $(OUTPUT_DIR)/project/_/_/generator/credentials.o
-
-$(OUTPUT_DIR)/project/_/_/generator/encoding.o: ../../generator/encoding.cpp
-	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/encoding.cpp'
-	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ ../../generator/encoding.cpp
-CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/encoding.d
-OBJS += $(OUTPUT_DIR)/project/_/_/generator/encoding.o
 
 $(OUTPUT_DIR)/project/_/_/generator/main.o: ../../generator/main.cpp
 	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/main.cpp'
@@ -822,8 +1193,28 @@ $(OUTPUT_DIR)/project/_/_/generator/main.o: ../../generator/main.cpp
 CXXDEPS += $(OUTPUT_DIR)/project/_/_/generator/main.d
 OBJS += $(OUTPUT_DIR)/project/_/_/generator/main.o
 
+$(OUTPUT_DIR)/project/_/_/generator/nvm3_si917.o: ../../generator/nvm3_si917.c
+	@$(POSIX_TOOL_PATH)echo 'Building ../../generator/nvm3_si917.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ ../../generator/nvm3_si917.c
+CDEPS += $(OUTPUT_DIR)/project/_/_/generator/nvm3_si917.d
+OBJS += $(OUTPUT_DIR)/project/_/_/generator/nvm3_si917.o
+
+$(OUTPUT_DIR)/project/autogen/sl_event_handler.o: autogen/sl_event_handler.c
+	@$(POSIX_TOOL_PATH)echo 'Building autogen/sl_event_handler.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ autogen/sl_event_handler.c
+CDEPS += $(OUTPUT_DIR)/project/autogen/sl_event_handler.d
+OBJS += $(OUTPUT_DIR)/project/autogen/sl_event_handler.o
+
+$(OUTPUT_DIR)/project/autogen/sl_iostream_handles.o: autogen/sl_iostream_handles.c
+	@$(POSIX_TOOL_PATH)echo 'Building autogen/sl_iostream_handles.c'
+	@$(POSIX_TOOL_PATH)mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ autogen/sl_iostream_handles.c
+CDEPS += $(OUTPUT_DIR)/project/autogen/sl_iostream_handles.d
+OBJS += $(OUTPUT_DIR)/project/autogen/sl_iostream_handles.o
 
 # Automatically-generated Simplicity Studio Metadata
 # Please do not edit or delete these lines!
-# SIMPLICITY_STUDIO_METADATA=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=END_SIMPLICITY_STUDIO_METADATA
+# SIMPLICITY_STUDIO_METADATA=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END_SIMPLICITY_STUDIO_METADATA
 # END OF METADATA

@@ -128,37 +128,6 @@ source_set("efr-matter-shell") {
   }
 }
 
-config("attestation-credentials-config") {
-  include_dirs = [ "${chip_root}" ]
-}
-
-source_set("efr32-attestation-credentials") {
-  sources = [
-    "${silabs_common_plat_dir}/SilabsDeviceAttestationCreds.cpp",
-    "${silabs_common_plat_dir}/SilabsDeviceAttestationCreds.h",
-  ]
-
-  public_deps = [
-    "${chip_root}/src/credentials",
-    "${chip_root}/src/platform:platform_base",
-  ]
-
-  public_configs = [ ":attestation-credentials-config" ]
-}
-
-source_set("silabs-factory-data-provider") {
-  sources = [
-    "${silabs_common_plat_dir}/SilabsDeviceDataProvider.cpp",
-    "${silabs_common_plat_dir}/SilabsDeviceDataProvider.h",
-  ]
-
-  public_deps = [
-    "${chip_root}/src/credentials",
-    "${chip_root}/src/platform:platform_base",
-    "${chip_root}/src/setup_payload",
-  ]
-}
-
 config("efr32-common-config") {
   defines = [ "OTA_PERIODIC_TIMEOUT=${ota_periodic_query_timeout_sec}" ]
 
@@ -314,13 +283,8 @@ source_set("efr32-common") {
     deps += [ ":efr-matter-shell" ]
   }
 
-  # Attestation Credentials
-  public_deps += [ ":efr32-attestation-credentials" ]
-
-  # Factory Data Provider
-  if (use_efr32_factory_data_provider) {
-    public_deps += [ ":silabs-factory-data-provider" ]
-  }
+  # Provisionned data and credentials
+  public_deps += [ "${silabs_common_plat_dir}/provision:provision-efr32" ]
 
   if (silabs_test_event_trigger_enabled) {
     sources +=

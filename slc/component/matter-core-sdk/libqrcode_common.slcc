@@ -13,5 +13,8 @@ provides:
 quality: production
 source:
 - path: examples/common/QRCode/repo/c/qrcodegen.c
+toolchain_settings:
+  - option: gcc_compiler_option
+    value:  -Wno-type-limits
 ui_hints:
   visibility: never

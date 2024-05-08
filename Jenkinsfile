@@ -26,7 +26,7 @@ wifisdkPath = 'extension/wifi_sdk'
 savedDirectory = "saved_workspace"
 // Update this value every time the code move to the next CSA Matter release number (1.3, 1.4 etc)
 // TODO: Find a better mechanism to pass this info to the SQA pipeline
-_CSA_MATTER_VERSION= "1.2"
+_CSA_MATTER_VERSION= "1.3"
 
 //This object will be populated by reading the pipeline_metadata.yml file
 pipelineMetadata = null

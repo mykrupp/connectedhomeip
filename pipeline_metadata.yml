@@ -21,7 +21,7 @@
       browserUrl: 'https://stash.silabs.com/projects/REDPINE/repos/wifi_sdk'
       gitUrl: 'ssh://git@stash.silabs.com/redpine/wifi_sdk.git'
     simplicityCommanderPath: '/home/buildengineer/tools/simplicity_commander_linux_x64'
-    matterExtensionVersion: '2.2.1'
+    matterExtensionVersion: '2.2.2'
     commander_info:
       commanderBranch: 'master'
       browserUrl: 'https://stash.silabs.com/projects/TOOLCHAIN_INTERNAL/repos/simplicity_commander_linux_x64'

@@ -81,7 +81,7 @@ if __name__ == '__main__':
     # id: matter
     # version: 2.0.0
     replace_text(str(ROOT)+"/matter.slce","id: matter\nversion: "+VERSION_REGEX_FORMAT,"id: matter\nversion: "+EXTENSION_NEW_VERSION)
-    replace_text(str(ROOT)+"/matter.slce","version: \""+VERSION_REGEX_FORMAT+"\"","version: "+EXTENSION_NEW_VERSION)
+    replace_text(str(ROOT)+"/matter.slce","version: "+VERSION_REGEX_FORMAT+"","version: "+EXTENSION_NEW_VERSION)
 
     #Update the geko_sdk in matte.slce
     # REGEX FORMAT:

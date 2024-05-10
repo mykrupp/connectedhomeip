@@ -26,8 +26,6 @@ component:
     from: matter
   - id: matter_crypto
     from: matter
-#  - id: matter_gatt
-#    from: matter
 
   - id: matter_efr32_ncp
     from: matter
@@ -101,6 +99,8 @@ component:
   - id: matter_subscription_persistence
     from: matter
   - id: matter_temperature_sensor
+    from: matter
+  - id: matter_shell
     from: matter
   - id: sensor_rht
 

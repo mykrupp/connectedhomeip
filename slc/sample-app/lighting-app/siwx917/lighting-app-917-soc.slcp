@@ -89,6 +89,8 @@ component:
     from: matter
   - id: matter_power_source
     from: matter
+  - id: matter_shell
+    from: matter
 
   - id: matter_lighting
     from: matter

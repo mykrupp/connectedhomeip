@@ -97,6 +97,8 @@ component:
     from: matter
   - id: matter_subscription_persistence
     from: matter
+  - id: matter_shell
+    from: matter
 
   - id: efx_ncp_custom_host_mcu
     from: matter

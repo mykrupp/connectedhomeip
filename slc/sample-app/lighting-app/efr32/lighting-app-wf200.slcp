@@ -41,6 +41,8 @@ component:
     from: matter   
   - id: app_common
     from: matter
+  - id: matter_shell
+    from: matter
 
   - id: matter_access_control
     from: matter

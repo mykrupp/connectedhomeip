@@ -26,8 +26,6 @@ component:
     from: matter
   - id: matter_crypto
     from: matter
-#  - id: matter_gatt
-#    from: matter
 
   - id: matter_efr32_ncp
     from: matter
@@ -97,6 +95,8 @@ component:
   - id: matter_subscription_timeout_resumption
     from: matter
   - id: matter_subscription_persistence
+    from: matter
+  - id: matter_shell
     from: matter
 
 # Require LCD and QR Code components only on the boards that support LCD

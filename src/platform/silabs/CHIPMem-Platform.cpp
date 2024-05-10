@@ -44,9 +44,6 @@
 // #include <lib/core/CHIPConfig.h>
 #include <lib/support/CHIPMem.h>
 
-#include "heap_4_silabs.h"
-#include "task.h"
-
 #include <atomic>
 #include <cstdio>
 #include <cstring>

@@ -30,7 +30,9 @@
 #endif
 
 // SLC-FIX
+#if ! defined(IS_GN_BUILD)
 #include "sl_matter_ota_config.h"
+#endif
 
 class OTAConfig
 {

@@ -58,3 +58,4 @@ requires:
   - name: rail_lib_multiprotocol
   - name: rail_util_pti
   - name: emlib
+  - name: freertos_heap_3

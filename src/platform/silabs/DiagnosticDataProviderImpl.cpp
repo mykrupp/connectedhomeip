@@ -48,8 +48,7 @@ DiagnosticDataProviderImpl & DiagnosticDataProviderImpl::GetDefaultInstance()
 
 // Software Diagnostics Getters
 /*
- * The following Heap stats are compiled values done by the FreeRTOS Heap4 implementation.
- * See /examples/platform/silabs/heap_4_silabs.c
+ * The following Heap stats are compiled values done by the sl_memory_manager.
  * It keeps track of the number of calls to allocate and free memory as well as the
  * number of free bytes remaining, but says nothing about fragmentation.
  */

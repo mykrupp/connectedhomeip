@@ -48,7 +48,6 @@ source:
 -   path: examples/platform/silabs/display/demo-ui.c
 -   path: examples/platform/silabs/display/lcd.cpp
 -   path: examples/platform/silabs/efr32/uart.cpp
--   path: examples/platform/silabs/heap_4_silabs.c
 -   path: examples/platform/silabs/silabs_utils.cpp
 -   path: examples/platform/silabs/syscalls_stubs.cpp
 ui_hints:

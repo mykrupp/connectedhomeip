@@ -166,7 +166,11 @@ extern uint32_t SystemCoreClock;
 
 /* Software timer related definitions. */
 #define configUSE_TIMERS (1)
+#ifdef SLI_SI917
+#define configTIMER_TASK_PRIORITY (55) /* Highest priority */
+#else
 #define configTIMER_TASK_PRIORITY (40) /* Highest priority */
+#endif // SLI_SI917
 #define configTIMER_QUEUE_LENGTH (10)
 #define configTIMER_TASK_STACK_DEPTH (1024)
 

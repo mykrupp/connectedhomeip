@@ -32,6 +32,9 @@ package: Matter
 provides:
 - name: matter_libbdx
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/protocols/bdx/BdxMessages.cpp
 - path: src/protocols/bdx/BdxTransferDiagnosticLog.cpp

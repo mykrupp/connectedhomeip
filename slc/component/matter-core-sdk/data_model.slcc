@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_data_model
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/app/data-model/FabricScopedPreEncodedValue.cpp
 -   path: src/app/data-model/PreEncodedValue.cpp

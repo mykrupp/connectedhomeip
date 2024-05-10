@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_librawtransport
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/transport/raw/BLE.cpp
 -   path: src/transport/raw/MessageHeader.cpp

@@ -5,6 +5,9 @@ description: >
 label: Src Platform EFR32 Components
 category: Matter-WiFi|Platform
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 define:
   - name: CORTEXM3_EFM32_MICRO
   - name: EFR32_SERIES2_CONFIG4_MICRO

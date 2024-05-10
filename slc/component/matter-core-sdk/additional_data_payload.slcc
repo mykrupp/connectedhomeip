@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_additional_data_payload
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/setup_payload/AdditionalDataPayloadGenerator.cpp
 -   path: src/setup_payload/AdditionalDataPayloadParser.cpp

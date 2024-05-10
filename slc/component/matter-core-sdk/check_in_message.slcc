@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_check_in_message
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/protocols/secure_channel/CheckinMessage.cpp
 ui_hints:

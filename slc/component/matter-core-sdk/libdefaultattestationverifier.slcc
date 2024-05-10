@@ -21,6 +21,9 @@ package: Matter
 provides:
 -   name: matter_libdefaultattestationverifier
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/credentials/attestation_verifier/DacOnlyPartialAttestationVerifier.cpp
 -   path: src/credentials/attestation_verifier/DefaultDeviceAttestationVerifier.cpp

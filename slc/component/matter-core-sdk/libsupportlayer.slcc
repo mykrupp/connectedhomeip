@@ -89,6 +89,9 @@ package: Matter
 provides:
 - name: matter_libsupportlayer
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/lib/support/Base64.cpp
 - path: src/lib/support/BufferReader.cpp

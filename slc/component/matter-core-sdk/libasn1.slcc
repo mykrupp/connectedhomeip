@@ -27,6 +27,9 @@ package: Matter
 provides:
 - name: matter_libasn1
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/lib/asn1/ASN1Error.cpp
 - path: src/lib/asn1/ASN1OID.cpp

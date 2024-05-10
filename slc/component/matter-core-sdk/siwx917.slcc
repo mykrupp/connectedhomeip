@@ -120,6 +120,9 @@ package: Matter
 provides:
   - name: matter_siwx917
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 requires:
   - name: matter_siwx917_common
   - name: sl_si91x_trng

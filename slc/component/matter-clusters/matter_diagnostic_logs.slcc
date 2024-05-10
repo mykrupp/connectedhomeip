@@ -7,6 +7,9 @@ id: matter_diagnostic_logs
 package: Matter
 label: Diagnostic Logs Server Cluster
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 provides:
   - name: matter_diagnostic_logs
 source:

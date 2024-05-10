@@ -13,6 +13,9 @@ id: matter_icd_management
 package: Matter
 label: Icd Management Server Cluster
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 provides:
   - name: matter_icd_management
 define:

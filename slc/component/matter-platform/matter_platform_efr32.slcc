@@ -4,6 +4,9 @@ description: EFR32 platform support for Matter
 package: Matter
 category: Platform
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 
 config_file:
   - path: examples/platform/silabs/FreeRTOSConfig.h

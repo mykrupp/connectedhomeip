@@ -131,6 +131,9 @@ package: Matter
 provides:
 - name: matter_app_common
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/app/reporting/reporting.cpp
 - path: src/app/util/DataModelHandler.cpp

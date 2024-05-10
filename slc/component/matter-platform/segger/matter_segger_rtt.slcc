@@ -3,7 +3,10 @@ label: "Matter Segger RTT"
 package: "Matter"
 description: "Matter-specific version of the platform's Segger RTT component"
 category: Platform|Utils
-quality: "production"
+quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 config_file:
   - path: "third_party/silabs/gecko_sdk/util/third_party/segger/systemview/Config/SEGGER_RTT_Conf.h"
 source:

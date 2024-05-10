@@ -48,6 +48,9 @@ package: Matter
 provides:
 -   name: matter_siwx917_common
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: examples/platform/silabs/LEDWidget.cpp
 -   path: examples/platform/silabs/SiWx917/SiWx917/sl_wifi_if.cpp

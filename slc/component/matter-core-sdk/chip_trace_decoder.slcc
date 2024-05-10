@@ -22,6 +22,9 @@ package: Matter
 provides:
 -   name: matter_chip_trace_decoder
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: examples/common/tracing/TraceDecoder.cpp
 -   path: examples/common/tracing/TraceDecoderArgumentParser.cpp

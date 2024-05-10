@@ -4,6 +4,9 @@ package: Matter
 description: WSTK LED Support for Matter applications
 category: Platform
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 provides:
   - name: matter_wstk_leds
 requires:

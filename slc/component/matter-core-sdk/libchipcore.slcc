@@ -60,6 +60,9 @@ package: Matter
 provides:
 - name: matter_libchipcore
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/lib/core/CHIPKeyIds.cpp
 - path: src/lib/core/OTAImageHeader.cpp

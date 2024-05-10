@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_libfileattestationtruststore
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/credentials/attestation_verifier/FileAttestationTrustStore.cpp
 ui_hints:

@@ -28,6 +28,9 @@ package: Matter
 provides:
 - name: matter_libchipprotocols
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/protocols/Protocols.cpp
 - path: src/protocols/echo/EchoClient.cpp

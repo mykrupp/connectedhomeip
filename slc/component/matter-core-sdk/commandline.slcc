@@ -23,6 +23,9 @@ package: Matter
 provides:
 -   name: matter_commandline
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: examples/common/tracing/TracingCommandLineArgument.cpp
 ui_hints:

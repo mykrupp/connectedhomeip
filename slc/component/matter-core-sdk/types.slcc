@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_types
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/app/util/attribute-metadata.cpp
 -   path: src/app/util/ember-strings.cpp

@@ -39,6 +39,9 @@ package: Matter
 provides:
 -   name: matter_efr32_common
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: examples/platform/silabs/BaseApplication.cpp
 -   path: examples/platform/silabs/LEDWidget.cpp

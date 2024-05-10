@@ -4,6 +4,9 @@ description: Bundles all necessary core Matter components
 package: "Matter"
 category: Stack
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 config_file:
   - path: slc/config/sl_matter_config.h
     file_id: matter_config

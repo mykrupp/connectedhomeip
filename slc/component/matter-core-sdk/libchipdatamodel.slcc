@@ -81,6 +81,9 @@ package: Matter
 provides:
 - name: matter_libchipdatamodel
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/app/AttributeAccessInterface.cpp
 - path: src/app/AttributePathExpandIterator.cpp

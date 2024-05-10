@@ -18,6 +18,9 @@ package: Matter
 provides:
 -   name: matter_text_only_logging
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/lib/support/logging/TextOnlyLogging.cpp
 ui_hints:

@@ -21,6 +21,9 @@ package: Matter
 provides:
 -   name: matter_nodatamodel
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/controller/EmptyDataModelHandler.cpp
 ui_hints:

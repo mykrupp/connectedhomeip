@@ -43,6 +43,9 @@ package: Matter
 provides:
 - name: matter_libsystemlayer
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/system/SystemClock.cpp
 - path: src/system/SystemError.cpp

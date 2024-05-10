@@ -18,6 +18,9 @@ package: Matter
 provides:
 -   name: matter_test_paa_store
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/credentials/attestation_verifier/TestPAAStore.cpp
 ui_hints:

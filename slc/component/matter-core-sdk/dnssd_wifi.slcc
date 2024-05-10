@@ -68,6 +68,9 @@ package: Matter
 provides:
 - name: matter_dnssd_wifi
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/lib/dnssd/ActiveResolveAttempts.cpp
 - path: src/lib/dnssd/Advertiser_ImplMinimalMdns.cpp

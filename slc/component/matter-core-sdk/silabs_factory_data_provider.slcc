@@ -21,6 +21,9 @@ package: Matter
 provides:
 - name: matter_silabs_factory_data_provider
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: examples/platform/silabs/SilabsDeviceDataProvider.cpp
 ui_hints:

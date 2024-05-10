@@ -35,6 +35,9 @@ package: Matter
 provides:
 - name: matter_tracing
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/tracing/registry.cpp
 ui_hints:

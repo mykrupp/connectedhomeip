@@ -4,6 +4,9 @@ description: Configuration of the Attestation Certificate provisioning. Set ENAB
 package: "Matter"
 category: Platform|Security
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 provides:
   - name: matter_provision
 

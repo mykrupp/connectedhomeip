@@ -48,6 +48,9 @@ package: Matter
 provides:
 - name: matter_libinetlayer
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/inet/IPAddress-StringFuncts.cpp
 - path: src/inet/IPAddress.cpp

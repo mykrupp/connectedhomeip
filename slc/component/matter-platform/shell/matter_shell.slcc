@@ -4,6 +4,9 @@ description: Enables the Matter Shell (CHIP Shell) functionality
 package: Matter
 category: Stack|Shell
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 requires:
 - name: matter_uart
 - name: matter_thread_cli

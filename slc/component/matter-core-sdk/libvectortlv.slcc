@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_libvectortlv
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/lib/core/TLVVectorWriter.cpp
 ui_hints:

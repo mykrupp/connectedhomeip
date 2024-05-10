@@ -21,6 +21,9 @@ package: Matter
 provides:
 -   name: matter_check_in_sender
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/app/icd/server/ICDCheckInSender.cpp
 requires:

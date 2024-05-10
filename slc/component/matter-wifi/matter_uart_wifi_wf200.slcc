@@ -4,6 +4,9 @@ description: Enable sources and define for uart as used by matter components (WF
 package: "Matter"
 category: "Matter-WiFi|Platform|UART"
 quality: production
+metadata:
+  sbom:
+    license: Zlib
 requires:
   - name: uartdrv_usart
     condition:

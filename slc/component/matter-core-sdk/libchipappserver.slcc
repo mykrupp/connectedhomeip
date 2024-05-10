@@ -31,6 +31,9 @@ package: Matter
 provides:
 - name: matter_libchipappserver
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/app/server/AclStorage.cpp
 - path: src/app/server/CommissioningWindowManager.cpp

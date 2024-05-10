@@ -37,6 +37,9 @@ package: Matter
 provides:
 - name: matter_libsecurechannel
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/protocols/secure_channel/CASEDestinationId.cpp
 - path: src/protocols/secure_channel/CASEServer.cpp

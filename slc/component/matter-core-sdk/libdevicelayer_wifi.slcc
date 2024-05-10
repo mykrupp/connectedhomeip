@@ -76,6 +76,9 @@ package: Matter
 provides:
 - name: matter_libdevicelayer_wifi
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/platform/CommissionableDataProvider.cpp
 - path: src/platform/DeviceControlServer.cpp

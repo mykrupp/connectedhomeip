@@ -19,6 +19,9 @@ package: Matter
 provides:
 -   name: matter_libsecurechanneltypes
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 -   path: src/protocols/secure_channel/StatusReport.cpp
 ui_hints:

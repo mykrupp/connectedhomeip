@@ -35,6 +35,9 @@ package: Matter
 provides:
 - name: matter_libsetuppayload
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/setup_payload/Base38Decode.cpp
 - path: src/setup_payload/Base38Encode.cpp

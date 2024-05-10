@@ -132,6 +132,9 @@ package: Matter
 provides:
 - name: matter_efr32_wifi
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/platform/FreeRTOS/SystemTimeSupport.cpp
 - path: src/platform/SingletonConfigurationManager.cpp

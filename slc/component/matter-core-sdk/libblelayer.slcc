@@ -36,6 +36,9 @@ package: Matter
 provides:
 - name: matter_libblelayer
 quality: production
+metadata:
+  sbom:
+    license: "Apache 2.0"
 source:
 - path: src/ble/BLEEndPoint.cpp
 - path: src/ble/BleError.cpp

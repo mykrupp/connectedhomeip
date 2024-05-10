@@ -161,22 +161,22 @@ def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "",
 
 def testCopyContents(){
     def appsToBuild = []
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "",        configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "rs911x",  configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4338A", appName="lighting-app", otaVersion="", ncp = "917-soc", configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "wf200",   configs = "--copy-sources", useWorkspace = false, additionalComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "",        configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "rs911x",  configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4338A", appName="lighting-app", otaVersion="", ncp = "917-soc", configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "wf200",   configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
     slcBuild(appsToBuild, "Copy Contents")
 }
 def buildNoDebugImages(){
     def componentsToRemove = '--without "matter_shell;matter,matter_qr_code;matter,matter_lcd;matter"'
     def appsToBuild = []
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="light-switch-app", otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",       otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, additionalComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="light-switch-app", otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",       configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",       otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
     slcBuild(appsToBuild, "No Debug")
 }
 def buildOtaImages(){

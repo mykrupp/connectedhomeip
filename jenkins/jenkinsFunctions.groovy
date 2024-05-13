@@ -571,7 +571,7 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                 set -x
 
                 ota_file="ota-scripts.zip"
-                zip -r "${ota_file}" "scripts/tools/silabs" "src/app/ota_image_tool.py" "src/controller/python/chip/tlv" -x "*.md"
+                zip -r "${ota_file}" "scripts/tools/silabs" "src/app/ota_image_tool.py" "src/controller/python/chip/tlv" -x "*.md" "provision/samples/light/3"
 
                 echo 'UBAI uploading ......'
                 ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path ota-scripts.zip  --metadata app_name matter \

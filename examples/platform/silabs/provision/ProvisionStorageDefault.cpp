@@ -1,7 +1,6 @@
 #include "ProvisionStorage.h"
 #include "AttestationKey.h"
-// TODO add back with Multi ota pr
-//#include <platform/silabs/multi-ota/OtaTlvEncryptionKey.h>
+#include <platform/silabs/multi-ota/OtaTlvEncryptionKey.h>
 #include <platform/CHIPDeviceConfig.h>
 #include <platform/silabs/SilabsConfig.h>
 #include <platform/silabs/MigrationManager.h>

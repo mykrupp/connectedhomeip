@@ -13,8 +13,6 @@ provides:
 recommends:
   - id: uartdrv_eusart
     instance: [vcom]
-  - id: spidrv
-    instance: [exp]
 requires:
 - name: rs911x_ncp_common
 - name: wiseconnect3_common

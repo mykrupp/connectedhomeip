@@ -25,6 +25,7 @@
 #include <lib/support/CodeUtils.h>
 #include <platform/CHIPDeviceLayer.h>
 #include <platform/DiagnosticDataProvider.h>
+#include "sl_component_catalog.h"
 
 #ifndef BRD4325A
 #include "rail_types.h"
@@ -125,6 +126,7 @@ extern "C" __attribute__((used)) void debugHardfault(uint32_t * sp)
 /**
  * Override default hard-fault handler
  */
+#ifndef SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT // SLC-FIX 
 extern "C" __attribute__((naked)) void HardFault_Handler(void)
 {
     __asm volatile("tst lr, #4                                    \n"
@@ -135,7 +137,7 @@ extern "C" __attribute__((naked)) void HardFault_Handler(void)
                    "bx r1                                         \n"
                    "debugHardfault_address: .word debugHardfault  \n");
 }
-
+#endif // SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT
 extern "C" void vApplicationMallocFailedHook(void)
 {
     /* Called if a call to pvPortMalloc() fails because there is insufficient
@@ -227,7 +229,8 @@ extern "C" void vApplicationGetTimerTaskMemory(StaticTask_t ** ppxTimerTaskTCBBu
     *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
 }
 
-#ifndef BRD4325A
+#ifndef BRD4325A 
+#ifndef SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT // SLC-FIX
 extern "C" void RAILCb_AssertFailed(RAIL_Handle_t railHandle, uint32_t errorCode)
 {
     char faultMessage[kMaxFaultStringLen] = { 0 };
@@ -251,6 +254,7 @@ extern "C" void RAILCb_AssertFailed(RAIL_Handle_t railHandle, uint32_t errorCode
 
     chipAbort();
 }
+#endif // SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT
 #endif // BRD4325A
 
 #endif // HARD_FAULT_LOG_ENABLE

@@ -117,7 +117,7 @@ echo $CONFIG_ARGS
 # Generate project
 
 
-slc generate -d $OUTPUT_DIR $PROJECT_FLAG $SILABS_APP_PATH --with $SILABS_BOARD $CONFIG_ARGS --generator-timeout 180
+slc generate -d $OUTPUT_DIR $PROJECT_FLAG $SILABS_APP_PATH --with $SILABS_BOARD $CONFIG_ARGS --generator-timeout=180 -o makefile
 if [ $? -ne 0 ]; then
     echo "FAILED TO Generate : $SILABS_APP_PATH"
     exit 1

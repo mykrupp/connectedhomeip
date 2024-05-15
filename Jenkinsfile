@@ -327,6 +327,9 @@ def pipeline()
                     parallelNodesBuild["Thread $boardToBuild"]          = containerWrapper('-name "*.s37" -o -name "*.map"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory, { pipelineFunctions.buildThread(openThreadApps, boardToBuild) })
                 }
 
+                //Matter Zigbee app
+                parallelNodesBuild["Matter Zigbee App"]          = containerWrapper('-name "*.s37" -o -name "*.map"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory, { pipelineFunctions.buildCMP() })
+
                 // Build WiFi Examples
                 wifiBoards.each { boardToBuild ->
                     wifiNCP.each { ncp ->

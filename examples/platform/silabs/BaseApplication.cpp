@@ -24,6 +24,10 @@
 #include "AppConfig.h"
 #include "AppEvent.h"
 #include "AppTask.h"
+
+// SLC-FIX
+#include "sl_component_catalog.h"
+
 #include <app/server/Server.h>
 
 #define APP_ACTION_BUTTON 1
@@ -70,6 +74,12 @@
 #ifdef PERFORMANCE_TEST_ENABLED
 #include <performance_test_commands.h>
 #endif // PERFORMANCE_TEST_ENABLED
+
+// SLC-FIX
+#ifdef SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT
+#include "sl_cmp_config.h"
+#include "ZigbeeCallbacks.h"
+#endif
 
 /**********************************************************
  * Defines and Constants
@@ -762,6 +772,17 @@ void BaseApplication::OnPlatformEvent(const ChipDeviceEvent * event, intptr_t)
     if (event->Type == DeviceEventType::kServiceProvisioningChange)
     {
         BaseApplication::sIsProvisioned = event->ServiceProvisioningChange.IsServiceProvisioned;
+    }
+    else if (event->Type == DeviceEventType::kCommissioningComplete)
+    {
+        #ifdef SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT
+        #ifdef SL_MATTER_ZIGBEE_CMP
+        uint8_t channel = otLinkGetChannel(DeviceLayer::ThreadStackMgrImpl().OTInstance());
+        Zigbee::RequestStart(channel); // leave handle internally
+        #else // Matter Zigbee sequential
+        Zigbee::RequestLeave();
+        #endif // SL_MATTER_ZIGBEE_CMP
+        #endif // SL_CATALOG_ZIGBEE_STACK_COMMON_PRESENT
     }
 }
 

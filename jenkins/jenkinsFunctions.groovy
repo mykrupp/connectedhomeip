@@ -120,7 +120,13 @@ def getPrjFileName(targetBoard, appName, useWorkspaces, ncp="")
             slcProjFileName = appName+"-thread${isInternalBootloader}-bootloader"
         }
         else{
-            slcProjFileName = appName+"-thread"
+            if (appName == "zigbee_matter_light"){
+                slcProjFileName = appName
+            }
+            else {
+                slcProjFileName = appName+"-thread"
+            }
+            
         }
     }
     return slcProjFileName
@@ -146,7 +152,8 @@ def getSeries(brd){
         return ""
     }
 }
-def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = "", bootloaderComponents = ""){
+
+def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = "", bootloaderComponents = "", customPath = ""){
     def buildMap = [:]
     buildMap["board"] = board
     buildMap["appName"] = appName
@@ -156,6 +163,7 @@ def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "",
     buildMap["applicationComponents"] = applicationComponents
     buildMap["bootloaderComponents"] = bootloaderComponents
     buildMap["useWorkspace"] = useWorkspace
+    buildMap["customPath"] = customPath
     return buildMap
 }
 
@@ -179,6 +187,18 @@ def buildNoDebugImages(){
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",       otaVersion="", ncp = "rs911x", configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_no_debug;matter")
     slcBuild(appsToBuild, "No Debug")
 }
+def buildCMP()
+{
+    def appsToBuild = []
+    // Sequential
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    // Concurrent
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    slcBuild(appsToBuild, "CMP")
+}
+
 def buildOtaImages(){
     def software_version_2 = '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
     def software_version_3 = '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
@@ -301,6 +321,12 @@ def generateProjects(paramMap){
         brdLowerCase = brdLowerCase + ';wiseconnect3_sdk'
     }
 
+    def projectPath = "slc/sample-app/"
+    if (paramMap["customPath"] != ""){
+        projectPath = paramMap["customPath"]
+        platform = "/"
+    }
+
     def projFilePath = ""
     def projTypeFlag = ""
     if(useWorkspaces){
@@ -308,7 +334,7 @@ def generateProjects(paramMap){
         projTypeFlag = "-w"
     }
     else{
-        projFilePath = "gsdk/extension/matter_extension/slc/sample-app/" + app + platform + slcPrjName + ".slcp"
+        projFilePath = "gsdk/extension/matter_extension/" + projectPath + app + platform + slcPrjName + ".slcp"
         projTypeFlag = "-p"
     }
 

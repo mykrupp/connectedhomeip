@@ -22,9 +22,6 @@ requires:
       - brd4121a
   - name: simple_button_recommended_instance
     condition:
-      - brd4170b
-  - name: simple_button_recommended_instance
-    condition:
       - brd2601b
   - name: simple_button_recommended_instance
     condition:

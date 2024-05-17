@@ -96,9 +96,6 @@ component:
 requires:
 # On Series 2 LCD and external flash run over USART, VCOM runs over EUSART
 # Select UART/EUART drivers based on device series
-  - name: matter_drivers_series_1
-    condition:
-     - device_series_1
   - name: matter_drivers_series_2
     condition:
      - device_series_2
@@ -168,12 +165,6 @@ toolchain_settings:
     value: gnu++17
     
 template_contribution:
-  - name: memory_flash_start
-    value: 0x0
-    condition: [device_series_1]
-  - name: memory_flash_size
-    value: 0x000FF800
-    condition: [device_series_1]
   - name: memory_flash_start
     value: 0x08006000
     condition: [device_series_2]

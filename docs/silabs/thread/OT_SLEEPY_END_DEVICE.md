@@ -93,7 +93,7 @@ For the lighting-app, the file is `examples/lighting-app/silabs/include/CHIPProj
 
 The second method is by adding arguments to the build command. Here is an example building the EFR32MG24 BRD4186C with different values.
 ```bash
-./scripts/examples/gn_silabs_example.sh examples/lighting-app/silabs out/lighting-app BRD41686C sl_ot_idle_interval_ms=10000 sl_ot_active_interval_ms=200 sl_idle_mode_interval_ms = 300000 sl_active_mode_interval_ms=5000 sl_active_mode_threshold_ms=1000 --icd
+./scripts/examples/gn_silabs_example.sh examples/lighting-app/silabs out/lighting-app BRD4186C sl_ot_idle_interval_ms=10000 sl_ot_active_interval_ms=200 sl_idle_mode_interval_ms = 300000 sl_active_mode_interval_ms=5000 sl_active_mode_threshold_ms=1000 --icd
 ```
 
 If both methods of changing the default values are used, the defines added to the `CHIPProjectConfig.h` take precedence on the build arguments.

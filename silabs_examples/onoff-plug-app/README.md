@@ -1,6 +1,6 @@
 # MATTER EFR32 Onoff-plug Example
 
-An example showing the use of MATTER on the Silicon Labs EFR32 MG12.
+An example showing the use of MATTER on the Silicon Labs EFR32 MG24.
 
 <hr>
 
@@ -70,16 +70,6 @@ Silicon Labs platform.
         > [Hardware Requirements](https://github.com/SiliconLabs/matter/blob/latest/docs/silabs/general/HARDWARE_REQUIREMENTS.md)
         > in the Silicon Labs Matter Github Repo
 
-
-    MG12 boards:
-
-    -   BRD4161A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-    -   BRD4164A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-    -   BRD4166A / SLTB004A / Thunderboard Sense 2 / 2.4GHz@10dBm
-    -   BRD4170A / SLWSTK6000B / Multiband Wireless Starter Kit / 2.4GHz@19dBm,
-        915MHz@19dBm
-    -   BRD4304A / SLWSTK6000B / MGM12P Module / 2.4GHz@19dBm
-
     MG24 boards :
 
     -   BRD4186A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@10dBm
@@ -88,7 +78,7 @@ Silicon Labs platform.
 *   Build the example application:
 
           cd ~/connectedhomeip
-          ./scripts/examples/gn_efr32_example.sh ./examples/onoff-plug-app/efr32/ ./out/onoff-plug-app BRD4161A
+          ./scripts/examples/gn_efr32_example.sh ./examples/onoff-plug-app/efr32/ ./out/onoff-plug-app BRD4186C
 
 -   To delete generated executable, libraries and object files use:
 
@@ -100,7 +90,7 @@ Silicon Labs platform.
           $ cd ~/connectedhomeip/examples/onoff-plug-app/efr32
           $ git submodule update --init
           $ source third_party/connectedhomeip/scripts/activate.sh
-          $ export EFR32_BOARD=BRD4161A
+          $ export EFR32_BOARD=BRD4186C
           $ gn gen out/debug
           $ ninja -C out/debug
 
@@ -170,10 +160,6 @@ Once the above is complete, log output can be viewed using the JLinkExe tool in
 combination with JLinkRTTClient as follows:
 
 -   Run the JLinkExe tool with arguments to autoconnect to the WSTK board:
-
-    For MG12 use:
-
-          $ JLinkExe -device EFR32MG12PXXXF1024 -if JTAG -speed 4000 -autoconnect 1
 
     For MG21 use:
 

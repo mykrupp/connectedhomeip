@@ -3,7 +3,7 @@
         {
             "name": "lighting",
             "path": "./examples/lighting-app/silabs/",
-            "boards": ["BRD2703A", "BRD2601B", "BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
+            "boards": ["BRD2703A", "BRD2601B", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -17,7 +17,7 @@
         {
             "name": "lock",
             "path": "./examples/lock-app/silabs/",
-            "boards": ["BRD2703A", "BRD2601B", "BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
+            "boards": ["BRD2703A", "BRD2601B", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -31,7 +31,7 @@
         {
             "name": "light-switch",
             "path": "./examples/light-switch-app/silabs/",
-            "boards": ["BRD2703A", "BRD2601B", "BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
+            "boards": ["BRD2703A", "BRD2601B", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
             "rcp" : [""],
             "variants" : ["all"],
             "automation" : "",
@@ -45,7 +45,7 @@
         {
             "name": "thermostat",
             "path": "./examples/thermostat/silabs/",
-            "boards": ["BRD2703A", "BRD2601B", "BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
+            "boards": ["BRD2703A", "BRD2601B", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -59,7 +59,7 @@
         {
             "name": "window",
             "path": "./examples/window-app/silabs/",
-            "boards": ["BRD2703A", "BRD2601B", "BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
+            "boards": ["BRD2703A", "BRD2601B", "BRD4186C", "BRD4187C", "BRD4316A", "BRD4317A", "BRD4338A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -73,7 +73,7 @@
         {
             "name": "onoff-plug",
             "path": "./silabs_examples/onoff-plug-app/",
-            "boards": ["BRD4161A", "BRD4166A", "BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
+            "boards": ["BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -87,7 +87,7 @@
         {
             "name": "dishwasher",
             "path": "./silabs_examples/dishwasher-app/silabs/",
-            "boards": ["BRD4161A", "BRD4166A", "BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
+            "boards": ["BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "",
@@ -101,7 +101,7 @@
         {
             "name": "template",
             "path": "./silabs_examples/template/",
-            "boards": ["BRD4161A", "BRD4186C", "BRD4187C", "BRD4166A", "BRD4316A"],
+            "boards": ["BRD4186C", "BRD4187C", "BRD4166A", "BRD4316A"],
             "rcp" : [""],
             "variants" : ["all"],
             "automation" : "",
@@ -115,7 +115,7 @@
         {
             "name": "sensors",
             "path": "./silabs_examples/silabs-sensors/",
-            "boards": ["BRD4161A", "BRD4166A", "BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
+            "boards": ["BRD4186C", "BRD4187C", "BRD4338A", "BRD4316A"],
             "rcp" : [""],
             "variants" : ["all"],
             "automation" : "",
@@ -129,7 +129,7 @@
         {
             "name": "OTA",
             "path": "./examples/lighting-app/silabs/",
-            "boards": ["BRD4161A", "BRD4187C"],
+            "boards": ["BRD4187C"],
             "rcp" : ["", "rs9116", "wf200"],
             "variants" : ["all"],
             "automation" : "OTA",
@@ -143,7 +143,7 @@
         {
             "name": "M-OTA-V1",
             "path": "./examples/lighting-app/silabs/",
-            "boards": ["BRD4161A", "BRD4187C"],
+            "boards": ["BRD4187C"],
             "rcp" : [""],
             "variants" : ["all"],
             "automation" : "M-OTA-V1",
@@ -157,7 +157,7 @@
         {
             "name": "M-OTA-V1-enc",
             "path": "./examples/lighting-app/silabs/",
-            "boards": ["BRD4161A", "BRD4187C"],
+            "boards": ["BRD4187C"],
             "rcp" : [""],
             "variants" : ["all"],
             "automation" : "M-OTA-V1-enc",

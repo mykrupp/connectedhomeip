@@ -1,6 +1,6 @@
 # Silabs Matter Sensor Example
 
-An example showing the use of Matter on the Silicon Labs EFR32 MG12 and MG24.
+An example showing the use of Matter on the Silicon Labs EFR32 MG24.
 
 <hr>
 
@@ -90,22 +90,6 @@ ___
     -   > For the latest supported hardware please refer to the
         > [Hardware Requirements](https://github.com/SiliconLabs/matter/blob/latest/docs/silabs/general/HARDWARE_REQUIREMENTS.md)
         > in the Silicon Labs Matter Github Repo
-
-    MG12 boards:
-
-    -   BRD4161A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-    -   BRD4162A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
-    -   BRD4163A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm,
-        868MHz@19dBm
-    -   BRD4164A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-    -   BRD4166A / SLTB004A / Thunderboard Sense 2 / 2.4GHz@10dBm
-    -   BRD4170A / SLWSTK6000B / Multiband Wireless Starter Kit / 2.4GHz@19dBm,
-        915MHz@19dBm
-    -   BRD4304A / SLWSTK6000B / MGM12P Module / 2.4GHz@19dBm
-
-    MG21 boards: Currently not supported due to RAM limitation.
-
-    -   BRD4180A / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
 
     MG24 boards :
 
@@ -212,10 +196,6 @@ Once the above is complete, log output can be viewed using the JLinkExe tool in
 combination with JLinkRTTClient as follows:
 
 -   Run the JLinkExe tool with arguments to autoconnect to the WSTK board:
-
-    For MG12 use:
-
-          $ JLinkExe -device EFR32MG12PXXXF1024 -if JTAG -speed 4000 -autoconnect 1
 
     For MG21 use:
 
@@ -362,19 +342,19 @@ passed to the build scripts.
 
 `chip_progress_logging, chip_detail_logging, chip_automation_logging`
 
-    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4164A "chip_detail_logging=false chip_automation_logging=false chip_progress_logging=false"
+    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4186C "chip_detail_logging=false chip_automation_logging=false chip_progress_logging=false"
 
 ### Debug build / release build
 
 `is_debug`
 
-    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4164A "is_debug=false"
+    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4186C "is_debug=false"
 
 ### Disabling LCD
 
 `show_qr_code`
 
-    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4164A "show_qr_code=false"
+    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4186C "show_qr_code=false"
 
 ### KVS maximum entry count
 
@@ -383,4 +363,4 @@ passed to the build scripts.
     Set the maximum Kvs entries that can be stored in NVM (Default 75)
     Thresholds: 30 <= kvs_max_entries <= 255
 
-    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4164A kvs_max_entries=50
+    $ ./scripts/examples/gn_efr32_example.sh ./examples/silabs-sensors/efr32 ./out/occupancy-sensor BRD4186C kvs_max_entries=50

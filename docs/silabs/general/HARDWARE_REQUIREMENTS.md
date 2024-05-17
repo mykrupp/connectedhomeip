@@ -43,17 +43,6 @@ them on a Raspberry Pi. To do so you will need:
         -   BRD4187C / SLWSTK6006A / Wireless Starter Kit / 2.4GHz@20dBm
             -   [XG24-RB4187C](https://www.silabs.com/development-tools/wireless/xg24-rb4187c-efr32xg24-wireless-gecko-radio-board)
 
-    -   **MG12 boards:**
-
-        -   BRD4161A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-            -   [SLWRB4161A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4161a-efr32mg12-radio-board)
-        -   BRD4162A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
-            -   [SLWRB4162A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4162a-efr32mg12-radio-board)
-        -   BRD4163A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-            -   [SLWRB4163A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4163a-efr32mg12-radio-board)
-        -   BRD4164A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-            -   [SLWRB4164A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4164a-efr32mg12-radio-board)
-
 ## Matter Over Thread Accessory Device Requirements
 
 The Matter Accessory Device (MAD) is the actual device that the Matter
@@ -83,23 +72,6 @@ Matter Accessory Devices for Matter over Thread on the following platforms:
         - [XGM240-RB4316A](https://www.silabs.com/development-tools/wireless/xgm240-rb4316a-xgm240p-module-radio-board?tab=overview)
     -   BRD4317A / SLWSTK6006A / Wireless Starter Kit/ 2.4GHz@20dBm
         - [XGM240-RB4317A](https://www.silabs.com/development-tools/wireless/xgm240-rb4317a-xgm240p-module-radio-board?tab=overview)
-
--   **MG12 boards:**
-
-    -   [EFR32MG12 Development Kit](https://www.silabs.com/development-tools/wireless/zigbee/efr32mg12-dual-band-starter-kit)
-    -   BRD4161A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-        -   [SLWRB4161A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4161a-efr32mg12-radio-board)
-    -   BRD4162A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@10dBm
-        -   [SLWRB4162A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4162a-efr32mg12-radio-board)
-    -   BRD4163A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-        -   [SLWRB4163A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4163a-efr32mg12-radio-board)
-    -   BRD4164A / SLWSTK6000B / Wireless Starter Kit / 2.4GHz@19dBm
-        -   [SLWRB4164A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4164a-efr32mg12-radio-board)
-    -   BRD4166A / SLTB004A / Thunderboard Sense 2 / 2.4GHz@10dBm
-        -   [Thunderboard Sense 2](https://www.silabs.com/development-tools/thunderboard/thunderboard-sense-two-kit)
-    -   BRD4170A / SLWSTK6000B / Multiband Wireless Starter Kit / 2.4GHz@19dBm,
-        915MHz@19dBm
-        -   [SLWRB4170A](https://www.silabs.com/development-tools/wireless/zigbee/slwrb4170a-efr32mg12-radio-board)
 
 
 ## Matter Over Wi-Fi Accessory Device Requirements

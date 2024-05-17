@@ -167,7 +167,6 @@ include:
 - path: slc/inc
   file_list:
   - path: lwip/lwip_buildconfig.h
-  - path: brd4161a.h
   - path: brd4186c.h
   - path: brd4187c.h
 source:

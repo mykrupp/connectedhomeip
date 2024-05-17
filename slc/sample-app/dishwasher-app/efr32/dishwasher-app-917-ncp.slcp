@@ -115,16 +115,6 @@ component:
 # Require LCD and QR Code components only on the boards that support LCD 
 requires:
   - name: matter_default_lcd_config
-    condition:
-    - device_series_1
-  - name: matter_default_lcd_config
-    condition:
-    - device_series_2
-
-# Select UART/EUART drivers based on device series
-  - name: matter_drivers_series_1_wifi_rs911x
-    condition:
-     - device_series_1
      
 config_file:
   - path: ../../../../silabs_examples/dishwasher-app/silabs/data_model/dishwasher-wifi-app.zap
@@ -185,12 +175,6 @@ toolchain_settings:
     value: gnu++17
     
 template_contribution:
-  - name: memory_flash_start
-    value: 0x0
-    condition: [device_series_1]
-  - name: memory_flash_size
-    value: 0x000FF800
-    condition: [device_series_1]
   - name: memory_flash_start
     value: 0x08006000
     condition: [device_series_2]

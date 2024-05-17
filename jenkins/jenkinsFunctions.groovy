@@ -6,7 +6,7 @@ def getBuildType()
     else {
         return "NORMAL"
     } 
-}
+} 
 def getThreadBoards(buildType='')
 {
     if (buildType == "FULL") {
@@ -84,7 +84,7 @@ def getAppsForBoard(brd, allApps)
     
     // Remove thermostat and performance-test-app from unsupported boards
     def unsupportedThermostatBoards = ["BRD4319A", "BRD2703A", "BRD2601B", "BRD4337A"]
-    def unsupportedPerformanceTestBoards = ["BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A",
+    def unsupportedPerformanceTestBoards = [
                 "BRD4186C", "BRD2703A", "BRD2704A", "BRD2601B",
                 "BRD4316A", "BRD4317A", "BRD4319A", "BRD4337A", "BRD4318A"]
     if ((brd in unsupportedThermostatBoards) && (brd in unsupportedPerformanceTestBoards)){
@@ -140,12 +140,8 @@ def getProtocol(ncp=""){
     }
 }
 def getSeries(brd){
-    seriesOneBoards = ["BRD4161A", "BRD4162A", "BRD4163A", "BRD4164A", "BRD4166A", "BRD4170A"]
     seriesTwoBoards = ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B", "BRD4316A", "BRD4317A", "BRD4318A","BRD4319A", "BRD4337A"]
-    if(brd.toUpperCase() in seriesOneBoards){
-        return "series-1"
-    }
-    else if(brd.toUpperCase() in seriesTwoBoards){
+    if(brd.toUpperCase() in seriesTwoBoards){
         return "series-2"
     }
     else{
@@ -531,7 +527,7 @@ def exportIoTReports()
         // approved by Rob Alexander on September 7 2022
         // Light --> MG24 (BRD4187C)
         // Lock ---> MG24 (BRD4187C) (Thread and RS9116)
-        // Window ---> MG12 (BRD4161A) + MG24 (BRD4187C)
+        // Window ---> MG24 (BRD4187C)
         // Thermostat ---> MG24 (BRD4187C) (Thread and RS9116)
 
         performCodeAnalysis("BRD4187C",  "lighting-app", "thread")

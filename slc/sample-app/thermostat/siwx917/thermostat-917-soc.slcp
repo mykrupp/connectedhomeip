@@ -145,6 +145,9 @@ requires:
   - name: matter_qr_code
     condition: [brd4338a]
 
+configuration:
+  - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
+
 config_file:
   - path: ../../../../examples/thermostat/thermostat-common/thermostat.zap
     directory: common

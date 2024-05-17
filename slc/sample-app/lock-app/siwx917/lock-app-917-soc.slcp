@@ -190,6 +190,7 @@ define:
     value: 1
 
 configuration:
+  - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
 # Default ICD configurations for lock-app
   - {name: SL_ACTIVE_MODE_THRESHOLD, value: '1000'}
   - {name: SL_ACTIVE_MODE_INTERVAL, value: '10000'}

@@ -141,6 +141,9 @@ requires:
   - name: matter_qr_code
     condition: [brd4338a]
 
+configuration:
+  - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
+
 config_file:
   - path: ../../../../examples/window-app/common/window-app.zap
     directory: common

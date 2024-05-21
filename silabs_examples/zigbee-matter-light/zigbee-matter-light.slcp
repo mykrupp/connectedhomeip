@@ -242,4 +242,4 @@ readme:
   - path: ./README.md
 
 sdk_extension:
-  - {id: matter, version: 2.2.2}
+  - {id: matter, version: 2.3.0}

@@ -4,7 +4,7 @@
 # Example usage:
 # ./slc/script/update_version.py 2.2.0-1.2 4.4.0 readme=True/False
 # param 1: New version for sdk_extension
-# param 2: New version for gecko_sdk
+# param 2: New version for simplicity_sdk
 # param 3: Choose to update/not update the readme files with "param 1"
 
 import os
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         UPDATE_README=True if readme_args[1].upper()=="TRUE" else False
 
     print("Updating the sdk_extension version to "+EXTENSION_NEW_VERSION)
-    print("Updating the gecko_sdk version to "+GDSK_NEW_VERSION)
+    print("Updating the simplicity_sdk version to "+GDSK_NEW_VERSION)
     readme_str= "Updating" if UPDATE_README else "Not Updating"
     print(readme_str+" the README.md files")
 
@@ -83,12 +83,12 @@ if __name__ == '__main__':
     replace_text(str(ROOT)+"/matter.slce","id: matter\nversion: "+VERSION_REGEX_FORMAT,"id: matter\nversion: "+EXTENSION_NEW_VERSION)
     replace_text(str(ROOT)+"/matter.slce","version: "+VERSION_REGEX_FORMAT+"","version: "+EXTENSION_NEW_VERSION)
 
-    #Update the geko_sdk in matte.slce
+    #Update the simplicity_sdk in matte.slce
     # REGEX FORMAT:
     # sdk:
-    #   id: gecko_sdk
+    #   id: simplicity_sdk
     #   version: 4.3.0
-    replace_text(str(ROOT)+"/matter.slce","  *id: gecko_sdk\n  *version: "+VERSION_REGEX_FORMAT,"  id: gecko_sdk\n  version: "+GDSK_NEW_VERSION)
+    replace_text(str(ROOT)+"/matter.slce","  *id: simplicity_sdk\n  *version: "+VERSION_REGEX_FORMAT,"  id: simplicity_sdk\n  version: "+GDSK_NEW_VERSION)
 
     # Update matter.slsdk
     #

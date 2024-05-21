@@ -7,7 +7,7 @@ package: Matter
 
 sdk_extension:
   - id: matter
-    version: "2.2.2"
+    version: "2.3.0"
 
 component:
   - id: matter_performance_testing

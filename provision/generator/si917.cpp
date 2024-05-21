@@ -15,46 +15,23 @@
  *
  ******************************************************************************/
 
-#include "nvm3.h"
-#include "nvm3_hal_flash.h"
-#include "nvm3_default_config.h"
-#include "sl_wifi_device.h"
-#include <stdio.h>
-
-namespace {
-extern char linker_nvm_begin;
-__attribute__((used)) uint8_t nvm3_default_storage[NVM3_DEFAULT_NVM_SIZE] __attribute__ ((section(".simee")));
-#define NVM3_BASE (&linker_nvm_begin)
-
-// NVM3 Default Instance Max Object Size
-#define NVM3_DEFAULT_MAX_OBJECT_SIZE 4096
-
-// WiFi Client Interface
-#define SL_NET_WIFI_CLIENT_INTERFACE (1 << 3)
-
-nvm3_Handle_t  nvm3_defaultHandleData;
-
-#if (NVM3_DEFAULT_CACHE_SIZE != 0)
-nvm3_CacheEntry_t defaultCache[NVM3_DEFAULT_CACHE_SIZE];
-#endif
+#include "app.h"
+extern "C" {
+#include <sl_si91x_button_instances.h>
+#include <sl_si91x_led_instances.h>
+#include <sl_wifi_callback_framework.h>
+#include <sl_wifi.h>
+#include <sl_wifi_device.h>
+#include <sl_net.h>
+}
+#include <nvm3.h>
+#include <nvm3_default.h>
+#include <sl_iostream_rtt.h>
+#include <sl_iostream_init_instances.h>
+#include <sl_net_constants.h>
 
 
-nvm3_Init_t nvm3_defaultInitData =
-{
-  (nvm3_HalPtr_t)NVM3_BASE,
-  0,
-#if (NVM3_DEFAULT_CACHE_SIZE != 0)
-  defaultCache,
-#else
-  NULL,
-#endif
-  NVM3_DEFAULT_CACHE_SIZE,
-  NVM3_DEFAULT_MAX_OBJECT_SIZE,
-  NVM3_DEFAULT_REPACK_HEADROOM,
-  &nvm3_halFlashHandle,
-};
-
-static const sl_wifi_device_configuration_t station_init_configuration = {
+static const sl_wifi_device_configuration_t _wifi_config = {
   .boot_option = LOAD_NWP_FW,
   .mac_address = NULL,
   .band        = SL_SI91X_WIFI_BAND_2_4GHZ,
@@ -83,37 +60,20 @@ static const sl_wifi_device_configuration_t station_init_configuration = {
                    .config_feature_bit_map  = 0 }
 };
 
-} // namespace
 
-//------------------------------------------------------------------------------
-// Public
-//------------------------------------------------------------------------------
-
-nvm3_Handle_t *nvm3_defaultHandle = &nvm3_defaultHandleData;
-
-nvm3_Init_t *nvm3_defaultInit = &nvm3_defaultInitData;
-
-Ecode_t nvm3_initDefault(void)
+void app_platform_init()
 {
-  return nvm3_open(nvm3_defaultHandle, nvm3_defaultInit);
+    sl_wifi_init(&_wifi_config, NULL, sl_wifi_default_event_handler);
+    nvm3_open(nvm3_defaultHandle, nvm3_defaultInit);
 }
 
-Ecode_t nvm3_deinitDefault(void)
+
+void sl_si91x_button_isr(uint8_t pin, int8_t state)
 {
-  return nvm3_close(nvm3_defaultHandle);
 }
 
 void setNvm3End(uint32_t end_addr)
 {
-  uint32_t size = NVM3_DEFAULT_NVM_SIZE;
-  uint32_t nvm3_start_addr = (end_addr - size);
-  nvm3_defaultInit->nvmAdr = (nvm3_HalPtr_t)nvm3_start_addr;
-  nvm3_defaultInit->nvmSize = size;
-  sl_status_t status      = SL_STATUS_OK;
-  status = sl_net_init(SL_NET_WIFI_CLIENT_INTERFACE, &station_init_configuration, NULL, NULL);
-  if (status != SL_STATUS_OK) {
-    printf("Failed to start Wi-Fi client interface: 0x%lx\r\n", status);
-    return;
-  }
-  nvm3_initDefault();
+  // Unused
+  (void) end_addr;
 }

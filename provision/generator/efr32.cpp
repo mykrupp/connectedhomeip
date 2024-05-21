@@ -15,9 +15,12 @@
  *
  ******************************************************************************/
 
-#include "nvm3.h"
-#include "nvm3_hal_flash.h"
-#include "nvm3_default_config.h"
+#include "app.h"
+extern "C" {
+#include <nvm3.h>
+#include <nvm3_hal_flash.h>
+#include <nvm3_default_config.h>
+}
 
 static nvm3_Handle_t  nvm3_defaultHandleData;
 
@@ -65,4 +68,9 @@ void setNvm3End(uint32_t end_addr)
   nvm3_defaultInit->nvmAdr = (nvm3_HalPtr_t)nvm3_start_addr;
   nvm3_defaultInit->nvmSize = size;
   nvm3_initDefault();
+}
+
+
+void app_platform_init()
+{
 }

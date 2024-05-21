@@ -61,8 +61,8 @@ include:
   - path: ../../zzz_generated/app-common/
   - path: ../../third_party/nlassert/repo/include/
   - path: ../../third_party/nlio/repo/include/
-  - path: ../../third_party/silabs/gecko_sdk/platform/bootloader/
-  - path: ../../third_party/silabs/gecko_sdk/protocol/bluetooth/config/
+  - path: ../../third_party/silabs/simplicity_sdk/platform/bootloader/
+  - path: ../../third_party/silabs/simplicity_sdk/protocol/bluetooth/config/
 
 component:
   - id: freertos

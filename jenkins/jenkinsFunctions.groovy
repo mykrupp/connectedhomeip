@@ -999,8 +999,8 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
 }
 def downloadGsdkSidePackage()
 {
-    gsdkMajVer = pipelineMetadata.toolchain_info.gsdk.gsdkBranch.split("/")[1]
-    downloadUrl = "https://artifactory.silabs.net/artifactory/gsdk-generic-staging/" + gsdkMajVer + "/" + pipelineMetadata.toolchain_info.gsdk.gsdkTag.replaceAll("v", "") + "/side-packages/sisdk/gecko-platform-sqa.zip"
+    gsdkMajVer = pipelineMetadata.toolchain_info.sisdk.sisdkBranch.split("/")[1]
+    downloadUrl = "https://artifactory.silabs.net/artifactory/gsdk-generic-staging/" + gsdkMajVer + "/" + pipelineMetadata.toolchain_info.sisdk.sisdkTag.replaceAll("v", "") + "/side-packages/sisdk/gecko-platform-sqa.zip"
     gsdkSidePackage = "sidePackage.zip"
     
     withCredentials([usernameColonPassword(credentialsId: 'svc_gsdk', variable:'svc_gsdk')]){ 

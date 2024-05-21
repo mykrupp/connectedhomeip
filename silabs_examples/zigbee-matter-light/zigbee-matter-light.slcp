@@ -65,7 +65,7 @@ component:
 - id: bluetooth_stack
 #OpenThread Components
 - id: ot_stack_ftd
-- id: ot_up_cli
+- id: ot_rtos_wrapers_stub
 #Matter Components
 - {from: matter, id: matter_groups}
 - {from: matter, id: matter_group_key_mgmt}
@@ -98,7 +98,7 @@ component:
 - {from: matter, id: matter_power_source}
 - {from: matter, id: app_common}
 - {from: matter, id: matter_subscription_timeout_resumption}
-#Matter components wrapper from gecko_sdk
+#Matter components wrapper from simplicity_sdk
 - {from: matter, id: matter_default_lcd_config}
 - {from: matter, id: matter_buttons}
 - {from: matter, id: matter_configuration_over_swo}
@@ -188,6 +188,8 @@ configuration:
 # TODO FixMe @Madhu
 - name: SL_LEGACY_HAL_DISABLE_WATCHDOG
   value: 1
+- name: CIRCULAR_QUEUE_LEN_MAX
+  value: 16
 
 define:
 - name: OS_CFG_COMPAT_INIT

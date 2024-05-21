@@ -24,7 +24,7 @@ requires:
   - name: sl_system_init
   - name: nvm3_default
   - name: memory_manager
-  - name: memory_manager_pool_light
+  - name: memory_manager_pool
   - name: freertos_heap_3
 
 provides:

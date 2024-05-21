@@ -136,7 +136,7 @@ def find_headers_in_file(file, header_file_list):
                 # check if file is included without a relative path 
                 if include_reg_type2.match(line) is not None and len(header_relpath.split('/')) < 2:
                     header_relPath = str(os.path.join(str(os.path.dirname(file.replace(str(ROOT), ''))).lstrip('/'), header_relpath))
-                    if os.path.exists(os.path.join(ROOT, header_relPath)) and 'gecko_sdk' not in header_relPath:
+                    if os.path.exists(os.path.join(ROOT, header_relPath)) and 'simplicity_sdk' not in header_relPath:
 
                         for dir in include_dirs:
                             if '..' not in str(os.path.relpath(header_relPath, dir)).split('/')[0]:
@@ -442,7 +442,7 @@ def update_components():
 
     for dict in header_map:
         for inc_root, headers_list in dict.items(): 
-            if 'third_party/silabs/gecko_sdk' in inc_root:
+            if 'third_party/silabs/simplicity_sdk' in inc_root:
                 # Not going to parse gecko sdk headers right ?
                 # should already be handle by slc natively
                 continue
@@ -532,7 +532,7 @@ def update_components():
             elif 'examples/shell' in inc_root or 'src/lib/shell' in inc_root:
                 for header in headers_list:             
                     update_header_key(inc_root, header,  lib='shell') 
-            elif 'gecko_sdk' in inc_root:
+            elif 'simplicity_sdk' in inc_root:
                 if 'wfx_fmac_driver' in inc_root:
                     for header in headers_list:
                         update_header_key(inc_root, header,  lib='wf200') 

@@ -7,11 +7,11 @@
     studioVersion: 'v5'
     studioBranch: 'master'
     ucCliBranch: 'rel'
-    gsdk:
-      gsdkBranch: 'staging/2024.6/2024.6.0-build-1046'
-      browserUrl: 'https://stash.silabs.com/projects/embsw/repos/gecko_sdk_release/'
-      gitUrl: 'ssh://git@stash.silabs.com/embsw/gecko_sdk_release.git'
-      gsdkTag: 'v2024.6.0-build-1046'
+    sisdk:
+      sisdkBranch: 'staging/2024.6/2024.6.0-prerc2'
+      browserUrl: 'https://stash.silabs.com/scm/embsw/sisdk_release.git'
+      gitUrl: 'ssh://git@stash.silabs.com/embsw/sisdk_release.git'
+      sisdkTag: 'v2024.6.0-prerc2'
     zap:
       zapBranch: 'master'
       browserUrl: 'https://stash.silabs.com/projects/WMN_TOOLS/repos/zap'

@@ -177,17 +177,7 @@ def initExtensionWorkspaceAndScm()
 
     dir(buildOverlayDir+createWorkspaceOverlay.overlayMatterPath)
     {
-        // ************************************************************************************
-        //  Clone Matter repo, checkout corresponding branch, verify submodules are updated
-        // ************************************************************************************
-        sh """
-                git submodule set-url ./third_party/silabs/wifi_sdk https://stash.silabs.com/scm/redpine/wifi_sdk.git
-                git submodule set-url ./third_party/silabs/gecko_sdk https://stash.silabs.com/scm/embsw/gecko_sdk_release.git
-                git submodule sync --recursive
-                git submodule foreach --recursive -q git reset --hard -q
-                git fetch || true && git fetch --tags
-        """
-        
+           
         checkout scm: [$class                            : 'GitSCM',
                         branches                         : scm.branches,
                         browser                          : [$class: 'Stash', repoUrl: 'https://stash.silabs.com/projects/WMN_TOOLS/repos/matter/'],
@@ -195,6 +185,20 @@ def initExtensionWorkspaceAndScm()
                         extensions                       : [[$class: 'ScmName', name: 'matter']],
                         userRemoteConfigs                : scm.userRemoteConfigs]   
 
+        // ************************************************************************************
+        //  Clone Matter repo, checkout corresponding branch, verify submodules are updated
+        // ************************************************************************************
+        sh """
+                git submodule set-url ./third_party/silabs/wifi_sdk https://stash.silabs.com/scm/redpine/wifi_sdk.git
+                git submodule set-url ./third_party/silabs/simplicity_sdk https://stash.silabs.com/scm/embsw/sisdk_release.git
+                git submodule sync --recursive
+                git submodule foreach --recursive -q git reset --hard -q
+                git fetch || true && git fetch --tags
+        """
+ 
+        
+        
+       
         // Load metadata
         pipelineMetadata = readYaml(file: 'pipeline_metadata.yml')
         pipelineFunctions = load 'jenkins/jenkinsFunctions.groovy'
@@ -218,7 +222,7 @@ def initExtensionWorkspaceAndScm()
         sourceHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 
         // Copy GSDK and extensions to simulate Simplicity Studio environment
-        sh "cp -R third_party/silabs/gecko_sdk gsdk"
+        sh "cp -R third_party/silabs/simplicity_sdk gsdk"
         sh "mkdir -p gsdk/extension/matter_extension"
         sh './slc/copy-extension.sh gsdk/extension'
         sh "cp -R third_party/silabs/wifi_sdk gsdk/extension/"

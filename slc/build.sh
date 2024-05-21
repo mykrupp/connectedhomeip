@@ -18,7 +18,7 @@
 #       output in: out/brd4187c/lighting-app-thread/
 
 MATTER_ROOT=$( pwd -P )
-GSDK_ROOT=$MATTER_ROOT/third_party/silabs/gecko_sdk
+GSDK_ROOT=$MATTER_ROOT/third_party/silabs/simplicity_sdk
 SILABS_APP_PATH=$1
 SILABS_BOARD=$2
 CONFIG_ARGS=""

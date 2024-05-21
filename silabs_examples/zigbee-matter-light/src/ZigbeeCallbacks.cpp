@@ -51,6 +51,25 @@ static bool pendingRestart = false;
 // Must match with Matter Light endpoint
 #define LIGHT_ENDPOINT 1
 
+
+// Stub callbacks that are unused
+extern "C" void halPrintCrashSummary(uint8_t port)
+{
+  (void)port;
+  // unused
+}
+extern "C" void halPrintCrashDetails(uint8_t port)
+{
+  (void)port;
+  // unused
+}
+
+extern "C" void halPrintCrashData(uint8_t port)
+{
+  (void)port;
+  // unused
+}
+
 namespace Zigbee {
 void RequestStart(uint8_t channel)
 {
@@ -62,7 +81,7 @@ void RequestStart(uint8_t channel)
 
 void RequestLeave()
 {
-  sl_zigbee_leave_network();
+  sl_zigbee_leave_network(SL_ZIGBEE_LEAVE_NWK_WITH_NO_OPTION);
 }
 
 uint8_t GetZigbeeChannel()
@@ -167,7 +186,7 @@ extern "C" void start_zigbee_event_handler(sl_zigbee_af_event_t *event)
       {
         pendingRestart = true;
         SILABS_LOG(" [ZB] Leaving Network");
-        sl_zigbee_leave_network();
+        sl_zigbee_leave_network(SL_ZIGBEE_LEAVE_NWK_WITH_NO_OPTION);
         return;
       }
       sl_status_t status = sl_zigbee_af_network_creator_network_form(distributedNetwork, 0xABCD, 1, channel);

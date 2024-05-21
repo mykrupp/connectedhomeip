@@ -3,7 +3,7 @@
 # This script copies the Matter extension files to the supplied directory path
 
 MATTER_ROOT="$(dirname "$0")/.."
-GSDK_ROOT="$MATTER_ROOT/third_party/silabs/gecko_sdk"
+GSDK_ROOT="$MATTER_ROOT/third_party/silabs/simplicity_sdk"
 WIFI_SDK_ROOT="$MATTER_ROOT/third_party/silabs/wifi_sdk"
 
 if [ "$#" -ne 1 ]; then
@@ -25,38 +25,38 @@ mkdir -p $EXT_DIR/examples/platform/
 mkdir -p $EXT_DIR/examples/common/
 mkdir -p $EXT_DIR/examples/shell/
 mkdir -p $EXT_DIR/examples/common/QRCode/repo/
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/pds/
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/secure_link/
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/pds/
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/secure_link/
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/config/
 mkdir -p $EXT_DIR/third_party/silabs/matter_support/matter/mbedtls/tinycrypt/
 mkdir -p $EXT_DIR/third_party/silabs/matter_support/matter/si91x/siwx917/BRD4338A/support/
 mkdir -p $EXT_DIR/third_party/silabs/matter_support/platform/emdrv/
 mkdir -p $EXT_DIR/third_party/mbedtls/
 
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/segger/systemview
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/segger/systemview
 mkdir -p $EXT_DIR/third_party/zap/repo/zcl-builtin/shared
 
 mkdir $EXT_DIR/third_party/silabs/wiseconnect-wifi-bt-sdk/
 mkdir $EXT_DIR/examples/providers/
 
 #GSDK LWIP
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/api
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/core
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/netif
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include/lwip
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/common/errno/inc
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include/compat/posix/sys
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include/compat/posix/net
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/api
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/core
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/netif
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include/lwip
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/common/errno/inc
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include/compat/posix/sys
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include/compat/posix/net
 
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/api $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/core $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src
-cp $GSDK_ROOT/util/third_party/lwip/lwip/src/netif/ethernet.c $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/netif/
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/lwip  $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/netif $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include
-cp -R $GSDK_ROOT/platform/common/errno/inc $EXT_DIR/third_party/silabs/gecko_sdk/platform/common/errno
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/compat/posix/sys $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include/compat/posix
-cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/compat/posix/net $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/lwip/lwip/src/include/compat/posix
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/api $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/core $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src
+cp $GSDK_ROOT/util/third_party/lwip/lwip/src/netif/ethernet.c $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/netif/
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/lwip  $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/netif $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include
+cp -R $GSDK_ROOT/platform/common/errno/inc $EXT_DIR/third_party/silabs/simplicity_sdk/platform/common/errno
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/compat/posix/sys $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include/compat/posix
+cp -R $GSDK_ROOT/util/third_party/lwip/lwip/src/include/compat/posix/net $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/include/compat/posix
 
 
 #WIFI_SDK fw upgrade for 917SoC
@@ -64,10 +64,10 @@ mkdir -p $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wir
 
 
 # Override built-in crypto configurations MATTER-1838
-mkdir -p $EXT_DIR/third_party/silabs/gecko_sdk/platform/security/sl_component/sl_mbedtls_support/config/template
+mkdir -p $EXT_DIR/third_party/silabs/simplicity_sdk/platform/security/sl_component/sl_mbedtls_support/config/template
 
-cp -R $GSDK_ROOT/platform/security/sl_component/sl_mbedtls_support/config/template $EXT_DIR/third_party/silabs/gecko_sdk/platform/security/sl_component/sl_mbedtls_support/config
-cp -R $GSDK_ROOT/platform/security/sl_component/sl_mbedtls_support/config $EXT_DIR/third_party/silabs/gecko_sdk/platform/security/sl_component/sl_mbedtls_support
+cp -R $GSDK_ROOT/platform/security/sl_component/sl_mbedtls_support/config/template $EXT_DIR/third_party/silabs/simplicity_sdk/platform/security/sl_component/sl_mbedtls_support/config
+cp -R $GSDK_ROOT/platform/security/sl_component/sl_mbedtls_support/config $EXT_DIR/third_party/silabs/simplicity_sdk/platform/security/sl_component/sl_mbedtls_support
 
 cp -R $WIFI_SDK_ROOT/components/device/silabs/si91x/wireless/firmware_upgrade $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wireless/firmware_upgrade
 
@@ -92,8 +92,8 @@ cp -R $MATTER_ROOT/third_party/silabs/matter_support/matter/si91x/siwx917/BRD433
 cp -R $MATTER_ROOT/third_party/mbedtls/repo $EXT_DIR/third_party/mbedtls/
 
 # Segger files needed due to GSDK component override within Matter projects
-cp -R $GSDK_ROOT/util/third_party/segger/systemview/SEGGER $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/segger/systemview/
-cp -R $GSDK_ROOT/util/third_party/segger/systemview/Config $EXT_DIR/third_party/silabs/gecko_sdk/util/third_party/segger/systemview/
+cp -R $GSDK_ROOT/util/third_party/segger/systemview/SEGGER $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/segger/systemview/
+cp -R $GSDK_ROOT/util/third_party/segger/systemview/Config $EXT_DIR/third_party/silabs/simplicity_sdk/util/third_party/segger/systemview/
 
 # Copy app source code to extension
 mkdir -p $EXT_DIR/examples/lighting-app/silabs/data_model/zap-generated
@@ -211,15 +211,15 @@ cp $MATTER_ROOT/provision.mattpconf $EXT_DIR
 cp $MATTER_ROOT/slc/EXTENSION_README.md $EXT_DIR/README.md
 
 # Files required for WF200 fmac driver
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.h  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus_spi.c  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.c  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
-cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/brd2204a/  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/sl_wfx*  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/config/
-cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/firmware  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/
-cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/pds $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/secure_link/sl_wfx_secure_link*  $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/secure_link/
-cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/sl_wfx* $EXT_DIR/third_party/silabs/gecko_sdk/platform/radio/wifi/wfx_fmac_driver/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.h  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus_spi.c  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/bus/sl_wfx_bus.c  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/bus/
+cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/brd2204a/  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/config/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/config/sl_wfx*  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/config/
+cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/firmware  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/
+cp -R $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/pds $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/secure_link/sl_wfx_secure_link*  $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/secure_link/
+cp $GSDK_ROOT/platform/radio/wifi/wfx_fmac_driver/sl_wfx* $EXT_DIR/third_party/silabs/simplicity_sdk/platform/radio/wifi/wfx_fmac_driver/
 
 # SPI related files for 917 NCP
 mkdir -p $EXT_DIR/third_party/silabs/wifi_sdk/components/device/silabs/si91x/wireless/host_mcu/efx32/

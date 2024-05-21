@@ -1,4 +1,4 @@
-project_name: zigbee_matter_light
+project_name: zigbee-matter-light
 label: z3-light_ot-ftd_Matter_soc
 package: Matter
 category: Matter Zigbee Application

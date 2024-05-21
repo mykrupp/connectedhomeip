@@ -70,14 +70,14 @@ With this build variant, the light can be controlled simultaneously from the Mat
 ## Building command
 From the root of the Extension repo
 ```
-./slc/build.sh silabs_examples/zigbee_matter_light/zigbee_matter_light.slcp brd4187c,matter_zigbee_sequential\;matter
+./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c,matter_zigbee_sequential\;matter
 
-./slc/build.sh silabs_examples/zigbee_matter_light/zigbee_matter_light.slcp brd4187c,matter_zigbee_concurrent\;matter
+./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c,matter_zigbee_concurrent\;matter
 ```
 
 Building it without any extra component will default to the concurrent version
 ```
-./slc/build.sh silabs_examples/zigbee_matter_light/zigbee_matter_light.slcp brd4187c
+./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c
 ```
 
 # Customizing 

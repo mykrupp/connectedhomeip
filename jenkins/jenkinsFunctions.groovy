@@ -120,7 +120,7 @@ def getPrjFileName(targetBoard, appName, useWorkspaces, ncp="")
             slcProjFileName = appName+"-thread${isInternalBootloader}-bootloader"
         }
         else{
-            if (appName == "zigbee_matter_light"){
+            if (appName == "zigbee-matter-light"){
                 slcProjFileName = appName
             }
             else {
@@ -149,7 +149,7 @@ def getSeries(brd){
     }
 }
 
-def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = "", bootloaderComponents = "", customPath = ""){
+def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = "", bootloaderComponents = "", customPath = ""){
     def buildMap = [:]
     buildMap["board"] = board
     buildMap["appName"] = appName
@@ -187,11 +187,13 @@ def buildCMP()
 {
     def appsToBuild = []
     // Sequential
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
-    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
     // Concurrent
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
-    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee_matter_light", otaVersion="", ncp = "", configs = "", useWorkspace = false, additionalComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
     slcBuild(appsToBuild, "CMP")
 }
 
@@ -338,6 +340,14 @@ def generateProjects(paramMap){
     sh "printenv"
 
     def output = brd + "/" + app + ncp + ota
+
+    // CMP
+    if(appName == "zigbee-matter-light")
+    {
+        // retrieve the variant from the component name (sequential or concurrent)
+        def tmpStr = paramMap["applicationComponents"].split(";").first().split("_").last()
+        output += tmpStr.replace(",","")
+    }
 
     if (bootloaderComponents && useWorkspaces){
         // Build for solutions
@@ -1041,6 +1051,15 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     if(ncp){
         binaryNamingHelper = ncp
     }
+
+    // CMP
+    if(appName == "zigbee-matter-light")
+    {
+        // retrieve the variant from the component name (sequential or concurrent)
+        def tmpStr = paramMap["applicationComponents"].split(";").first().split("_").last()
+        binaryNamingHelper = tmpStr.replace(",","")
+    }
+
     // Create designated standardized filepath for each binary and place outputted images there 
     // For example:  release/BRD4187C/OpenThread/lighting-app-thread.s37
     def newBinaryLocation = "${savedDirectory}/${out_dir}/${buildType}${otaVersion}/${board}/${protocol}"

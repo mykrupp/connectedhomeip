@@ -157,7 +157,7 @@ cp $MATTER_ROOT/silabs_examples/silabs-sensors/data_model/sensor-wifi-app.zap $E
 cp -R $MATTER_ROOT/silabs_examples/silabs-sensors/include $EXT_DIR/silabs_examples/silabs-sensors/
 cp -R $MATTER_ROOT/silabs_examples/silabs-sensors/src $EXT_DIR/silabs_examples/silabs-sensors/
 
-cp -R $MATTER_ROOT/silabs_examples/zigbee_matter_light $EXT_DIR/silabs_examples/
+cp -R $MATTER_ROOT/silabs_examples/zigbee-matter-light $EXT_DIR/silabs_examples/
 
 cp $MATTER_ROOT/silabs_examples/onoff-plug-app/onoff-plug-common/onoff-plug-app.zap $EXT_DIR/silabs_examples/onoff-plug-app/onoff-plug-common
 cp -R $MATTER_ROOT/silabs_examples/onoff-plug-app/include $EXT_DIR/silabs_examples/onoff-plug-app

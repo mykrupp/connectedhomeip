@@ -68,8 +68,9 @@ extern "C" {
 #include <setup_payload/AdditionalDataPayloadGenerator.h>
 #endif
 
-#define BLE_MIN_CONNECTION_INTERVAL_MS 45
-#define BLE_MAX_CONNECTION_INTERVAL_MS 45
+// Default Connection  parameters
+#define BLE_MIN_CONNECTION_INTERVAL_MS (24) // Time = Value x 1.25 ms = 30ms
+#define BLE_MAX_CONNECTION_INTERVAL_MS (40) // Time = Value x 1.25 ms = 50ms
 #define BLE_SLAVE_LATENCY_MS 0
 #define BLE_TIMEOUT_MS 400
 #define BLE_DEFAULT_TIMER_PERIOD_MS (1)
@@ -244,14 +245,6 @@ namespace {
 #define BLE_CONFIG_MAX_TX_POWER (80)
 #define BLE_CONFIG_RF_PATH_GAIN_TX (0)
 #define BLE_CONFIG_RF_PATH_GAIN_RX (0)
-
-// Default Connection  parameters
-#define BLE_CONFIG_MIN_INTERVAL (16) // Time = Value x 1.25 ms = 30ms
-#define BLE_CONFIG_MAX_INTERVAL (80) // Time = Value x 1.25 ms = 100ms
-#define BLE_CONFIG_LATENCY (0)
-#define BLE_CONFIG_TIMEOUT (100)          // Time = Value x 10 ms = 1s
-#define BLE_CONFIG_MIN_CE_LENGTH (0)      // Leave to min value
-#define BLE_CONFIG_MAX_CE_LENGTH (0xFFFF) // Leave to max value
 
 TimerHandle_t sbleAdvTimeoutTimer; // FreeRTOS sw timer.
 

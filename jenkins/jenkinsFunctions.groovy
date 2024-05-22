@@ -48,18 +48,21 @@ def getBoardsWithInternalBootloader()
 {
     return ["BRD4337A", "BRD2704A", "BRD2703A", "BRD4319A"]
 }
-def getWifiApps()
+def getNCPApps()
 {
-    return ["lighting-app", "lock-app", "thermostat", "window-app", "onoff-plug-app", "sensor-app", "dishwasher-app"]
+    return [ "lock-app", "thermostat"]
 }
-def get917Apps()
+
+def get917NCPApps()
+{
+    return [ "lock-app", "thermostat", "window-app"]
+}
+
+def get917SoCApps()
 {
     return ["lighting-app", "lock-app", "light-switch-app", "window-app", "onoff-plug-app", "dishwasher-app", "thermostat"]
 }
-def getNcps()
-{
-    return ["rs911x", "917-ncp", "wf200"]
-}
+
 def getGblNcps()
 {
     return ["wf200","rs911x"]

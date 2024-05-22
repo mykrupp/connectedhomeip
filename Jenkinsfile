@@ -92,7 +92,7 @@ def runInMatterWorkspace(Map args, Closure cl){
                 def ipAdd = sh returnStdout: true, script: 'hostname -i | awk \'{ print \$1 }\''
    				ipAdd = ipAdd.trim()
     			echo "IP Address: $ipAdd \nNetdata: http://$ipAdd:19999"
-
+                // Build WiFi Examples
                 def workspaceTmpDir = createWorkspaceOverlay(args.buildStagesList,
                                                              args.nfsWorkspaceDir)
                 def filterPattern = args.saveFilter == 'NONE' ? '-name "no-files"' : args.saveFilter
@@ -321,9 +321,12 @@ def pipeline()
             def openThreadApps   = pipelineFunctions.getThreadApps()
             def openThreadBoards = pipelineFunctions.getThreadBoards(pipelineFunctions.getBuildType())
 
-            def wifiApps         = pipelineFunctions.getWifiApps()
+            def wifiNCPApps      = pipelineFunctions.getNCPApps()
+            def wifi917NCPApps   = pipelineFunctions.get917NCPApps()
             def wifiBoards       = pipelineFunctions.getWifiBoards(pipelineFunctions.getBuildType())
-            def wifiNCP          = pipelineFunctions.getNcps()
+            def wifiNCP          = pipelineFunctions.getGblNcps()
+            def socApps          = pipelineFunctions.get917SoCApps()
+            def socBoards        = pipelineFunctions.getWifiSocBoards()
 
             if(!env.BRANCH_NAME.startsWith('sqa_')){
                 // Build OpenThread Examples
@@ -334,15 +337,19 @@ def pipeline()
                 //Matter Zigbee app
                 parallelNodesBuild["Matter Zigbee App"]          = containerWrapper('-name "*.s37" -o -name "*.map"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory, { pipelineFunctions.buildCMP() })
 
-                // Build WiFi Examples
+                // Build rs911x/WF200 NCP WiFi Examples
                 wifiBoards.each { boardToBuild ->
                     wifiNCP.each { ncp ->
-                        parallelNodesBuild["WiFi $boardToBuild $ncp"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifiApps, boardToBuild, ncp, buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
+                        parallelNodesBuild["WiFi $boardToBuild $ncp"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifiNCPApps, boardToBuild, ncp, buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
                     }
                 }
 
-                def socApps = pipelineFunctions.get917Apps()
-                def socBoards = pipelineFunctions.getWifiSocBoards()
+                // Build 917 NCP WiFi Examples
+                wifiBoards.each { boardToBuild ->
+                    parallelNodesBuild["WiFi $boardToBuild 917-ncp"]  = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(wifi917NCPApps, boardToBuild, "917-ncp", buildWithWorkspaces=params.BUILD_WITH_WORKSPACES) })
+                }
+
+                // Build 917 SoC WiFi Examples
                 socBoards.each { boardToBuild ->
                     parallelNodesBuild["917SoC $boardToBuild"]         = containerWrapper('-name "*.s37" -o -name "*.map" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWifi(socApps, boardToBuild, "917-soc", buildWithWorkspaces=false) })
                 }

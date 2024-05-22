@@ -22,6 +22,9 @@
 #include "silabs_utils.h"
 #include "sl_status.h"
 
+// SLC-FIX
+#include "sl_matter_wifi_config.h"
+
 #include "FreeRTOS.h"
 #include "event_groups.h"
 #include "sl_board_configuration.h"

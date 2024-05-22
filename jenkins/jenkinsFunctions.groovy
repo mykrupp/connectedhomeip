@@ -19,13 +19,13 @@ def getThreadBoards(buildType='')
         return ["BRD4187C"]
     }
     else {
-        return ["BRD4121A", "BRD4187C", "BRD4316A", "BRD4337A"]
+        return ["BRD4187C", "BRD4316A", "BRD4337A"]
     } 
 }
 def getWifiBoards(buildType='')
 {
     if (buildType == "FULL") {
-        return ["BRD4186C", "BRD4187C"]       
+        return ["BRD4186C", "BRD4187C"]
     } 
     else if (buildType == "GBL")
     {

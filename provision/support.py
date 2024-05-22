@@ -75,8 +75,8 @@ class Updater:
     SUPPORTED_PARTS = [
         PartConfig('efr32mg12', 'efr32', 'EFR32MG12P232F512GM68',     0x7f800),
         PartConfig('efr32mg24', 'efr32', 'EFR32MG24A010F1024IM48',    0xfe000),
+		PartConfig('efr32mg26', 'efr32', 'EFR32MG26B410F3200IM48',    0x31c000),
         PartConfig('si917',     'si917', 'brd4338a;wiseconnect3_sdk', 0x1fe000),
-
     ]
 
     def __init__(self, paths, args, part) -> None:
@@ -148,8 +148,9 @@ class Updater:
             patcher.patch(self.paths)
             # Linker file
             linkerfile_from = self.paths.support("patch/{}.ld".format(self.part.family))
-            linkerfile_into = "{}/autogen/linkerfile.ld".format(self.part_dir)
-            shutil.copyfile(linkerfile_from, linkerfile_into)
+            if os.path.exists(linkerfile_from):
+                linkerfile_into = "{}/autogen/linkerfile.ld".format(self.part_dir)
+                shutil.copyfile(linkerfile_from, linkerfile_into)
         # Stage the newly generated code
         _util.execute([ 'git', 'add', self.part_dir ])
 

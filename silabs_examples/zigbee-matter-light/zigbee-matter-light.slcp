@@ -238,7 +238,8 @@ include:
       - path: CHIPProjectConfig.h
       - path: LightingManager.h
       - path: ZigbeeCallbacks.h
-
+post_build:
+  profile: application
 
 readme:
   - path: ./README.md

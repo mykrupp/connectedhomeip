@@ -46,7 +46,7 @@ def getThreadApps()
 }
 def getBoardsWithInternalBootloader()
 {
-    return ["BRD4337A", "BRD2704A", "BRD2703A", "BRD4319A"]
+    return ["BRD4337A", "BRD2704A", "BRD2703A", "BRD4319A", "BRD4116A"]
 }
 def getNCPApps()
 {
@@ -120,7 +120,13 @@ def getPrjFileName(targetBoard, appName, useWorkspaces, ncp="")
             if (targetBoard in internalBootloaderBoards){
                 isInternalBootloader = "-internal"
             }
-            slcProjFileName = appName+"-thread${isInternalBootloader}-bootloader"
+            if (appName == "zigbee-matter-light"){
+                slcProjFileName = appName+"${isInternalBootloader}-bootloader"
+            }
+            else {
+                slcProjFileName = appName+"-thread${isInternalBootloader}-bootloader"
+            }
+            
         }
         else{
             if (appName == "zigbee-matter-light"){
@@ -191,11 +197,11 @@ def buildCMP()
     def appsToBuild = []
     // Sequential
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = true, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="")
     appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="silabs_examples/")
     // Concurrent
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = true, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="")
     appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="silabs_examples/")
     slcBuild(appsToBuild, "CMP")
 }

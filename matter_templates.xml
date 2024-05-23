@@ -933,5 +933,37 @@
     <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.dishwasher-app.siwx917.dishwasher-app-917-soc.slcp"/>
-  </descriptors> 
+  </descriptors>
+  <descriptors name="ZigbeeMatterLight" label="Matter and Zigbee - SoC Light"
+               description="This project builds a Matter Lighting app combined with a Zigbee Light that can be developed inside Simplicity Studio">
+    <properties key="namespace" value="template.uc"/>
+    <properties key="keywords" value="Matter Zigbee"/>
+    <properties key="solutionReferenceId" value="silabs_examples.zigbee-matter-light.zigbee-matter-light.slcp"/>
+    <properties key="projectFilePaths" value="silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp"/>
+    <properties key="readmeFiles" value="silabs_examples/zigbee-matter-light/README.md"/>
+    <properties key="boardCompatibility" value="brd4186c brd4187c brd4316a brd4317a brd4318a brd4337a brd2601b brd2703a brd2704a brd4116a brd4121a brd4319a:0.0.0.A00 com.silabs.board.none "/>
+    <properties key="partCompatibility" value=".*efr32mg24.* .*efr32mg26.* .*mgm24.*"/>
+    <properties key="ideCompatibility" value="generic-template makefile-ide simplicity-ide visual-studio-code visual-studio-code-cmake"/>
+    <properties key="toolchainCompatibility" value="gcc"/>
+    <properties key="category" value="Matter Application"/>
+    <properties key="quality" value="PRODUCTION"/>
+    <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
+    <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter Technology|Zigbee"/>
+  </descriptors>
+  <descriptors name="ZigbeeMatterLightSolution" label="Matter and Zigbee - SoC Light with internal Bootloader Solution"
+               description="This project builds a Matter Lighting app combined with a Zigbee Light that can be developed inside Simplicity Studio">
+    <properties key="namespace" value="template.solution.uc"/>
+    <properties key="keywords" value="Matter Zigbee"/>
+    <properties key="solutionReferenceId" value="slc.workspace.zigbee-matter-light.series-2.zigbee-matter-light-internal-bootloader.slcw"/>
+    <properties key="projectFilePaths" value="slc/workspaces/zigbee-matter-light/series-2/zigbee-matter-light-internal-bootloader.slcw"/>
+    <properties key="readmeFiles" value="silabs_examples/zigbee-matter-light/README.md"/>
+    <properties key="boardCompatibility" value="brd4186c brd4187c brd4316a brd4317a brd4318a brd4337a brd2601b brd2703a brd2704a brd4116a brd4121a brd4319a:0.0.0.A00 com.silabs.board.none "/>
+    <properties key="partCompatibility" value=".*efr32mg24.* .*efr32mg26.* .*mgm24.*"/>
+    <properties key="ideCompatibility" value="generic-template makefile-ide simplicity-ide visual-studio-code visual-studio-code-cmake"/>
+    <properties key="toolchainCompatibility" value="gcc"/>
+    <properties key="category" value="Matter Application"/>
+    <properties key="quality" value="PRODUCTION"/>
+    <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
+    <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter Technology|Zigbee"/>
+  </descriptors>  
   </model:MDescriptors>

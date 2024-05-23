@@ -29,15 +29,15 @@ include:
 -   path: src/lib
 -   path: third_party/nlassert/repo/include
 -   path: third_party/nlio/repo/include
--   path: src/app/icd/server
+-   path: src
     file_list:
-    -   path: ICDMonitoringTable.h
-    -   path: ICDManager.h
-    -   path: ICDStateObserver.h
-    -   path: ICDNotifier.h
-    -   path: ICDServerConfig.h
-    -   path: ICDCheckInSender.h
-    -   path: ICDConfigurationData.h
+    -   path: app/icd/server/ICDMonitoringTable.h
+    -   path: app/icd/server/ICDManager.h
+    -   path: app/icd/server/ICDStateObserver.h
+    -   path: app/icd/server/ICDNotifier.h
+    -   path: app/icd/server/ICDServerConfig.h
+    -   path: app/icd/server/ICDCheckInSender.h
+    -   path: app/icd/server/ICDConfigurationData.h
 
 
 source:

@@ -49,7 +49,7 @@
 #if CHIP_HAVE_CONFIG_H
 #include <crypto/CryptoBuildConfig.h>
 #endif
-#if (CHIP_CRYPTO_PLATFORM == 1)
+#if ((CHIP_CRYPTO_PLATFORM == 1) && !(SLI_SI91X_MCU_INTERFACE)) //SLC-FIX
 #include "psa/crypto.h"
 
 #if !defined(CHIP_CONFIG_SHA256_CONTEXT_SIZE)

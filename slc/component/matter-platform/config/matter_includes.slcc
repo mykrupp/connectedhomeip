@@ -26,5 +26,11 @@ include:
     - path: system/SystemBuildConfig.h
     - path: CHIPVersion.h
     - path: FirmwareBuildTime.h
+  
+  - path: src
+    file_list:
+    - path: app/icd/server/ICDServerConfig.h
+    - path: app/icd/server/ICDStateObserver.h
+
 ui_hints:
     visibility: never

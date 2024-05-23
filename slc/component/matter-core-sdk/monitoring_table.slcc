@@ -4,8 +4,8 @@ define:
     value: '1'
 -   name: RADIO_CONFIG_DMP_SUPPORT
     value: '1'
-description: responders
-id: responders
+description: monitoring_table
+id: monitoring_table
 include:
 -   path: examples/platform/silabs
 -   path: src
@@ -13,26 +13,24 @@ include:
 -   path: src/lib
 -   path: third_party/nlassert/repo/include
 -   path: third_party/nlio/repo/include
--   path: src/lib/dnssd/minimal_mdns/responders
+-   path: src/app/icd/server
     file_list:
-    -   path: Srv.h
-    -   path: RecordResponder.h
-    -   path: QueryResponder.h
-    -   path: Ptr.h
-    -   path: IP.h
-    -   path: ReplyFilter.h
-    -   path: Responder.h
-    -   path: Txt.h
-label: responders
+    -   path: ICDMonitoringTable.h
+    -   path: ICDCheckInSender.h
+    -   path: ICDManager.h
+    -   path: ICDConfigurationData.h
+    -   path: ICDServerConfig.h
+    -   path: ICDStateObserver.h
+    -   path: ICDNotifier.h
+label: monitoring_table
 package: Matter
 provides:
--   name: matter_responders
+-   name: matter_monitoring_table
 quality: production
 metadata:
   sbom:
     license: "Apache 2.0"
 source:
--   path: src/lib/dnssd/minimal_mdns/responders/IP.cpp
--   path: src/lib/dnssd/minimal_mdns/responders/QueryResponder.cpp
+-   path: src/app/icd/server/ICDMonitoringTable.cpp
 ui_hints:
     visibility: never

@@ -228,6 +228,45 @@ def buildOtaImages(){
 
     slcBuild(appsToBuild, "OTA Images")
 }
+def buildMultiOtaImages(){
+    def componentsToAdd = ',matter_multi_image_ota;matter,matter_multi_image_custom_processor;matter'
+    def componentsToRemove = '--without "matter_ota_support;matter"'
+
+    def appsToBuild = []
+
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+
+    slcBuild(appsToBuild, "M-OTA Images")
+}
+
+def buildMultiOtaEncImages(){
+    def componentsToAdd = ',matter_multi_image_ota;matter,matter_multi_image_ota_encryption;matter,matter_multi_image_custom_processor;matter'
+    def componentsToRemove = '--without "matter_ota_support;matter"'
+
+    def appsToBuild = []
+
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+
+    slcBuild(appsToBuild, "M-OTA-enc Images")
+}
+
+
 // Builds all Wifi examples by board (depending on build type)
 def buildWifi(appsToBuild, boardToBuild, ncpToBuild, buildWithWorkspaces)
 {
@@ -637,6 +676,8 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                     file="sqa-build-binaries.zip"
 
                     mv ./ota_automation_out ./out/OTA
+                    mv ./multi_ota_automation_out ./out/M-OTA-V1
+                    mv ./multi_ota_enc_automation_out ./out/M-OTA-V1-enc
                     zip -r "${file}" out
 
                     echo 'UBAI uploading ......'
@@ -1052,6 +1093,14 @@ def saveGeneratedBinaries(paramMap, gsdkPath, matterPath, buildDir){
     // Modify output path to differentiate OTA & code size analysis builds from release builds
     if(otaVersion){
         out_dir = 'ota_automation_out'
+        buildType = appName
+    }
+    if(applicationComponents.contains('multi_image_ota') && applicationComponents.contains('ota_encryption')){
+        out_dir = 'multi_ota_enc_automation_out'
+        buildType = appName
+    }
+    else if(applicationComponents.contains('multi_image_ota')){
+        out_dir = 'multi_ota_automation_out'
         buildType = appName
     }
     if(applicationComponents.contains("matter_no_debug")){

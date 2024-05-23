@@ -374,6 +374,10 @@ def pipeline()
                 // Build OTA binaries on SQA Branch
             } else {
                 parallelNodesBuild['OTA']                              = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildOtaImages() })
+                parallelNodesBuild['M-OTA-V1']                            = containerWrapper('-name "*.s37"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildMultiOtaImages() })
+                parallelNodesBuild['M-OTA-V1-enc']                            = containerWrapper('-name "*.s37"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildMultiOtaEncImages() })
+
+
             }
 
             parallelNodesBuild.failFast = false

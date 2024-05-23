@@ -803,6 +803,7 @@ def triggerSqaSmokeAndRegressionTest(buildTool,matterBranchName=env.BRANCH_NAME,
                                 if(env.BRANCH_NAME.startsWith('sqa_')){
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-slc', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-ota', matterBranchName, matterBuildNumber)
+                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-cmp', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'endurance-customers-issues', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-enhanced-groups', matterBranchName, matterBuildNumber)
                                     sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-binding-enhanced', matterBranchName, matterBuildNumber)

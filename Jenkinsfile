@@ -435,11 +435,11 @@ def pipeline()
 
             def parallelNodes = [:]
 
-            parallelNodes['Lighting-App BRD4187C']      = { pipelineFunctions.utfThreadTestSuite('gsdkMontrealNode','utf_matter_thread',
-                                                            'matter_thread','lighting-app','thread','BRD4187C','',"/manifest-4187-thread-lighting_slc",
+            parallelNodes['Lighting-App BRD4187C']      = { pipelineFunctions.runUTFTestSuite('gsdkMontrealNode','utf_matter_thread',
+                                                            'matter_thread','lighting-app','thread','BRD4187C',"",'',"/manifest-4187-thread-lighting_slc",
                                                             "--tmconfig tests/.sequence_manager/test_execution_definitions/matter_thread_ci_sequence.yaml","SLC") }
 
-            parallelNodes['lighting 917-SoC BRD4338A']   = { pipelineFunctions.utfWiFiTestSuite('gsdkMontrealNode','utf_matter_wifi_917soc_ci_2','matter_wifi_917soc_ci_2',
+            parallelNodes['lighting 917-SoC BRD4338A']   = { pipelineFunctions.runUTFTestSuite('gsdkMontrealNode','utf_matter_wifi_917soc_ci_2','matter_wifi_917soc_ci_2',
                                                             'lighting-app','wifi','BRD4338A','917_soc','',"/manifest-917soc",
                                                             "--tmconfig tests/.sequence_manager/test_execution_definitions/matter_wifi_ci_sequence.yaml","SLC") }
 

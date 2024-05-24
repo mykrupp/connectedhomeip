@@ -816,119 +816,7 @@ def triggerSqaSmokeAndRegressionTest(buildTool,matterBranchName=env.BRANCH_NAME,
             deactivateWorkspaceOverlay(advanceStageMarker.getBuildStagesList(), workspaceTmpDir)
         }
 }
-def utfThreadTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,testSuite,manifestYaml,testSequenceYaml,buildTool)
-{
-    globalLock(credentialsId: 'hwmux_token_matterci', deviceGroup: deviceGroup) {
-        node(nomadNode){
-            ws('/home/dockerUser/qaWorkspace/')
-            {
-                dir('utf_app_matter')
-                {   
-                    def commanderDir = ""
-                    sshagent(['svc_gsdk-ssh']) {
-                        checkout scm: [$class                            : 'GitSCM',
-                                        branches                         : [[name: 'silabs_slc_1.3']],
-                                        browser                          : [$class: 'Stash',
-                                        repoUrl                          : 'https://stash.silabs.com/scm/utf/utf_app_matter.git/'],
-                                        userRemoteConfigs                : [[credentialsId: 'svc_gsdk-ssh',
-                                        url                              : 'ssh://git@stash.silabs.com/utf/utf_app_matter.git']]]
-
-                        sh ''' git submodule sync --recursive
-                            git submodule update --init --recursive -q '''
-                        sh 'git submodule foreach --recursive git fetch --tags'
-                        sh ''' git clean -ffdx
-                            git submodule foreach --recursive -q git reset --hard -q
-                            git submodule foreach --recursive -q git clean -ffdx -q '''
-                        dir('commander'){
-                            checkout scm: [$class               : 'GitSCM', 
-                                            branches            : [[name: pipelineMetadata.toolchain_info.commander_info.commanderBranch]],
-                                            browser             : [$class: 'Stash', repoUrl: pipelineMetadata.toolchain_info.commander_info.browserUrl], 
-                                            userRemoteConfigs   : [[credentialsId: 'svc_gsdk-ssh', url: pipelineMetadata.toolchain_info.commander_info.gitUrl]]]
-
-                            commanderPath = sh(script: "find " + pwd() + " -name 'commander' -type f -print",returnStdout: true).trim()
-                            echo commanderPath
-                            sh "${commanderPath} -v"
-                            commanderDir = commanderPath - "/commander"
-                            echo commanderDir
-                        }
-                    }
-                    dir('matter')
-                    {
-                            sh 'pwd '
-                            stashFolder = getStashName(board, appName)
-                            echo "unstash folder: "+stashFolder
-                            unstash stashFolder
-                            unstash 'ChipTool'
-
-                            chiptoolPath = sh(script: "find " + pwd() + " -name 'chip-tool' -print",returnStdout: true).trim()
-                            echo chiptoolPath
-
-                            sh "cp saved_workspace/out/release/${board}/OpenThread/${appName}*.s37 ../manifest"
-                    }
-
-                    withVault([vaultSecrets: secrets])
-                    {
-                        withEnv([
-                            // vars required for publish to database
-                            'UTF_QUEUE_SERVER_URL=amqps://' + SL_USERNAME + ':' + SL_PASSWORD + '@utf-queue-central.silabs.net:443/%2f',
-                            "UTF_PRODUCER_APP_ID=$BUILD_TAG",
-                            "RELEASE_NAME=$RELEASE_NAME",
-                            "TEST_SUITE=MatterCI", // ?
-                            "TEST_SCRIPT_REPO=utf-app-matter",
-                            "SDK_URL=N/A",        // ?
-                            "STUDIO_URL=N/A",     // ?
-                            "BRANCH_NAME=${env.BRANCH_NAME}", // ?
-                            "SDK_BUILD_NUM=$BUILD_NUMBER",
-                            "TESTBED_NAME=${testBedName}",
-                            "BUILD_URL=$BUILD_URL",
-                            "JENKIN_RUN_NUM=$BUILD_NUMBER",
-                            "JENKINS_JOB_NAME=$JOB_NAME",
-                            "JENKINS_SERVER_NAME=$JENKINS_URL",
-                            "JENKINS_TEST_RESULTS_URL=$JOB_URL$BUILD_NUMBER/testReport",
-                            "BOARD_ID=${board}",
-                            "MATTER_APP_EXAMPLE=${appName}",
-                            'RUN_SUITE=true',
-                            "MATTER_TYPE=${matterType}",
-                            "TEST_TYPE=ci",
-                            "BUILD_TOOL=${buildTool}",
-                            'PUBLISH_RESULTS=true', // unneeded?
-                            'RUN_TCM_SETUP=false',  // unneeded?
-                            "MATTER_CHIP_TOOL_PATH=${chiptoolPath}" ,
-                            'DEBUG=true',
-                            "UTF_COMMANDER_PATH=${commanderPath}",
-                            "TCM_SIMPLICITYCOMMANDER=${commanderPath}",
-                            "SECMGR_COMMANDER_PATH=${commanderPath}",
-                            "CSA_MATTER_VERSION=${_CSA_MATTER_VERSION}",
-                            "PATH+COMMANDER_PATH=${commanderDir}"
-                        ])
-                        {
-                            catchError(buildResult: 'UNSTABLE',
-                                        catchInterruptions: false,
-                                        message: "[ERROR] One or more tests have failed",
-                                        stageResult: 'UNSTABLE')
-                            {
-                                sh 'printenv'
-                                sh """
-                                    echo ${MATTER_CHIP_TOOL_PATH}
-                                    ls -al ${MATTER_CHIP_TOOL_PATH}
-                                    ./workspace_setup.sh
-                                    executor/launch_utf_tests.sh --publish_test_results true --harness  ${TESTBED_NAME}.yaml --executor_type local --pytest_command "pytest --tb=native tests${testSuite} --manifest manifest${manifestYaml}.yaml ${testSequenceYaml}"
-                                """
-                            }
-                        }
-                    }
-                    sh "cp ./reports/pytest-report.html ./reports/pytest-report-${appName}-${board}.html"
-                    archiveArtifacts artifacts: "reports/pytest-report-${appName}-${board}.html"
-                    junit: 'reports/junit_report.xml'
-
-                    def branchName = BRANCH_NAME.replaceAll("/", "%252F")
-                    echo "Download test results here: https://jenkins-cbs-iot-matter.silabs.net/job/Matter_CICD/job/${branchName}/${BUILD_NUMBER}/artifact/reports/pytest-report-${appName}-${board}.html"
-                }
-            }
-        } 
-    }
-}
-def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,wifi_module,testSuite,manifestYaml,testSequenceYaml,buildTool)
+def runUTFTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,wifi_module,testSuite,manifestYaml,testSequenceYaml,buildTool)
 {
     globalLock(credentialsId: 'hwmux_token_matterci', deviceGroup: deviceGroup) {
         node(nomadNode){
@@ -953,9 +841,9 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
                             git submodule foreach --recursive -q git reset --hard -q
                             git submodule foreach --recursive -q git clean -ffdx -q '''
                         dir('commander'){
-                            checkout scm: [$class               : 'GitSCM', 
+                            checkout scm: [$class               : 'GitSCM',
                                             branches            : [[name: pipelineMetadata.toolchain_info.commander_info.commanderBranch]],
-                                            browser             : [$class: 'Stash', repoUrl: pipelineMetadata.toolchain_info.commander_info.browserUrl], 
+                                            browser             : [$class: 'Stash', repoUrl: pipelineMetadata.toolchain_info.commander_info.browserUrl],
                                             userRemoteConfigs   : [[credentialsId: 'svc_gsdk-ssh', url: pipelineMetadata.toolchain_info.commander_info.gitUrl]]]
 
                             commanderPath = sh(script: "find " + pwd() + " -name 'commander' -type f -print",returnStdout: true).trim()
@@ -965,22 +853,30 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
                             echo commanderDir
                         }
                     }
-                
-
                     dir('matter')
                     {
-                        stashFolder = getStashName(board, appName, wifi_module)
+                        sh 'pwd'
+                        if(matterType == "wifi") {
+                            stashFolder = getStashName(board, appName, wifi_module)
+                        } else {
+                            stashFolder = getStashName(board, appName)
+                        }
+                        echo "unstash folder: "+stashFolder
                         unstash stashFolder
                         unstash 'ChipTool'
-                    
+
                         chiptoolPath = sh(script: "find " + pwd() + " -name 'chip-tool' -print",returnStdout: true).trim()
                         echo chiptoolPath
 
-                        if(board == "BRD4338A") {
-                            def rpsAppName = "SiWx917-lighting"
-                            sh "cp saved_workspace/out/release/${board}/WiFi/${rpsAppName}*.rps ../manifest"
+                        if(matterType == "wifi") {
+                            if(board == "BRD4338A") {
+                                def rpsAppName = "SiWx917-lighting"
+                                sh "cp saved_workspace/out/release/${board}/WiFi/${rpsAppName}*.rps ../manifest"
+                            } else {
+                                sh "cp saved_workspace/out/release/${board}/WiFi/${appName}*.s37 ../manifest"
+                            }
                         } else {
-                            sh "cp saved_workspace/out/release/${board}/WiFi/${appName}*.s37 ../manifest"
+                            sh "cp saved_workspace/out/release/${board}/OpenThread/${appName}*.s37 ../manifest"
                         }
                     }
 
@@ -1031,8 +927,6 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
                                 sh """
                                     echo ${TESTBED_NAME}
                                     ${commanderPath} --version
-                                    pwd
-                                    ls
                                     ./workspace_setup.sh
                                     executor/launch_utf_tests.sh --publish_test_results true --harness  ${TESTBED_NAME}.yaml --executor_type local --pytest_command "pytest --tb=native tests${testSuite} --manifest manifest${manifestYaml}.yaml ${testSequenceYaml}"
                                 """
@@ -1042,6 +936,7 @@ def utfWiFiTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,
                     sh "cp ./reports/pytest-report.html ./reports/pytest-report-${appName}-${board}.html"
                     archiveArtifacts artifacts: "reports/pytest-report-${appName}-${board}.html"
                     junit: 'reports/junit_report.xml'
+                    def branchName = BRANCH_NAME.replaceAll("/", "%252F")
                     echo "Download test results here: https://jenkins-cbs-iot-matter.silabs.net/job/Matter_CICD/job/${BRANCH_NAME}/${BUILD_NUMBER}/artifact/reports/pytest-report-${appName}-${board}.html"
                 }
             }

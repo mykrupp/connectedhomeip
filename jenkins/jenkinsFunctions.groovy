@@ -175,9 +175,9 @@ def getBuildConfigs(board="", appName="", otaVersion="", ncp = "", configs = "",
 def testCopyContents(){
     def appsToBuild = []
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "",        configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "rs911x",  configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="thermostat",   otaVersion="", ncp = "rs911x",  configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
     appsToBuild += getBuildConfigs(board="BRD4338A", appName="lighting-app", otaVersion="", ncp = "917-soc", configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app", otaVersion="", ncp = "wf200",   configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",     otaVersion="", ncp = "wf200",   configs = "--copy-sources", useWorkspace = false, applicationComponents = "")
     slcBuild(appsToBuild, "Copy Contents")
 }
 def buildNoDebugImages(){
@@ -251,15 +251,15 @@ def buildMultiOtaImages(){
 
     def appsToBuild = []
 
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
 
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
 
     slcBuild(appsToBuild, "M-OTA Images")
 }
@@ -270,15 +270,15 @@ def buildMultiOtaEncImages(){
 
     def appsToBuild = []
 
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4187C", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
 
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
-    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = false, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lighting-app",     otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="lock-app",         otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="window-app",       otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
+    appsToBuild += getBuildConfigs(board="BRD4116A", appName="dishwasher-app",   otaVersion="", ncp = "",        configs = componentsToRemove, useWorkspace = true, applicationComponents = componentsToAdd)
 
     slcBuild(appsToBuild, "M-OTA-enc Images")
 }
@@ -364,8 +364,8 @@ def generateProjects(paramMap){
     def ncp = paramMap["ncp"]
     def ota = paramMap["otaVersion"]
     def parameters = paramMap["configs"]
-    def applicationComponents = paramMap["applicationComponents"]
-    def bootloaderComponents = paramMap["bootloaderComponents"]
+    def appComponents = paramMap["applicationComponents"]
+    def blComponents = paramMap["bootloaderComponents"]
     def useWorkspaces = paramMap["useWorkspace"]
     def slcPrjName = getPrjFileName(brd, app, useWorkspaces, ncp)
     def platform = "/efr32/"
@@ -414,13 +414,13 @@ def generateProjects(paramMap){
         output += tmpStr.replace(",","")
     }
 
-    if (bootloaderComponents && useWorkspaces){
+    if ((blComponents || appComponents || parameters) && useWorkspaces){
         // Build for solutions
         sh """
             export POST_BUILD_EXE=${commanderPath}
             ${commanderPath} -version
-            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${bootloaderComponents}' -pids bootloader ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
-            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${applicationComponents}' -pids application ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${blComponents}' -pids bootloader ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${appComponents}' -pids application ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
         """
     }
     else{
@@ -428,7 +428,7 @@ def generateProjects(paramMap){
         sh """
             export POST_BUILD_EXE=${commanderPath}
             ${commanderPath} -version
-            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${applicationComponents}' ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
+            ${UC_CLI_DIR}slc generate --daemon -d ${output} ${projTypeFlag} ${projFilePath} --with '${brdLowerCase}${appComponents}' ${parameters} -data gsdk/out/dmp_uc.data --generator-timeout=1800
         """
     }
 
@@ -733,12 +733,12 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                             echo "File ./low_power_out does not exist."
                         fi
                         if [ -e "./multi_ota_automation_out" ]; then
-                            mv ./multi_ota_automation_out ./out/OTA
+                             mv ./multi_ota_automation_out ./out/M-OTA-V1
                         else
                             echo "File ./multi_ota_automation_out does not exist."
                         fi
                         if [ -e "./multi_ota_enc_automation_out" ]; then
-                            mv ./multi_ota_enc_automation_out ./out/OTA
+                            mv ./multi_ota_enc_automation_out ./out/M-OTA-V1-enc
                         else
                             echo "File ./multi_ota_enc_automation_out does not exist."
                         fi

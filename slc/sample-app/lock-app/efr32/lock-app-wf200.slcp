@@ -91,7 +91,8 @@ component:
   # Override configuration for JTAG use
   - id: matter_configuration_over_swo
     from: matter
-  - id: segger_rtt
+  - id: matter_segger_rtt
+    from: matter
 
 # Disable due to size increase of ICD functionality    
 #  - id: matter_default_lcd_config

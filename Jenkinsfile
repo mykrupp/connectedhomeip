@@ -14,6 +14,15 @@ properties([
     ])
 ])
 
+// Used to make sure that SQA branches don't get built when branchIndexing occurs
+if(env.BRANCH_NAME.startsWith('sqa_')){
+    if (currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
+      print "INFO: Build skipped due to trigger being Branch Indexing"
+      currentBuild.result = 'ABORTED'
+      return
+    }
+}
+
 buildOverlayDir = ''
 //TO DO, this is for SQA UTF testing, this value should get from db or somewhere instead of hardcoded
 RELEASE_NAME='22Q4-GA'
@@ -373,17 +382,16 @@ def pipeline()
                 }
                 // Build OTA binaries on SQA Branch
             } else {
-                parallelNodesBuild['OTA']                              = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildOtaImages() })
+                parallelNodesBuild['Thread OTA']                       = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildThreadOTAImages() })
+                parallelNodesBuild['WiFi OTA']                         = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.ota" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildWiFiOTAImages() })
+                parallelNodesBuild['Low-Power']                        = containerWrapper('-name "*.s37" -o -name "*.gbl" -o -name "*.rps"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildLowPowerImages() })
                 parallelNodesBuild['M-OTA-V1']                            = containerWrapper('-name "*.s37"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildMultiOtaImages() })
                 parallelNodesBuild['M-OTA-V1-enc']                            = containerWrapper('-name "*.s37"', buildFarmLargeLabel, gccImage, "", 'matter/' + savedDirectory,{ pipelineFunctions.buildMultiOtaEncImages() })
-
-
             }
-
             parallelNodesBuild.failFast = false
             parallel parallelNodesBuild
         } catch (err) {
-            unstable(message: "Some build failures occured")
+            unstable(message: "Some build failures occurred")
         }
     }
 

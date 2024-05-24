@@ -11,8 +11,8 @@ config_file:
   - path: slc/config/sl_matter_config.h
     file_id: matter_config
 # ICD configuration is needed by the core SDK (ICD end device or not)
-  - path: slc/config/app/icd/server/ICDServerBuildConfig.h
-    file_id: matter_icd_config
+  - path: slc/inc/app/icd/server/ICDServerBuildConfig.h
+    file_id: matter_icd_server_build_config
     directory: app/icd/server
 toolchain_settings:
   - option: gcc_compiler_option

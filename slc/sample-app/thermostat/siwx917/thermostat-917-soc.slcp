@@ -94,10 +94,6 @@ component:
   - id: segger_rtt
 #  - id: i2cspm
 #    instance: [sensor]
-  - id: matter_subscription_timeout_resumption
-    from: matter
-  - id: matter_subscription_persistence
-    from: matter
   - id: sl_si91x_common_flash_nvm3
     from: wiseconnect3_sdk
   - id: sl_si91x_wireless

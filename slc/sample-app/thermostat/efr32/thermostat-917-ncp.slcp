@@ -96,10 +96,6 @@ component:
     from: matter
   - id: segger_rtt
 
-  - id: matter_subscription_timeout_resumption
-    from: matter
-  - id: matter_subscription_persistence
-    from: matter
   - id: matter_shell
     from: matter
 

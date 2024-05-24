@@ -70,11 +70,7 @@ component:
   # Override configuration for JTAG use
   - id: matter_configuration_over_swo
     from: matter
-  - id: segger_rtt
-  - id: matter_subscription_timeout_resumption
-    from: matter
-  - id: matter_subscription_persistence
-    from: matter 
+  - id: segger_rtt 
   - id: matter_ota_requestor
     from: matter
   - id: toolchain_gcc_common

@@ -26,8 +26,6 @@ component:
     from: matter
   - id: matter_fw_upgrade_917
     from: matter
-  - id: matter_icd_core
-    from: matter
   - id: matter_wifi
     from: matter
   - id: app_common
@@ -83,8 +81,6 @@ component:
   - id: matter_configuration_over_swo
     from: matter
   - id: segger_rtt
-  - id: matter_subscription_persistence
-    from: matter
   - id: toolchain_gcc_common
     from: matter
   - id: matter_window
@@ -145,7 +141,7 @@ configuration:
   - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
 
 config_file:
-  - path: ../../../../examples/window-app/common/window-app.zap
+  - path: ../../../../examples/window-app/common/window-app-wifi.zap
     directory: common
     file_id: zap_config
   - path: ../../../../provision.mattpconf

@@ -27,7 +27,7 @@
 #include <stdint.h>
 
 #ifdef SL_ICD_ENABLED
-#include "ICDServerBuildConfig.h" // SLC-FIX
+#include "sl_matter_icd_config.h" // SLC-FIX
 #endif // SL_ICD_ENABLED
 
 // ==================== General Platform Adaptations ====================

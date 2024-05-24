@@ -31,6 +31,10 @@
 
 #define CHIP_DEVICE_CONFIG_ENABLE_WIFI_AP 0
 
+#ifdef SL_ICD_ENABLED
+#include "sl_matter_icd_config.h" // SLC-FIX
+#endif // SL_ICD_ENABLED
+
 /**
  * CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING
  *

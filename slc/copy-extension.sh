@@ -169,10 +169,12 @@ cp -R $MATTER_ROOT/silabs_examples/dishwasher-app/silabs/include $EXT_DIR/silabs
 cp -R $MATTER_ROOT/silabs_examples/dishwasher-app/silabs/src $EXT_DIR/silabs_examples/dishwasher-app/silabs/
 
 cp $MATTER_ROOT/examples/light-switch-app/light-switch-common/light-switch-app.zap $EXT_DIR/examples/light-switch-app/light-switch-common/light-switch-app.zap
+cp $MATTER_ROOT/examples/light-switch-app/light-switch-common/light-switch-app-wifi.zap $EXT_DIR/examples/light-switch-app/light-switch-common/light-switch-app-wifi.zap
 cp -R $MATTER_ROOT/examples/light-switch-app/silabs/include $EXT_DIR/examples/light-switch-app/silabs
 cp -R $MATTER_ROOT/examples/light-switch-app/silabs/src $EXT_DIR/examples/light-switch-app/silabs
 
 cp $MATTER_ROOT/examples/lock-app/lock-common/lock-app.zap $EXT_DIR/examples/lock-app/lock-common/lock-app.zap
+cp $MATTER_ROOT/examples/lock-app/lock-common/lock-app-wifi.zap $EXT_DIR/examples/lock-app/lock-common/lock-app-wifi.zap
 cp -R $MATTER_ROOT/examples/lock-app/silabs/include $EXT_DIR/examples/lock-app/silabs
 cp -R $MATTER_ROOT/examples/lock-app/silabs/src $EXT_DIR/examples/lock-app/silabs
 
@@ -181,6 +183,7 @@ cp -R $MATTER_ROOT/examples/thermostat/silabs/include $EXT_DIR/examples/thermost
 cp -R $MATTER_ROOT/examples/thermostat/silabs/src $EXT_DIR/examples/thermostat/silabs
 
 cp $MATTER_ROOT/examples/window-app/common/window-app.zap $EXT_DIR/examples/window-app/common/window-app.zap
+cp $MATTER_ROOT/examples/window-app/common/window-app-wifi.zap $EXT_DIR/examples/window-app/common/window-app-wifi.zap
 cp -R $MATTER_ROOT/examples/window-app/silabs/include $EXT_DIR/examples/window-app/silabs
 cp -R $MATTER_ROOT/examples/window-app/silabs/src $EXT_DIR/examples/window-app/silabs
 cp -R $MATTER_ROOT/examples/window-app/common/include $EXT_DIR/examples/window-app/common

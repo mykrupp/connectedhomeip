@@ -104,10 +104,6 @@ component:
     from: matter
   - id: segger_rtt
 
-  - id: matter_subscription_timeout_resumption
-    from: matter
-  - id: matter_subscription_persistence
-    from: matter
 
 requires:
 # On Series 2 LCD and external flash run over USART, VCOM runs over EUSART

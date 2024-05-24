@@ -5,9 +5,6 @@
 #include "sli_siwx917_soc.h"
 #include "rsi_board.h"
 #include "rsi_debug.h"
-#include "sl_sleeptimer.h"
-#include "sl_si91x_button_instances.h"
-#include "sl_si91x_led_instances.h"
 #include "sl_iostream_rtt.h"
 #include "cmsis_os2.h"
 #include "sl_iostream_init_instances.h"
@@ -29,13 +26,10 @@ void sl_kernel_start(void)
 
 void sl_driver_init(void)
 {
-  button_init_instances();
-  led_init_instances();
 }
 
 void sl_service_init(void)
 {
-  sl_sleeptimer_init();
   sl_iostream_init_instances();
 }
 

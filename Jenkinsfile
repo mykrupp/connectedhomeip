@@ -372,8 +372,8 @@ def pipeline()
                 // Copy contents check
                 parallelNodesBuild['Copy']                             = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.testCopyContents() })
 
-                // Component Validation
-                parallelNodesBuild['Validate Components'] =            containerWrapper("NONE", buildFarmLargeLabel, null, "", 'matter/', { pipelineFunctions.validateComponents() })
+               // Validate Metadata
+               parallelNodesBuild['Validate Metadata']                 = containerWrapper("NONE", buildFarmLargeLabel, null, "", 'matter/', { pipelineFunctions.validateMetadata() })
                 
                 // Build these examples on main development branch, RC, or if enabled
                 if (env.BRANCH_NAME.startsWith('silabs') || env.BRANCH_NAME.startsWith('RC_') || params.SEND_CODE_SIZE_REPORT == true){

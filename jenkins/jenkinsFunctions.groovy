@@ -587,6 +587,29 @@ def validateComponents()
     }
 }
 
+// Validate Matter Templates
+def validate_matter_templates()
+{
+    catchError(buildResult: 'SUCCESS',
+                catchInterruptions: false,
+                message: "Validation warnings/errors caught!",
+                stageResult: 'UNSTABLE')
+    {
+        sh "python3 -u './slc/script/validate_matter_templates.py' | tee validate_matter_templates_result.log"
+        archiveArtifacts artifacts: "validate_matter_templates_result.log"
+    }
+}
+//This stage is used to validate metadata ( components and matter_templates.xml)
+def validateMetadata()
+{
+    stage('Validate Components') {
+        validateComponents()
+    }
+    stage('Validate Matter Templates')
+    {
+        validate_matter_templates()
+    }
+}
 def exportIoTReports()
 {
     def matterPath = env.WORKSPACE + "/matter"

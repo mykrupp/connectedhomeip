@@ -949,12 +949,13 @@
     <properties key="quality" value="PRODUCTION"/>
     <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter Technology|Zigbee"/>
+    <properties key="core.hidden" value="true"/>
   </descriptors>
   <descriptors name="ZigbeeMatterLightSolution" label="Matter and Zigbee - SoC Light with internal Bootloader Solution"
                description="This project builds a Matter Lighting app combined with a Zigbee Light that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter Zigbee"/>
-    <properties key="solutionReferenceId" value="slc.workspace.zigbee-matter-light.series-2.zigbee-matter-light-internal-bootloader.slcw"/>
+    <properties key="solutionReferenceId" value="slc.workspaces.zigbee-matter-light.series-2.zigbee-matter-light-internal-bootloader.slcw"/>
     <properties key="projectFilePaths" value="slc/workspaces/zigbee-matter-light/series-2/zigbee-matter-light-internal-bootloader.slcw"/>
     <properties key="readmeFiles" value="silabs_examples/zigbee-matter-light/README.md"/>
     <properties key="boardCompatibility" value="brd4186c brd4187c brd4316a brd4317a brd4318a brd4337a brd2601b brd2703a brd2704a brd4116a brd4121a brd4319a:0.0.0.A00 com.silabs.board.none "/>
@@ -965,5 +966,6 @@
     <properties key="quality" value="PRODUCTION"/>
     <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter Technology|Zigbee"/>
+    <properties key="solutionProjects" value="silabs_examples.zigbee-matter-light.zigbee-matter-light.slcp slc.sample-app.bootloaders.bootloader-storage-internal-single-series-2.bootloader-storage-internal-single-series-2.slcp"/>
   </descriptors>  
   </model:MDescriptors>

@@ -241,6 +241,10 @@ post_build:
 
 readme:
   - path: ./README.md
+ui_hints:
+  highlight:
+    - path: readme.md
+      focus: false
 
 sdk_extension:
   - {id: matter, version: 2.3.0}

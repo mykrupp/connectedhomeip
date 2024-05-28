@@ -91,6 +91,10 @@ component:
 
   - id: matter_shell
     from: matter
+  - id: matter_lcd_917SOC
+    from: matter
+  - id: matter_qr_code
+    from: matter
 
   - id: sl_si91x_common_flash_nvm3
     from: wiseconnect3_sdk
@@ -131,13 +135,6 @@ component:
   - instance: [timer0]
     from: wiseconnect3_sdk
     id: ulp_timers_instance
-
-requires:
-  # SiWx917 LCD configurations
-  - name: matter_lcd_917SOC
-    condition: [brd4338a]
-  - name: matter_qr_code
-    condition: [brd4338a]
 
 config_file:
   - path: ../../../../examples/lock-app/lock-common/lock-app-wifi.zap

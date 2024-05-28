@@ -25,13 +25,13 @@ class Protocol(_base.ProvisionProtocol):
         chan.open()
         action = args.str(ID.kAction)
         # Binary export
-        if 'binary' == action:
+        if _base.Actions.kBinary == action:
             e = Exporter(paths, args)
             return e.export()
         # Init
         init = InitCommand(paths, args)
         init.execute(chan)
-        if 'auto' == action:
+        if _base.Actions.kAuto == action:
             # CSR
             if args.bool(ID.kCsrMode):
                 self.csr(paths, args, chan)
@@ -40,11 +40,11 @@ class Protocol(_base.ProvisionProtocol):
             write.execute(chan)
             write = FinishCommand(paths, args)
             write.execute(chan)
-        elif 'write' == action:
+        elif _base.Actions.kWrite == action:
             # Write non-nulls
             write = WriteCommand(paths, args)
             write.execute(chan)
-        elif 'read' == action:
+        elif _base.Actions.kRead == action:
             # Read
             read = ReadCommand(paths, args, args.str(ID.kExtra))
             read.execute(chan)
@@ -344,7 +344,7 @@ class AutoCommand(Command):
     ]
 
     def __init__(self, paths, args):
-        super().__init__(paths, args, Command.WRITE, "Write")
+        super().__init__(paths, args, Command.WRITE, 'Write')
         # Well-known arguments. Include nulls, and non-user-inputs
         for k in AutoCommand.OUTGOING:
             # Include nulls, feedback if incoming

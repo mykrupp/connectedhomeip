@@ -16,11 +16,11 @@ class Protocol(_base.ProvisionProtocol):
     def execute(self, paths, args, chan):
         chan.open()
         action = args.str(ID.kAction)
-        if 'binary' == action:
+        if _base.Actions.kBinary == action:
             e = Exporter(paths, args)
             return e.export()
         # Init
-        if 'auto' == action:
+        if _base.Actions.kAuto == action:
             # Auto
             self.executeAuto(paths, args, chan)
         else:

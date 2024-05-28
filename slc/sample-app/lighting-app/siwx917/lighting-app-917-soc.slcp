@@ -22,8 +22,6 @@ component:
     from: matter
   - id: matter_fw_upgrade_917
     from: matter
-  - id: matter_scenes
-    from: matter
 
   - id: matter_wifi
     from: matter

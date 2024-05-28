@@ -88,7 +88,6 @@ component:
     from: matter
   - id: toolchain_gcc_common
     from: matter
-
   - id: matter_shell
     from: matter
   - id: matter_lcd_917SOC

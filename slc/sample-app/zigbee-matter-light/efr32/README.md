@@ -22,7 +22,7 @@ An example showing the use of Matter alongside Zigbee on the Silicon Labs MG24/M
 
 This sample App demonstrate the usage of the Matter Stack alongside the Silicon Labs Zigbee stack. As such the lighting device represented by a MG24/MG26 is able to receives On/Off commands from both a Zigbee switch ([Z3 switch](https://www.silabs.com/support/training/Zigbee-application-layer-concepts/building-a-Zigbee-3-0-switch-and-light-from-scratch) sample app) and a Matter controller (Google, Apple, Chip-tool) as represented in the below diagram.
 
-![image info](./doc/target_behaviour.png)
+![image info](./target_behaviour.png)
 
 # Building
 
@@ -70,14 +70,14 @@ With this build variant, the light can be controlled simultaneously from the Mat
 ## Building command
 From the root of the Extension repo
 ```
-./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c,matter_zigbee_sequential\;matter
+./slc/build.sh slc/sample-app/zigbee-matter-light/efr32/zigbee-matter-light.slcp brd4187c,matter_zigbee_sequential\;matter
 
-./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c,matter_zigbee_concurrent\;matter
+./slc/build.sh slc/sample-app/zigbee-matter-light/efr32/zigbee-matter-light.slcp brd4187c,matter_zigbee_concurrent\;matter
 ```
 
 Building it without any extra component will default to the concurrent version
 ```
-./slc/build.sh silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp brd4187c
+./slc/build.sh slc/sample-app/zigbee-matter-light/efr32/zigbee-matter-light.slcp brd4187c
 ```
 
 # Customizing 

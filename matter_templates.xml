@@ -938,10 +938,11 @@
                description="This project builds a Matter Lighting app combined with a Zigbee Light that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.uc"/>
     <properties key="keywords" value="Matter Zigbee"/>
-    <properties key="solutionReferenceId" value="silabs_examples.zigbee-matter-light.zigbee-matter-light.slcp"/>
-    <properties key="projectFilePaths" value="silabs_examples/zigbee-matter-light/zigbee-matter-light.slcp"/>
-    <properties key="readmeFiles" value="silabs_examples/zigbee-matter-light/README.md"/>
+    <properties key="solutionReferenceId" value="slc.sample-app.zigbee-matter-light.efr32.zigbee-matter-light.slcp"/>
+    <properties key="projectFilePaths" value="slc/sample-app/zigbee-matter-light/efr32/zigbee-matter-light.slcp"/>
+    <properties key="readmeFiles" value="slc/sample-app/zigbee-matter-light/efr32/README.md"/>
     <properties key="boardCompatibility" value="brd4116a brd4117a brd4118a brd4186c brd4187c brd4316a brd4317a brd4318a brd4337a brd2601b brd2703a brd2704a brd4319a:0.0.0.A00 com.silabs.board.none "/>
+
     <properties key="partCompatibility" value=".*efr32mg24.* .*efr32mg26.* .*mgm24.*"/>
     <properties key="ideCompatibility" value="generic-template makefile-ide simplicity-ide visual-studio-code visual-studio-code-cmake"/>
     <properties key="toolchainCompatibility" value="gcc"/>
@@ -966,6 +967,6 @@
     <properties key="quality" value="PRODUCTION"/>
     <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter Technology|Zigbee"/>
-    <properties key="solutionProjects" value="slc.sample-app.bootloaders.bootloader-storage-internal-single-series-2.bootloader-storage-internal-single-series-2.slcp silabs_examples.zigbee-matter-light.zigbee-matter-light.slcp"/>
+    <properties key="solutionProjects" value="slc.sample-app.bootloaders.bootloader-storage-internal-single-series-2.bootloader-storage-internal-single-series-2.slcp slc.sample-app.zigbee-matter-light.efr32.zigbee-matter-light.slcp"/>
   </descriptors>  
   </model:MDescriptors>

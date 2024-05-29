@@ -198,11 +198,11 @@ def buildCMP()
     // Sequential
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="")
     appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = true, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="")
-    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="")
+    appsToBuild += getBuildConfigs(board="BRD4118A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_sequential;matter", bootloaderComponents = "", customPath="")
     // Concurrent
     appsToBuild += getBuildConfigs(board="BRD4187C", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="")
     appsToBuild += getBuildConfigs(board="BRD4116A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = true, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="")
-    appsToBuild += getBuildConfigs(board="BRD4121A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="")
+    appsToBuild += getBuildConfigs(board="BRD4117A", appName="zigbee-matter-light", otaVersion="", ncp = "", configs = "", useWorkspace = false, applicationComponents = ",matter_zigbee_concurrent;matter", bootloaderComponents = "", customPath="")
     slcBuild(appsToBuild, "CMP")
 }
 //Built in SQA Branches

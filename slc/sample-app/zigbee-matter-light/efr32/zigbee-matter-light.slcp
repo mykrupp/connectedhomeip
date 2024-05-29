@@ -183,7 +183,6 @@ configuration:
   value: 30
 - name: SL_CLI_EOL_STRING
   value: '"\r\n"'
-# TODO FixMe @Madhu
 - name: SL_LEGACY_HAL_DISABLE_WATCHDOG
   value: 1
 - name: CIRCULAR_QUEUE_LEN_MAX
@@ -241,6 +240,8 @@ post_build:
 
 readme:
   - path: ./README.md
+other_file:
+  - path: ./target_behaviour.png
 ui_hints:
   highlight:
     - path: readme.md

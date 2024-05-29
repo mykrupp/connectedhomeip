@@ -423,7 +423,7 @@ def generateProjects(paramMap){
         """
     }
 
-    if ((blComponents || appComponents || parameters) && useWorkspaces){
+    if ((blComponents || appComponents) && useWorkspaces){
         // Build for solutions
         sh """
             export POST_BUILD_EXE=${commanderPath}

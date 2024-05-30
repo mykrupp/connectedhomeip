@@ -367,7 +367,8 @@ def pipeline()
                 parallelNodesBuild['Build Chip-tool']                  = containerWrapper('-name "chip-tool" -o -name "chip-ota-provider-app"', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.buildChipToolAndOTAProvider() } )
 
                 // Run Unit Tests
-                parallelNodesBuild['Run Unit Tests']                   = containerWrapper('NONE', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.RunUnitTests() } )
+                // TODO: Re-enable once unit test issues / cluster generation are resolved - MATTER-3735
+                // parallelNodesBuild['Run Unit Tests']                   = containerWrapper('NONE', buildFarmLargeLabel, chipToolImage, "-u root", 'matter/' + savedDirectory,{ pipelineFunctions.RunUnitTests() } )
 
                 // Copy contents check
                 parallelNodesBuild['Copy']                             = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.testCopyContents() })

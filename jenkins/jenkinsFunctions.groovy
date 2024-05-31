@@ -243,7 +243,7 @@ def buildLowPowerImages(){
     def componentsToRemove = '--without "matter_shell;matter,matter_qr_code;matter,matter_lcd;matter,matter_lcd_917SOC;matter,matter_thread_cli;matter,matter_default_lcd_config;matter"'
     def appsToBuild = []
     appsToBuild += getBuildConfigs("BRD4186C", appName="lighting-app", otaVersion="", ncp = "", configs = componentsToRemove, useWorkspace = true, applicationComponents = ",matter_platform_low_power;matter")
-    appsToBuild += getBuildConfigs("BRD4338A", appName="lock-app", otaVersion="", ncp = "917-soc", configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_platform_low_power;matter,matter_siwx917_m4_sleep;matter,matter_icd_core;matter")
+    appsToBuild += getBuildConfigs("BRD4338A", appName="lock-app", otaVersion="", ncp = "917-soc", configs = componentsToRemove, useWorkspace = false, applicationComponents = ",matter_platform_low_power;matter")
     slcBuild(appsToBuild, "Low Power Images")
 }
 def buildMultiOtaImages(){

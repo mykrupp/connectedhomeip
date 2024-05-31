@@ -470,7 +470,6 @@ def pipeline()
             }
         }
     }
-    currentBuild.result = 'SUCCESS'
 }
 
 def postFailure(e)

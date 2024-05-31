@@ -855,7 +855,6 @@ def pushToArtifactory()
         }
     }
 }
-
 def triggerSqaSmokeAndRegressionTest(buildTool,matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMBER)
 {
     node(buildFarmLabel)
@@ -863,30 +862,36 @@ def triggerSqaSmokeAndRegressionTest(buildTool,matterBranchName=env.BRANCH_NAME,
             def workspaceTmpDir = createWorkspaceOverlay(advanceStageMarker.getBuildStagesList(),
                                                             buildOverlayDir)
             def matterPath = workspaceTmpDir + createWorkspaceOverlay.overlayMatterPath
-            catchError(buildResult: 'SUCCESS',
-                        catchInterruptions: false,
-                        message: "[ERROR] SQA smoke trigger branch doesn't exist",
-                        stageResult: 'SUCCESS')
+
+            ws(workspaceTmpDir+createWorkspaceOverlay.overlaySqaPipelinesPath)
             {
-               
-                ws(workspaceTmpDir+createWorkspaceOverlay.overlaySqaPipelinesPath) 
-                { 
-                        sh 'pwd && ls -al'  
-                            if(sqaFunctions.isProductionJenkinsServer())
-                            {
-                                echo 'in product jenkin.... '
-                                //Regression triggered by SQA build branch
-                                if(env.BRANCH_NAME.startsWith('sqa_')){
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-slc', matterBranchName, matterBuildNumber)
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-ota', matterBranchName, matterBuildNumber)
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-cmp', matterBranchName, matterBuildNumber)
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'endurance-customers-issues', matterBranchName, matterBuildNumber)
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-enhanced-groups', matterBranchName, matterBuildNumber)
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'regression-binding-enhanced', matterBranchName, matterBuildNumber)
-                                } else {
-                                    sqaFunctions.commitToMatterSqaPipelines(buildTool, 'smoke', matterBranchName, matterBuildNumber)
-                                }
+                sh 'pwd && ls -al'
+                if(sqaFunctions.isProductionJenkinsServer())
+                {
+                    echo 'in product jenkin.... '
+                    //Regression triggered by SQA build branch
+                    def regressionList = ['regression-slc', 'regression-ota', 'regression-cmp', 'endurance-customers-issues', 'regression-enhanced-groups', 'regression-binding-enhanced']
+                    def errorOccurred = false
+                    if(env.BRANCH_NAME.startsWith('sqa_')){
+                        regressionList.each { regressionType ->
+                            try{
+                                sqaFunctions.commitToMatterSqaPipelines(buildTool, regressionType, matterBranchName, matterBuildNumber)
+                            } catch (e) {
+                                unstable("Error when triggering ${regressionType}: ${e.message}")
+                                errorOccurred = true
                             }
+                        }
+                    } else {
+                        try{
+                            sqaFunctions.commitToMatterSqaPipelines(buildTool, 'smoke', matterBranchName, matterBuildNumber)
+                        } catch (e) {
+                                unstable("Error when triggering smoke: ${e.message}")
+                                errorOccurred = true
+                        }
+                    }
+                    if (errorOccurred) {
+                        currentBuild.result = 'UNSTABLE'
+                    }
                 }
             }
             deactivateWorkspaceOverlay(advanceStageMarker.getBuildStagesList(), workspaceTmpDir)
@@ -1215,7 +1220,7 @@ def createOrUpdateSQABuildPipeline()
                     git checkout -b ${sqaBranchName}
                     git config --global user.email "buildengineer@silabs.com"
                     git config --global user.name "Ember Buildengineer"
-                    sed -i '7i\\    pipelineTriggers([pollSCM("0 1 * * *")]),' Jenkinsfile
+                    sed -i '7i\\    pipelineTriggers([pollSCM("H/10 1-3,0 * * *")]),' Jenkinsfile
                     echo MATTER_BUILD_NUMBER=${env.BUILD_NUMBER} > jenkins/matterBuildNumber.groovy
                     git add jenkins/matterBuildNumber.groovy Jenkinsfile
                     git commit -m 'Create SQA branch, insert pollSCM trigger and save Matter build number to file.'

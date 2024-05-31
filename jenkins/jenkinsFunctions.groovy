@@ -12,7 +12,7 @@ def getThreadBoards(buildType='')
     if (buildType == "FULL") {
         // Only A00 revision of BRD4319A is supported, enforced at generation time 
         return ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B",
-                "BRD4316A", "BRD4317A", "BRD4319A", "BRD4337A", "BRD4318A"]     
+                "BRD2608A", "BRD4316A", "BRD4317A", "BRD4319A", "BRD4337A", "BRD4318A"]     
     } 
     else if (buildType == "GBL")
     {
@@ -149,7 +149,7 @@ def getProtocol(ncp=""){
     }
 }
 def getSeries(brd){
-    seriesTwoBoards = ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2703A", "BRD2704A", "BRD2601B", "BRD4316A", "BRD4317A", "BRD4318A","BRD4319A", "BRD4337A"]
+    seriesTwoBoards = ["BRD4116A", "BRD4117A", "BRD4118A", "BRD4121A", "BRD4186C", "BRD4187C", "BRD2608A", "BRD2703A", "BRD2704A", "BRD2601B", "BRD4316A", "BRD4317A", "BRD4318A","BRD4319A", "BRD4337A"]
     if(brd.toUpperCase() in seriesTwoBoards){
         return "series-2"
     }

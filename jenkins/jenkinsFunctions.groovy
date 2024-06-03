@@ -1250,4 +1250,27 @@ def matterBranchAndBuild()
         echo "MatterBuildNumber file does not exist."
     }
 }
+def uploadExtension()
+{
+    dir(env.WORKSPACE + "/matter"){
+
+        // If RC tag added to build paramaters, affix it within matter.slsdk
+        if (params.RC_TAG != ""){
+            sh "python3 slc/script/tag_release_version.py -f matter.slsdk -v '${pipelineMetadata.toolchain_info.matterExtensionVersion}-${_CSA_MATTER_VERSION}' -t ${params.RC_TAG}"
+        }
+
+        // Create staged extension
+        sh "python3 -u slc/script/generate_metadata.py ${savedDirectory}/out/release"
+        sh './slc/copy-extension.sh .'
+        sh "cp -R ${savedDirectory}/out/release matter_extension/demos"
+        sh "find matter_extension/demos -type f -name '*.map' -delete"
+        sh "zip -r matter_extension.zip matter_extension"
+
+        // Upload extension
+        withCredentials([usernamePassword(credentialsId: 'svc_gsdk', usernameVariable: 'JFROG_USERNAME', passwordVariable: 'JFROG_PASSWORD')]){
+
+            shWithBackoffRetry 'jf rt u matter_extension.zip gsdk-generic-development/matter/' + env.BRANCH_NAME + '/' + env.BUILD_NUMBER + '/ --url https://artifactory.silabs.net/artifactory --user $JFROG_USERNAME --password $JFROG_PASSWORD'
+        }
+    }
+}
 return this

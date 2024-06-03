@@ -11,6 +11,8 @@ properties([
         booleanParam(name: 'SEND_CODE_SIZE_REPORT', defaultValue: false, description: 'Set to true if code size report is to be uploaded. SEND_CODE_SIZE_REPORT is always true on and RC or main development branch - DEFAULT: false'),
         // If Set, will build with workspaces instead of .slcp files 
         booleanParam(name: 'BUILD_WITH_WORKSPACES', defaultValue: true, description: 'Set to false if building examples without using workspaces - DEFAULT: true'),
+        // If Set, will modify matter.slsdk to reflect RC tag on matter_extension upload
+        text(name: 'RC_TAG', defaultValue: "", description: 'Set RC tag to reflect in matter.slsdk. Example input: rc3 - DEFAULT: null'),
     ])
 ])
 
@@ -422,20 +424,28 @@ def pipeline()
             parallel parallelNodesBuild
         }
     }
-
     stage("Push to Artifactory and UBAI")
     {
         advanceStageMarker()
-        def parallelNodesBuild = [:]
-        if(!env.BRANCH_NAME.startsWith('sqa_')){
-            parallelNodesBuild["Artifactory"] = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.pushToArtifactory()  })
-            parallelNodesBuild["UBAI"] = containerWrapper('NONE', buildFarmLargeLabel, ubaiImage, "", 'matter/', { pipelineFunctions.pushToUbai()  })
-            // if SQA branch, will push SQA binaries to UBAI
-        } else {
-            parallelNodesBuild["UBAI"] = containerWrapper('NONE', buildFarmLargeLabel, ubaiImage, "", 'matter/', { pipelineFunctions.pushToUbai(matterBranchName, MATTER_BUILD_NUMBER)  })
+        try{
+            def parallelNodesBuild = [:]
+            // Do not upload build binaries on SQA builds
+            if(!env.BRANCH_NAME.startsWith('sqa_')){
+                parallelNodesBuild["Artifactory"] = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "", 'matter/', { pipelineFunctions.pushToArtifactory()  })
+                parallelNodesBuild["UBAI"] = containerWrapper('NONE', buildFarmLargeLabel, ubaiImage, "", 'matter/', { pipelineFunctions.pushToUbai()  })
+                // Upload matter_extension on RC builds or if RC tag is provided
+                if(env.BRANCH_NAME.startsWith('RC_slc') || (params.RC_TAG != "")){
+                    parallelNodesBuild["Upload Extension"] = containerWrapper('NONE', buildFarmLargeLabel, gccImage, "-u root", 'matter/', { pipelineFunctions.uploadExtension()  })
+                }
+                // if SQA branch, will push SQA binaries to UBAI
+            } else {
+                parallelNodesBuild["UBAI"] = containerWrapper('NONE', buildFarmLargeLabel, ubaiImage, "", 'matter/', { pipelineFunctions.pushToUbai(matterBranchName, MATTER_BUILD_NUMBER)  })
+            }
+            parallelNodesBuild.failFast = false
+            parallel parallelNodesBuild
+        } catch (err) {
+            unstable(message: "Some upload failures occurred")
         }
-        parallelNodesBuild.failFast = false
-        parallel parallelNodesBuild
     }
    
     if(!env.BRANCH_NAME.startsWith('sqa_')){

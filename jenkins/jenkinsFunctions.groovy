@@ -908,7 +908,7 @@ def runUTFTestSuite(nomadNode,deviceGroup,testBedName,appName,matterType,board,w
                     def commanderDir = ""
                     sshagent(['svc_gsdk-ssh']) {
                         checkout scm: [$class                     : 'GitSCM',
-                                        branches                         : [[name: 'silabs_slc_1.3']],
+                                        branches                         : [[name: 'RC_slc_2.3.0-1.3']],
                                         browser                          : [$class: 'Stash',
                                         repoUrl: 'https://stash.silabs.com/scm/utf/utf_app_matter.git/'],
                                         userRemoteConfigs                : [[credentialsId: 'svc_gsdk-ssh',

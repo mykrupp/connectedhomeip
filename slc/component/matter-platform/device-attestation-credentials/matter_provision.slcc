@@ -13,7 +13,7 @@ provides:
 config_file:
   - path: slc/config/sl_matter_provision_config.h
     file_id: matter_provision_config
-
+    
 include:
 - path: examples/platform/silabs/provision
   file_list:
@@ -42,7 +42,7 @@ source:
   - path: examples/platform/silabs/provision/ProvisionProtocolV2.cpp
   - path: examples/platform/silabs/provision/ProvisionStorage.cpp
   - path: examples/platform/silabs/provision/ProvisionStorageCustom.cpp
-
+  
   - path: examples/platform/silabs/provision/AttestationKeyPSA.cpp
     condition: [matter_platform_efr32]
   - path: examples/platform/silabs/provision/ProvisionChannelEFR32BLE.cpp
@@ -54,5 +54,5 @@ source:
     condition: [matter_platform_siwx917]
   - path: examples/platform/silabs/provision/ProvisionChannelSi917BLE.cpp
     condition: [matter_wifi_ble]
-  - path: examples/platform/silabs/provision/ProvisionStorageFlash.cpp
+  - path: examples/platform/silabs/provision/ProvisionStorageDefault.cpp
     condition: [matter_platform_siwx917]

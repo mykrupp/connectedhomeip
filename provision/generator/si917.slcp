@@ -78,7 +78,7 @@ source:
   - path: ../../examples/platform/silabs/provision/ProvisionStorageGeneric.h
   - path: ../../examples/platform/silabs/provision/ProvisionStorage.cpp
   - path: ../../examples/platform/silabs/provision/ProvisionStorageCustom.cpp
-  - path: ../../examples/platform/silabs/provision/ProvisionStorageFlash.cpp
+  - path: ../../examples/platform/silabs/provision/ProvisionStorageDefault.cpp
   - path: ../../src/system_si917.h
   - path: ../../src/lib/support/Base64.h
   - path: ../../src/lib/support/Base64.cpp

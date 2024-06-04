@@ -7,18 +7,31 @@
 #include <string.h>
 #include <algorithm>
 
-#include <psa/crypto.h>
-#include <em_msc.h>
-#include <nvm3.h>
-#include <nvm3_default.h>
-#include <nvm3_hal_flash.h>
-#include "silabs_creds.h"
+#if SLI_SI91X_MCU_INTERFACE
+// TODO: Remove this once the flash header integrates these definitions
+#define FLASH_ERASE 1 // flash_sector_erase_enable value for erase operation
+#define FLASH_WRITE 0 // flash_sector_erase_enable value for write operation
 
+#define NWP_FLASH_ADDRESS (0x0000000)
+#define NWP_FLASH_SIZE (0x0004E20)
+
+#include <sl_status.h>
+extern "C" {
+#include <sl_net.h>
+#include <sl_net_constants.h>
+#include <sl_si91x_driver.h>
+#include <sl_wifi_device.h>
+}
+
+#else // SLI_SI91X_MCU_INTERFACE
+#include <em_msc.h>
 extern uint8_t linker_nvm_end[];
+#endif // SLI_SI91X_MCU_INTERFACE
 
 namespace {
+constexpr size_t kPageSize       = FLASH_PAGE_SIZE;
 constexpr size_t kMaxBinaryValue = 1024;
-constexpr size_t kArgumentBufferSize = 4 * sizeof(uint16_t) + kMaxBinaryValue; // ID(2) + Size(2) + Value(n)
+constexpr size_t kArgumentBufferSize = 2 * sizeof(uint16_t) + kMaxBinaryValue; // ID(2) + Size(2) + Value(n)
 } // namespace
 
 namespace chip {
@@ -27,11 +40,13 @@ namespace Silabs {
 namespace Provision {
 namespace Flash {
 
-uint8_t *sReadOnlyPage = (uint8_t *) linker_nvm_end;
-uint8_t sTemporaryPage[FLASH_PAGE_SIZE] = { 0 };
+#if SLI_SI91X_MCU_INTERFACE
+static uint8_t *sReadOnlyPage = reinterpret_cast<uint8_t *>(NWP_FLASH_ADDRESS);
+#else
+static uint8_t *sReadOnlyPage = (uint8_t *) linker_nvm_end;
+#endif
+uint8_t sTemporaryPage[kPageSize] = { 0 };
 uint8_t *sActivePage = sReadOnlyPage;
-uint16_t sMinOffset = FLASH_PAGE_SIZE;
-uint16_t sMaxOffset = 0;
 
 
 CHIP_ERROR DecodeTotal(Encoding::Buffer &reader, uint16_t &total)
@@ -46,11 +61,13 @@ CHIP_ERROR DecodeTotal(Encoding::Buffer &reader, uint16_t &total)
 
 CHIP_ERROR ActivateWrite(uint8_t *&active)
 {
+#if !(SLI_SI91X_MCU_INTERFACE)
     if(sActivePage == sReadOnlyPage)
     {
         memcpy(sTemporaryPage, sReadOnlyPage, sizeof(sTemporaryPage));
     }
     active = sActivePage = sTemporaryPage;
+#endif
     return CHIP_NO_ERROR;
 }
 
@@ -58,7 +75,7 @@ CHIP_ERROR Set(uint16_t id, Encoding::Buffer &in)
 {
     uint8_t *page = sActivePage;
     uint16_t total = 0;
-    Encoding::Buffer reader(page, FLASH_PAGE_SIZE, true);
+    Encoding::Buffer reader(page, kPageSize, true);
     uint8_t temp[kArgumentBufferSize] = { 0 };
     Encoding::Version2::Argument found(temp, sizeof(temp));
 
@@ -74,12 +91,12 @@ CHIP_ERROR Set(uint16_t id, Encoding::Buffer &in)
     }
     ReturnErrorOnFailure(ActivateWrite(page));
 
-    Encoding::Buffer writer(page, FLASH_PAGE_SIZE);
+    Encoding::Buffer writer(page, kPageSize);
     if(CHIP_ERROR_NOT_FOUND == err)
     {
         // New entry
         size_t temp_total = found.offset;
-        ReturnErrorCodeIf(temp_total + in.Size() > FLASH_PAGE_SIZE, CHIP_ERROR_INVALID_ARGUMENT);
+        ReturnErrorCodeIf(temp_total + in.Size() > kPageSize, CHIP_ERROR_INVALID_ARGUMENT);
         // Copy entry
         ReturnErrorOnFailure(in.Get(page + temp_total, in.Size()));
         // Update total
@@ -99,7 +116,7 @@ CHIP_ERROR Set(uint16_t id, Encoding::Buffer &in)
         {
             // Size change, move to the end
             uint16_t temp_total = total - found.encoded_size;
-            ReturnErrorCodeIf(temp_total + in.Size() > FLASH_PAGE_SIZE, CHIP_ERROR_INVALID_ARGUMENT);
+            ReturnErrorCodeIf(temp_total + in.Size() > kPageSize, CHIP_ERROR_INVALID_ARGUMENT);
             // Remove the entry
             memmove(page + found.offset, page + found.offset + found.encoded_size, temp_total);
             // Add the entry
@@ -116,7 +133,7 @@ CHIP_ERROR Get(uint16_t id, Encoding::Version2::Argument &arg)
 {
     uint16_t total = 0;
 
-    Encoding::Buffer reader(sActivePage, FLASH_PAGE_SIZE, true);
+    Encoding::Buffer reader(sActivePage, kPageSize, true);
     ReturnErrorOnFailure(DecodeTotal(reader, total));
     return Encoding::Version2::Find(reader, id, arg);
 }
@@ -210,19 +227,25 @@ CHIP_ERROR Get(uint16_t id, char *value, size_t max_size, size_t & size)
 } // namespace Flash
 
 
-
 //
 // Initialization
 //
 
 CHIP_ERROR Storage::Initialize(uint32_t flash_addr, uint32_t flash_size)
 {
+#if SLI_SI91X_MCU_INTERFACE
+    sl_status_t status = sl_si91x_command_to_read_common_flash((uint32_t) (Flash::sReadOnlyPage), sizeof(Flash::sTemporaryPage), Flash::sTemporaryPage);
+    VerifyOrReturnError(status == SL_STATUS_OK, CHIP_ERROR_INVALID_ARGUMENT);
+    Flash::sActivePage = Flash::sTemporaryPage;
+
+#else // SLI_SI91X_MCU_INTERFACE
     if(flash_size > 0)
     {
-        Flash::sReadOnlyPage = (uint8_t*)(flash_addr + flash_size - FLASH_PAGE_SIZE);
+        Flash::sReadOnlyPage = (uint8_t*)(flash_addr + flash_size - kPageSize);
     }
     Flash::sActivePage = Flash::sReadOnlyPage;
     MSC_Init();
+#endif
     return CHIP_NO_ERROR;
 }
 
@@ -230,10 +253,21 @@ CHIP_ERROR Storage::Commit()
 {
     if(Flash::sActivePage == Flash::sTemporaryPage)
     {
+#if SLI_SI91X_MCU_INTERFACE
+        // Erase page
+        sl_status_t status = sl_si91x_command_to_write_common_flash((uint32_t) (Flash::sReadOnlyPage), Flash::sTemporaryPage, kPageSize,
+                                                        FLASH_ERASE);
+        VerifyOrReturnError(status == SL_STATUS_OK, CHIP_ERROR_WRITE_FAILED);
+        // Write to flash
+        status = sl_si91x_command_to_write_common_flash((uint32_t) (Flash::sReadOnlyPage), Flash::sTemporaryPage, kPageSize,
+                                                        FLASH_WRITE);
+        VerifyOrReturnError(status == SL_STATUS_OK, CHIP_ERROR_WRITE_FAILED);
+#else
         // Erase page
         MSC_ErasePage((uint32_t *)Flash::sReadOnlyPage);
         // Write to flash
-        MSC_WriteWord((uint32_t *)Flash::sReadOnlyPage, Flash::sTemporaryPage, FLASH_PAGE_SIZE);
+        MSC_WriteWord((uint32_t *)Flash::sReadOnlyPage, Flash::sTemporaryPage, kPageSize);
+#endif // SLI_SI91X_MCU_INTERFACE
     }
     return CHIP_NO_ERROR;
 }
@@ -506,8 +540,16 @@ CHIP_ERROR Storage::SignWithDeviceAttestationKey(const ByteSpan & message, Mutab
     AttestationKey key;
     uint8_t temp[kDeviceAttestationKeySizeMax] = { 0 };
     size_t size = 0;
-    ReturnErrorOnFailure(Flash::Get(Parameters::ID::kDacKey, temp, sizeof(temp), size));
-    key.Import(temp, size);
+    CHIP_ERROR err = Flash::Get(Parameters::ID::kDacKey, temp, sizeof(temp), size);
+#ifdef CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
+    if (CHIP_ERROR_NOT_FOUND == err)
+    {
+        // Example DAC key
+        return Examples::GetExampleDACProvider()->SignWithDeviceAttestationKey(message, signature);
+    }
+#endif // CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
+    ReturnErrorOnFailure(err);
+    ReturnErrorOnFailure(key.Import(temp, size));
     return key.SignMessage(message, signature);
 }
 

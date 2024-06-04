@@ -160,7 +160,7 @@ public:
     // Initialization
     //
 
-    CHIP_ERROR Initialize(uint32_t flash_addr, uint32_t flash_size);
+    CHIP_ERROR Initialize(uint32_t flash_addr = 0, uint32_t flash_size = 0);
     CHIP_ERROR Commit();
     CHIP_ERROR GetBaseAddress(uint32_t & value);
 
@@ -211,7 +211,7 @@ public:
     CHIP_ERROR GetDeviceAttestationCert(MutableByteSpan & value);
     CHIP_ERROR GetDeviceAttestationCSR(uint16_t vid, uint16_t pid, const CharSpan &cn, MutableCharSpan & csr);
     CHIP_ERROR SignWithDeviceAttestationKey(const ByteSpan & message, MutableByteSpan & signature);
-    
+
     CHIP_ERROR SetCertificationDeclaration(const ByteSpan & value);
     CHIP_ERROR SetProductAttestationIntermediateCert(const ByteSpan & value);
     CHIP_ERROR SetDeviceAttestationCert(const ByteSpan & value);
@@ -265,7 +265,7 @@ private:
 #if OTA_ENCRYPTION_ENABLE
     CHIP_ERROR SetOtaTlvEncryptionKey(const ByteSpan & value);
 #endif
-    
+
     uint16_t mVendorId = 0;
     uint16_t mProductId = 0;
     uint16_t mHwVersion = 0;

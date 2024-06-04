@@ -1172,8 +1172,8 @@ def copyWifiFirmware(){
     """
     // Copy over
     sh """
-        cp gsdk/extension/wifi_sdk/connectivity_firmware/SiWG917-B.*.*.*.*.0.*.rps ${savedDirectory}/out/WiFi-Firmware/BRD4338A/
-        cp gsdk/extension/wifi_sdk/connectivity_firmware/SiWG917-B.*.*.*.*.0.*.rps ${savedDirectory}/out/WiFi-Firmware/917-ncp/
+        cp gsdk/extension/wifi_sdk/connectivity_firmware/standard/SiWG917-B.*.rps ${savedDirectory}/out/WiFi-Firmware/BRD4338A/
+        cp gsdk/extension/wifi_sdk/connectivity_firmware/standard/SiWG917-B.*.rps ${savedDirectory}/out/WiFi-Firmware/917-ncp/
         cp third_party/silabs/wiseconnect-wifi-bt-sdk/firmware/RS9116W.2.*.rps ${savedDirectory}/out/WiFi-Firmware/rs911x/Evk_1.4/
         cp third_party/silabs/wiseconnect-wifi-bt-sdk/firmware/RS916W.2.*.rps ${savedDirectory}/out/WiFi-Firmware/rs911x/Evk_1.5/
     """

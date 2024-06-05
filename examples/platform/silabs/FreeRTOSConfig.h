@@ -111,6 +111,9 @@ extern "C" {
 #ifdef SLI_SI91X_MCU_INTERFACE
 #include "si91x_device.h"
 extern uint32_t SystemCoreClock;
+#if CHIP_CONFIG_ENABLE_ICD_SERVER
+#include "sl_si91x_m4_ps.h"
+#endif // CHIP_CONFIG_ENABLE_ICD_SERVER
 #else // For EFR32
 #include "RTE_Components.h"
 #include CMSIS_device_header

@@ -815,7 +815,7 @@
     <properties key="stockConfigCompatibility" value="com.silabs.ss.framework.project.toolchain.core.default"/>
     <properties key="filters" value="Type|Host Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
   </descriptors> 
-  <descriptors name="MatterLightOverWiFiSolution" label="Matter - SoC Lighting over WiFi Solution"
+  <descriptors name="MatterLightOverWiFiSolution" label="Matter - SoC Lighting over Wi-Fi Solution"
                description="This project builds a Matter Light that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -832,7 +832,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.lighting-app.siwx917.lighting-app-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterLockOverWiFiSolution" label="Matter - SoC Lock over WiFi Solution"
+  <descriptors name="MatterLockOverWiFiSolution" label="Matter - SoC Lock over Wi-Fi Solution"
                description="This project builds a Matter Lock that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -849,7 +849,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.lock-app.siwx917.lock-app-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterLightSwitchOverWiFiSolution" label="Matter - SoC Light Swtich over WiFi Solution"
+  <descriptors name="MatterLightSwitchOverWiFiSolution" label="Matter - SoC Light Switch over Wi-Fi Solution"
                description="This project builds a Matter Light Switch that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -866,7 +866,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.light-switch-app.siwx917.light-switch-app-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterWindowCoverOverWifiSolution" label="Matter - SoC Window over WiFi Solution"
+  <descriptors name="MatterWindowCoverOverWifiSolution" label="Matter - SoC Window over Wi-Fi Solution"
                description="This project builds a Matter Window that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -883,7 +883,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.window-app.siwx917.window-app-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterThermostatOverWiFiSolution" label="Matter - SoC Thermostat over WiFi Solution"
+  <descriptors name="MatterThermostatOverWiFiSolution" label="Matter - SoC Thermostat over Wi-Fi Solution"
                description="This project builds a Matter Thermostat that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -900,7 +900,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.thermostat.siwx917.thermostat-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterOnOffPlugOverWiFiSolution" label="Matter - SoC OnOffPlug over WiFi Solution"
+  <descriptors name="MatterOnOffPlugOverWiFiSolution" label="Matter - SoC OnOffPlug over Wi-Fi Solution"
                description="This project builds a Matter OnOffPlug App that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>
@@ -917,7 +917,7 @@
     <properties key="filters" value="Type|SoC Project\ Difficulty|Advanced Wireless\ Technology|Matter"/>
     <properties key="solutionProjects" value="slc.sample-app.onoff-plug-app.siwx917.onoff-plug-app-917-soc.slcp"/>
   </descriptors> 
-  <descriptors name="MatterDishwasherOverWiFiSolution" label="Matter - SoC Dishwasher over WiFi Solution"
+  <descriptors name="MatterDishwasherOverWiFiSolution" label="Matter - SoC Dishwasher over Wi-Fi Solution"
                description="This project builds a Matter Dishwasher App that can be developed inside Simplicity Studio">
     <properties key="namespace" value="template.solution.uc"/>
     <properties key="keywords" value="Matter"/>

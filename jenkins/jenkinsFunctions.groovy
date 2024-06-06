@@ -690,7 +690,7 @@ def performCodeAnalysis(brd, app, protocol)
 def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMBER)
 {
     def savedWorkspace = env.WORKSPACE + "/matter/" + savedDirectory
-
+    def errorOccurred = false
     if (!env.BRANCH_NAME.startsWith('sqa_')) {
         dir(env.WORKSPACE + "/matter/") {
             withCredentials([usernamePassword(credentialsId: 'svc_gsdk', passwordVariable: 'SL_PASSWORD', usernameVariable: 'SL_USERNAME')])
@@ -715,7 +715,8 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                         fi
                     '''
                 } catch (e) {
-                    echo "Failed to upload OTA scripts to UBAI: ${e.message}"
+                    unstable("Failed to upload binaries to UBAI: ${e.message}")
+                    errorOccurred = true
                 }
             }
         }
@@ -732,25 +733,86 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                         file="sqa-build-binaries.zip"
 
                         if [ -e "./ota_automation_out" ]; then
+                            base_path="ota_automation_out"
+                            find ${base_path} -type f | while read filePath; do
+                                application=$(echo "$filePath" | awk -F'/' '{print $2}')
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                technology=$(echo "$filePath" | awk -F'/' '{print $4}')
+                                filename=$(basename "$filePath")
+
+                                appName="$board""-""$technology""-""$application""-ota"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${matterBranchName} --metadata build_number ${matterBuildNumber} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                            done
                             mv ./ota_automation_out ./out/OTA
                         else
                             echo "File ./ota_automation_out does not exist."
                         fi
                         if [ -e "./low_power_out" ]; then
+                            base_path="low_power_out"
+                            find ${base_path} -type f | while read filePath; do
+                                application=$(echo "$filePath" | awk -F'/' '{print $2}')
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                technology=$(echo "$filePath" | awk -F'/' '{print $4}')
+                                filename=$(basename "$filePath")
+
+                                appName="$board""-""$technology""-""$application""-low-power"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${matterBranchName} --metadata build_number ${matterBuildNumber} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                            done
                             mv ./low_power_out ./out/LOW_POWER
                         else
                             echo "File ./low_power_out does not exist."
                         fi
                         if [ -e "./multi_ota_automation_out" ]; then
+                            base_path="multi_ota_automation_out"
+                            find ${base_path} -type f | while read filePath; do
+                                application=$(echo "$filePath" | awk -F'/' '{print $2}')
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                technology=$(echo "$filePath" | awk -F'/' '{print $4}')
+                                filename=$(basename "$filePath")
+
+                                appName="$board""-""$technology""-""$application""-m-ota"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${matterBranchName} --metadata build_number ${matterBuildNumber} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                            done
                              mv ./multi_ota_automation_out ./out/M-OTA-V1
                         else
                             echo "File ./multi_ota_automation_out does not exist."
                         fi
                         if [ -e "./multi_ota_enc_automation_out" ]; then
+                            base_path="multi_ota_enc_automation_out"
+                            find ${base_path} -type f | while read filePath; do
+                                application=$(echo "$filePath" | awk -F'/' '{print $2}')
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                technology=$(echo "$filePath" | awk -F'/' '{print $4}')
+                                filename=$(basename "$filePath")
+
+                                appName="$board""-""$technology""-""$application""-m-ota-enc"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${matterBranchName} --metadata build_number ${matterBuildNumber} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                            done
                             mv ./multi_ota_enc_automation_out ./out/M-OTA-V1-enc
                         else
                             echo "File ./multi_ota_enc_automation_out does not exist."
                         fi
+                        # Zip all binaries and upload to UBAI
                         zip -r "${file}" out
 
                         echo 'UBAI uploading ......'
@@ -770,6 +832,50 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                         set -x
                         file="build-binaries.zip"
 
+                        # Upload all binaries individually to UBAI
+                        base_path="out"
+                        find ${base_path} -type f | while read filePath; do
+                            buildType=$(echo "$filePath" | awk -F'/' '{print $2}')
+                            if [ "$buildType" == "release" ] || [ "$buildType" == "nodebug" ]; then
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                technology=$(echo "$filePath" | awk -F'/' '{print $4}')
+                                filename=$(basename "$filePath")
+
+                                appName="$board""-""$technology""-""$buildType"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+
+                            elif [ "$buildType" == "Chiptool" ] || [ "$buildType" == "OTA" ]; then
+                                platform=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                filename=$(basename "$filePath")
+
+                                appName=$buildType
+                                target=$platform
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+
+                            elif [ "$buildType" == "WiFi-Firmware" ]; then
+                                board=$(echo "$filePath" | awk -F'/' '{print $3}')
+                                filename=$(basename "$filePath")
+
+                                appName="$buildType""-""$board"
+                                target=$board
+
+                                echo 'Uploading binary to UBAI.'
+
+                                ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path $filePath  --metadata app_name $appName \
+                                --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target $target  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                            fi
+                        done
+
+                        # Package all binaries in build-binaries.zip and upload to UBAI
                         zip -r "${file}" out
 
                         echo 'UBAI uploading ......'
@@ -784,7 +890,8 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
                     '''
                 }
             } catch (e) {
-                echo "Failed to upload binaries to UBAI: ${e.message}"
+                unstable("Failed to upload binaries to UBAI: ${e.message}")
+                errorOccurred = true
             }
         }
     }
@@ -792,27 +899,35 @@ def pushToUbai(matterBranchName=env.BRANCH_NAME,matterBuildNumber=env.BUILD_NUMB
         dir(env.WORKSPACE + '/matter/gsdk/extension/matter_extension/') {
             withCredentials([usernamePassword(credentialsId: 'svc_gsdk', passwordVariable: 'SL_PASSWORD', usernameVariable: 'SL_USERNAME')])
             {
-                sh '''
-                    echo 'Uploading provisioning tool to UBAI... '
+                try{
+                    sh '''
+                        echo 'Uploading provisioning tool to UBAI... '
 
-                    pwd
-                    file="provision.zip"
-                    ls -al;
-                    rm -f "${file}"
+                        pwd
+                        file="provision.zip"
+                        ls -al;
+                        rm -f "${file}"
 
-                    zip -r "${file}" "provision" -x "provision/config/latest.json" -x "provision/support/efr32*" -x "provision/support/si917" -x "provision/modules/__pycache__/*" -x "provision/temp/*"
+                        zip -r "${file}" "provision" -x "provision/config/latest.json" -x "provision/support/efr32*" -x "provision/support/si917" -x "provision/modules/__pycache__/*" -x "provision/temp/*"
 
-                    ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path "${file}"  --metadata app_name matter_provision\
-                        --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target matter  --username ${SL_USERNAME} --password ${SL_PASSWORD}
+                        ubai_upload_cli --client-id jenkins-gsdk-pipelines-Matter --file-path "${file}"  --metadata app_name matter_provision\
+                            --metadata branch ${BRANCH_NAME} --metadata build_number ${BUILD_NUMBER} --metadata stack matter --metadata target matter  --username ${SL_USERNAME} --password ${SL_PASSWORD}
 
-                    if [ $? -eq 0 ]; then
-                            echo 'Provisioning tool successfully uploaded to UBAI... '
-                    else
-                            echo FAIL
-                    fi
-                '''
+                        if [ $? -eq 0 ]; then
+                                echo 'Provisioning tool successfully uploaded to UBAI... '
+                        else
+                                echo FAIL
+                        fi
+                    '''
+                } catch (e) {
+                    unstable("Failed to upload binaries to UBAI: ${e.message}")
+                    errorOccurred = true
+                }
             }
         }
+    }
+    if (errorOccurred) {
+        currentBuild.result = 'UNSTABLE'
     }
 }
 def pushToArtifactory()

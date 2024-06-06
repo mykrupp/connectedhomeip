@@ -196,6 +196,15 @@ cp -R $MATTER_ROOT/silabs_utils $EXT_DIR/
 mkdir -p $EXT_DIR/scripts/tools/zap/
 cp $MATTER_ROOT/scripts/tools/zap/run_zaptool.sh $EXT_DIR/scripts/tools/zap/
 
+# multi-ota script
+mkdir -p $EXT_DIR/scripts/tools/silabs/ota/
+mkdir -p $EXT_DIR/scripts/tools/silabs/factory_data_generator/
+cp -R $MATTER_ROOT/scripts/tools/silabs/ota $EXT_DIR/scripts/tools/silabs/
+cp -R $MATTER_ROOT/scripts/tools/silabs/factory_data_generator $EXT_DIR/scripts/tools/silabs/
+
+#rename scripts/tools/silabs/ota/ota_image_tool.py to scripts/tools/silabs/ota/ota_multi_image_tool.py
+mv $EXT_DIR/scripts/tools/silabs/ota/ota_image_tool.py $EXT_DIR/scripts/tools/silabs/ota/ota_multi_image_tool.py
+
 # DIC_AWS_SDK_OTA
 mkdir -p $EXT_DIR/third_party/silabs/aws_ota_sdk
 mkdir -p $EXT_DIR/third_party/silabs/aws_ota_sdk/ota-for-aws-iot-embedded-sdk/source

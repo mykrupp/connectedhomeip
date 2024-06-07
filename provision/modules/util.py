@@ -92,6 +92,7 @@ class YamlFile(File):
 
 
 def execute(args, output = False, check = True, env = None):
+    sys.stdout.reconfigure(encoding='utf-8')
     args = [ str(x) for x in args ]
     cmd = ' '.join(args)
     print("{}> {}\n".format(MARGIN, cmd))
@@ -113,6 +114,7 @@ def execute(args, output = False, check = True, env = None):
 
 
 def fail(message, paths = None):
+    sys.stdout.reconfigure(encoding='utf-8')
     if paths is not None:
         print()
         prefix = paths.base() + '/'

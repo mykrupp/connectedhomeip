@@ -31,7 +31,7 @@ class Commander:
             else:
                 args.extend(['--ip', self.conn.ip_addr])
         cmd = ' '.join(args)
-        return _util.execute(args, output, check)
+        return _util.execute(args, output, check, retry = 2)
 
     def info(self):
         res = self.execute(['device', 'info'], True, False)

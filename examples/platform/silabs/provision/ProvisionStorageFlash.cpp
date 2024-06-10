@@ -1,9 +1,11 @@
 #include "ProvisionStorage.h"
 #include "ProvisionEncoder.h"
 #include "AttestationKey.h"
-#include <lib/support/CodeUtils.h>
 #include <lib/core/CHIPEncoding.h>
 #include <lib/support/CodeUtils.h>
+#include <lib/support/CHIPMemString.h>
+#include <platform/CHIPDeviceConfig.h>
+#include <platform/silabs/SilabsConfig.h>
 #include <credentials/examples/DeviceAttestationCredsExample.h>
 #include <string.h>
 #include <algorithm>
@@ -90,7 +92,6 @@ CHIP_ERROR Set(uint16_t id, Encoding::Buffer &in)
     {
         // Memory corruption, write at the last correct address
         return err;
-        err = CHIP_ERROR_NOT_FOUND;
     }
     ReturnErrorOnFailure(ActivateWrite(page));
 
@@ -138,7 +139,10 @@ CHIP_ERROR Get(uint16_t id, Encoding::Version2::Argument &arg)
 
     Encoding::Buffer reader(sActivePage, kPageSize, true);
     ReturnErrorOnFailure(DecodeTotal(reader, total));
-    return Encoding::Version2::Find(reader, id, arg);
+    CHIP_ERROR err = Encoding::Version2::Find(reader, id, arg);
+    // ProvisionStorage expects CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND
+    VerifyOrReturnError(CHIP_ERROR_NOT_FOUND != err, CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND);
+    return err;
 }
 
 
@@ -306,7 +310,7 @@ CHIP_ERROR Storage::GetVendorId(uint16_t & value)
 {
     CHIP_ERROR err = Flash::Get(Parameters::ID::kVendorId, value);
 #if defined(CHIP_DEVICE_CONFIG_DEVICE_VENDOR_ID) && CHIP_DEVICE_CONFIG_DEVICE_VENDOR_ID
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         value = CHIP_DEVICE_CONFIG_DEVICE_VENDOR_ID;
         err   = CHIP_NO_ERROR;
@@ -325,7 +329,7 @@ CHIP_ERROR Storage::GetVendorName(char * value, size_t max)
     size_t size    = 0;
     CHIP_ERROR err = Flash::Get(Parameters::ID::kVendorName, value, max, size);
 #if defined(CHIP_DEVICE_CONFIG_TEST_VENDOR_NAME)
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         VerifyOrReturnError(value != nullptr, CHIP_ERROR_NO_MEMORY);
         VerifyOrReturnError(max > strlen(CHIP_DEVICE_CONFIG_TEST_VENDOR_NAME), CHIP_ERROR_BUFFER_TOO_SMALL);
@@ -345,7 +349,7 @@ CHIP_ERROR Storage::GetProductId(uint16_t & value)
 {
     CHIP_ERROR err = Flash::Get(Parameters::ID::kProductId, value);
 #if defined(CHIP_DEVICE_CONFIG_DEVICE_PRODUCT_ID) && CHIP_DEVICE_CONFIG_DEVICE_PRODUCT_ID
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         value = CHIP_DEVICE_CONFIG_DEVICE_PRODUCT_ID;
         err   = CHIP_NO_ERROR;
@@ -364,7 +368,7 @@ CHIP_ERROR Storage::GetProductName(char * value, size_t max)
     size_t size    = 0;
     CHIP_ERROR err = Flash::Get(Parameters::ID::kProductName, value, max, size);
 #if defined(CHIP_DEVICE_CONFIG_TEST_PRODUCT_NAME)
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         VerifyOrReturnError(value != nullptr, CHIP_ERROR_NO_MEMORY);
         VerifyOrReturnError(max > strlen(CHIP_DEVICE_CONFIG_TEST_VENDOR_NAME), CHIP_ERROR_BUFFER_TOO_SMALL);
@@ -416,7 +420,7 @@ CHIP_ERROR Storage::GetHardwareVersion(uint16_t & value)
 {
     CHIP_ERROR err = Flash::Get(Parameters::ID::kHwVersion, value);
 #if defined(CHIP_DEVICE_CONFIG_DEFAULT_DEVICE_HARDWARE_VERSION)
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         value = CHIP_DEVICE_CONFIG_DEFAULT_DEVICE_HARDWARE_VERSION;
         err   = CHIP_NO_ERROR;
@@ -435,7 +439,7 @@ CHIP_ERROR Storage::GetHardwareVersionString(char * value, size_t max)
     size_t size    = 0;
     CHIP_ERROR err = Flash::Get(Parameters::ID::kHwVersionStr, value, max, size);
 #if defined(CHIP_DEVICE_CONFIG_DEFAULT_DEVICE_HARDWARE_VERSION_STRING)
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         VerifyOrReturnError(value != nullptr, CHIP_ERROR_NO_MEMORY);
         VerifyOrReturnError(max > strlen(CHIP_DEVICE_CONFIG_DEFAULT_DEVICE_HARDWARE_VERSION_STRING), CHIP_ERROR_BUFFER_TOO_SMALL);
@@ -479,7 +483,7 @@ CHIP_ERROR Storage::GetSetupDiscriminator(uint16_t & value)
 {
     CHIP_ERROR err = Flash::Get(Parameters::ID::kDiscriminator, value);
 #if defined(CHIP_DEVICE_CONFIG_USE_TEST_SETUP_DISCRIMINATOR) && CHIP_DEVICE_CONFIG_USE_TEST_SETUP_DISCRIMINATOR
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         value = CHIP_DEVICE_CONFIG_USE_TEST_SETUP_DISCRIMINATOR;
         err   = CHIP_NO_ERROR;
@@ -499,7 +503,7 @@ CHIP_ERROR Storage::GetSpake2pIterationCount(uint32_t & value)
 {
     CHIP_ERROR err = Flash::Get(Parameters::ID::kSpake2pIterations, value);
 #if defined(CHIP_DEVICE_CONFIG_USE_TEST_SPAKE2P_ITERATION_COUNT) && CHIP_DEVICE_CONFIG_USE_TEST_SPAKE2P_ITERATION_COUNT
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         value = CHIP_DEVICE_CONFIG_USE_TEST_SPAKE2P_ITERATION_COUNT;
         err   = CHIP_NO_ERROR;
@@ -565,7 +569,7 @@ CHIP_ERROR Storage::GetCertificationDeclaration(MutableByteSpan & value)
     size_t size    = 0;
     CHIP_ERROR err = (Flash::Get(Parameters::ID::kCertification, value.data(), value.size(), size));
 #ifdef CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         // Example CD
         return Examples::GetExampleDACProvider()->GetCertificationDeclaration(value);
@@ -586,7 +590,7 @@ CHIP_ERROR Storage::GetProductAttestationIntermediateCert(MutableByteSpan & valu
     size_t size    = 0;
     CHIP_ERROR err = (Flash::Get(Parameters::ID::kPaiCert, value.data(), value.size(), size));
 #ifdef CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         // Example PAI
         return Examples::GetExampleDACProvider()->GetProductAttestationIntermediateCert(value);
@@ -607,7 +611,7 @@ CHIP_ERROR Storage::GetDeviceAttestationCert(MutableByteSpan & value)
     size_t size    = 0;
     CHIP_ERROR err = (Flash::Get(Parameters::ID::kDacCert, value.data(), value.size(), size));
 #ifdef CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         // Example DAC
         return Examples::GetExampleDACProvider()->GetDeviceAttestationCert(value);
@@ -626,7 +630,7 @@ CHIP_ERROR Storage::SetDeviceAttestationKey(const ByteSpan & value)
 CHIP_ERROR Storage::GetDeviceAttestationCSR(uint16_t vid, uint16_t pid, const CharSpan &cn, MutableCharSpan & csr)
 {
     AttestationKey key;
-    uint8_t temp[128] = { 0 };
+    uint8_t temp[kDeviceAttestationKeySizeMax] = { 0 };
     size_t size = 0;
     ReturnErrorOnFailure(key.GenerateCSR(vid, pid, cn, csr));
     ReturnErrorOnFailure(key.Export(temp, sizeof(temp), size));
@@ -640,7 +644,7 @@ CHIP_ERROR Storage::SignWithDeviceAttestationKey(const ByteSpan & message, Mutab
     size_t size = 0;
     CHIP_ERROR err = Flash::Get(Parameters::ID::kDacKey, temp, sizeof(temp), size);
 #ifdef CHIP_DEVICE_CONFIG_ENABLE_EXAMPLE_CREDENTIALS
-    if (CHIP_ERROR_NOT_FOUND == err)
+    if (CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND == err)
     {
         // Example DAC key
         return Examples::GetExampleDACProvider()->SignWithDeviceAttestationKey(message, signature);

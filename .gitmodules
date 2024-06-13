@@ -250,7 +250,7 @@
 	path = third_party/silabs/wifi_sdk
 	url = https://stash.silabs.com/scm/redpine/wifi_sdk.git
 	branch = release/v3.3.0
-	tag = v3.3.0-cf2
+	tag = v3.3.0-cf3
 	platforms = silabs
 [submodule "editline"]
 	path = third_party/editline/repo

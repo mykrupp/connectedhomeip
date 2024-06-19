@@ -196,6 +196,13 @@ cp -R $MATTER_ROOT/silabs_utils $EXT_DIR/
 mkdir -p $EXT_DIR/scripts/tools/zap/
 cp $MATTER_ROOT/scripts/tools/zap/run_zaptool.sh $EXT_DIR/scripts/tools/zap/
 
+#Files for Provision
+mkdir -p $EXT_DIR/credentials/test/attestation/
+mkdir -p $EXT_DIR/scripts/tools/silabs/
+cp $MATTER_ROOT/scripts/tools/silabs/README.md $EXT_DIR/scripts/tools/silabs/
+cp $MATTER_ROOT/credentials/test/attestation/Chip-Test-PAA-NoVID-Cert.der $EXT_DIR/credentials/test/attestation/
+cp $MATTER_ROOT/credentials/test/attestation/Chip-Test-PAA-NoVID-Key.der $EXT_DIR/credentials/test/attestation/
+
 # multi-ota script
 mkdir -p $EXT_DIR/scripts/tools/silabs/ota/
 mkdir -p $EXT_DIR/scripts/tools/silabs/factory_data_generator/

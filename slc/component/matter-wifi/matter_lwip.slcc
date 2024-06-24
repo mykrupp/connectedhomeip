@@ -167,8 +167,11 @@ include:
 - path: slc/inc
   file_list:
   - path: lwip/lwip_buildconfig.h
+- path: slc/inc/wifi
+  file_list:
   - path: brd4186c.h
   - path: brd4187c.h
+  - path: sl_custom_board.h
 source:
 - path: src/lwip/freertos/sys_arch.c
 - path: third_party/silabs/simplicity_sdk/util/third_party/lwip/lwip/src/api/tcpip.c

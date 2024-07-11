@@ -48,17 +48,16 @@ namespace DeviceLayer {
 
 PlatformManagerImpl PlatformManagerImpl::sInstance;
 #if defined(TINYCRYPT_PRIMITIVES)
-sys_mutex_t PlatformManagerImpl::rngMutexHandle = NULL;
+osMutexId_t PlatformManagerImpl::rngMutexHandle = nullptr;
 #endif
 
 #if defined(TINYCRYPT_PRIMITIVES)
 int PlatformManagerImpl::uECC_RNG_Function(uint8_t * dest, unsigned int size)
 {
     int res;
-
-    sys_mutex_lock(&rngMutexHandle);
+    osMutexAcquire(rngMutexHandle, osWaitForever);
     res = (chip::Crypto::DRBG_get_bytes(dest, size) == CHIP_NO_ERROR) ? size : 0;
-    sys_mutex_unlock(&rngMutexHandle);
+    osMutexRelease(rngMutexHandle);
 
     return res;
 }
@@ -103,8 +102,8 @@ CHIP_ERROR PlatformManagerImpl::_InitChipStack(void)
 #if defined(TINYCRYPT_PRIMITIVES)
     /* Set RNG function for tinycrypt operations. */
     err_t ret;
-    ret = sys_mutex_new(&rngMutexHandle);
-    VerifyOrExit((ERR_OK == ret), err = CHIP_ERROR_NO_MEMORY);
+    rngMutexHandle = osMutexNew(nullptr);
+    VerifyOrExit((&rngMutexHandle != nullptr), err = CHIP_ERROR_NO_MEMORY);
     uECC_set_rng(PlatformManagerImpl::uECC_RNG_Function);
 #endif
 

@@ -23,7 +23,6 @@
 #include "wfx_msgs.h"
 
 /* LwIP includes. */
-// #include "lwip/apps/httpd.h" // Do we need ?
 #include "lwip/ip_addr.h"
 #include "lwip/netif.h"
 #include "lwip/netifapi.h"
